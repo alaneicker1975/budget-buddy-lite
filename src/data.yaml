@@ -1,0 +1,40 @@
+- title: Nov 6, 2020 - Nov 20, 2020
+  totalBudget: 4480
+  expenses:
+    - title: Mortgage
+      balance: 1941.00
+    - title: Day Care
+      balance: 940.00
+    - title: Stash
+      balance: 500.00
+    - title: Groceries
+      balance: 500.00
+    - title: Gas
+      balance: 70.00
+    - title: College Funds
+      balance: 300.00
+- title: Nov 20, 2020 - Dec 4, 2020
+  totalBudget: 4480
+  expenses:
+    - title: Stash
+      balance: 550.00
+    - title: Day Care
+      balance: 470.00
+    - title: Jeep Car Payment
+      balance: 359.00
+    - title: Ford Car Payment
+      balance: 392.00
+    - title: Groceries
+      balance: 500.00
+    - title: Gas
+      balance: 70.00
+    - title: ComEd
+      balance: 70.00
+    - title: Nicor
+      balance: 40.00
+    - title: T-Mobile
+      balance: 131.00
+    - title: Xfinity
+      balance: 170.00
+    - title: Gym
+      balance: 22.00

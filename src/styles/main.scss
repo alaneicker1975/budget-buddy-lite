@@ -1,0 +1,13 @@
+@import '../../node_modules/@atomikui/core/dist/styles/main.min.css';
+@import '../../node_modules/@atomikui/core-sass/abstracts/main.scss';
+
+.atomikui-card__header {
+  border-bottom: rem(1) solid lighten($blue-gray-200, 5%);
+  padding-bottom: rem(8);
+  text-transform: uppercase;
+}
+
+.atomikui-card__footer {
+  border-top: rem(1) solid lighten($blue-gray-200, 5%);
+  padding-top: rem(14);
+}

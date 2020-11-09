@@ -1,0 +1,28 @@
+{
+  "name": "budget-buddy-lite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@atomikui/core": "^0.8.0",
+    "prop-types": "^15.7.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  },
+  "devDependencies": {
+    "@atomikui/core-sass": "^0.2.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.13.0",
+    "eslint-config-atomikui": "^0.1.4",
+    "sass": "^1.29.0",
+    "stylelint": "^13.7.2",
+    "stylelint-config-atomikui": "^0.1.0"
+  }
+}

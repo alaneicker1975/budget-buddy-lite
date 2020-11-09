@@ -2,12 +2,16 @@
 @import '../../node_modules/@atomikui/core-sass/abstracts/main.scss';
 
 .atomikui-card__header {
-  border-bottom: rem(1) solid lighten($blue-gray-200, 5%);
+  border-bottom: rem(1) solid lighten($blue-gray-200, 9%);
   padding-bottom: rem(8);
   text-transform: uppercase;
 }
 
 .atomikui-card__footer {
-  border-top: rem(1) solid lighten($blue-gray-200, 5%);
+  border-top: rem(1) solid lighten($blue-gray-200, 9%);
   padding-top: rem(14);
+}
+
+.atomikui-card {
+  background: lighten($blue-gray-50, 2%);
 }

@@ -1,35 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, List, ListItem } from '@atomikui/core';
+import { Card, List, ListItem, Statistic } from '@atomikui/core';
+import formatNumber from '../../utilities/formatNumber';
 
-const ExpenseGroupDetail = ({ title, totalBudget, totalBalance, expenses }) => {
-  const amountLeftOver = (totalBudget - totalBalance).toFixed(2);
+const ExpenseGroupDetail = ({
+  groupTitle,
+  totalBudget,
+  totalBalance,
+  expenses,
+}) => {
+  const remaingBalance = totalBudget - totalBalance;
+  const amountLeftOver = formatNumber(remaingBalance).replace('-', '');
   return (
     <Card
       title={
         <div className="flex flex--space-between text-size-20">
-          <span>{title}</span>
-          <span>Budget: ${totalBudget.toFixed(2)}</span>
+          <span>{groupTitle}</span>
+          <span>Budget: ${totalBudget.toLocaleString()}</span>
         </div>
       }
       footer={
-        <List className="text-align-right" loose>
-          <ListItem className="text-weight-semibold">
-            <span>Total Balance:</span> ${totalBalance.toFixed(2)}
-          </ListItem>
-          <ListItem className="text-weight-semibold">
-            <span>Left Over:</span>{' '}
-            <span
-              className={
-                amountLeftOver > 0
-                  ? 'text-color-green-700'
-                  : 'text-color-red-700'
-              }
-            >
-              {amountLeftOver <= 0 && '-'}${amountLeftOver.replace('-', '')}
-            </span>
-          </ListItem>
-        </List>
+        <div className="flex flex--middle flex--space-around">
+          <Statistic
+            value={`$${formatNumber(totalBalance)}`}
+            label="Total Balance"
+            size="sm"
+            topLabel
+          />
+          <Statistic
+            value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
+            label="Remaining Balance"
+            size="sm"
+            theme={remaingBalance > 0 ? 'light-green' : 'red'}
+            topLabel
+          />
+        </div>
       }
     >
       <List loose>
@@ -40,7 +45,7 @@ const ExpenseGroupDetail = ({ title, totalBudget, totalBalance, expenses }) => {
               className="flex flex--space-between"
             >
               <div className="text-weight-semibold">{title}</div>
-              <div>${balance.toFixed(2)}</div>
+              <div>${formatNumber(balance)}</div>
             </ListItem>
           );
         })}
@@ -58,14 +63,14 @@ ExpenseGroupDetail.propTypes = {
   ),
   totalBalance: PropTypes.number,
   totalBudget: PropTypes.number,
-  title: PropTypes.string,
+  groupTitle: PropTypes.string,
 };
 
 ExpenseGroupDetail.defaultProps = {
   expenses: [],
   totalBalance: 0,
   totalBudget: 0,
-  title: '',
+  groupTitle: '',
 };
 
 export default ExpenseGroupDetail;

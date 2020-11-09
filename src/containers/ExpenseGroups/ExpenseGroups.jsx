@@ -21,7 +21,7 @@ const ExpenseGroups = () => {
           return (
             <ListItem key={`expense-group-${i + 1}`}>
               <ExpenseGroupDetail
-                title={title}
+                groupTitle={title}
                 totalBudget={totalBudget}
                 totalBalance={Number(getTotalBalance(expenses))}
                 expenses={expenses}

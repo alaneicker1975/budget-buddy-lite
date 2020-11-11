@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, List, ListItem, Statistic, Tag } from '@atomikui/core';
+import { Card, List, ListItem, Statistic } from '@atomikui/core';
+import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
+import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import formatNumber from '../../utilities/formatNumber';
 
 const ExpenseGroupDetail = ({
@@ -47,9 +49,12 @@ const ExpenseGroupDetail = ({
               <div className="text-weight-semibold">
                 {title}{' '}
                 {paid && (
-                  <Tag className="margin-left-4" theme="lime">
-                    Paid
-                  </Tag>
+                  <Icon
+                    className="margin-left-4"
+                    icon={faCheck}
+                    size="sm"
+                    color="#d4e157"
+                  />
                 )}
               </div>
               <div>${formatNumber(balance)}</div>

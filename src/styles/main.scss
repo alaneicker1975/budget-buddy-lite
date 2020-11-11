@@ -1,17 +1,22 @@
 @import '../../node_modules/@atomikui/core/dist/styles/main.min.css';
 @import '../../node_modules/@atomikui/core-sass/abstracts/main.scss';
 
+body {
+  background: $blue-gray-900;
+  color: $white;
+}
+
 .atomikui-card__header {
-  border-bottom: rem(1) solid lighten($blue-gray-200, 9%);
+  border-bottom: rem(1) solid $blue-gray-600;
   padding-bottom: rem(8);
   text-transform: uppercase;
 }
 
 .atomikui-card__footer {
-  border-top: rem(1) solid lighten($blue-gray-200, 9%);
+  border-top: rem(1) solid $blue-gray-600;
   padding-top: rem(14);
 }
 
 .atomikui-card {
-  background: lighten($blue-gray-50, 2%);
+  background: $blue-gray-800;
 }

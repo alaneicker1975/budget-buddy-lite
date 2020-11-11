@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Card, List, ListItem, Statistic } from '@atomikui/core';
+import { Card, List, ListItem, Statistic, Tag } from '@atomikui/core';
 import formatNumber from '../../utilities/formatNumber';
 
 const ExpenseGroupDetail = ({
@@ -31,20 +31,27 @@ const ExpenseGroupDetail = ({
             value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
             label="Remaining Balance"
             size="sm"
-            theme={remaingBalance > 0 ? 'light-green' : 'red'}
+            theme={remaingBalance > 0 ? 'lime' : 'red'}
             topLabel
           />
         </div>
       }
     >
       <List loose>
-        {expenses.map(({ title, balance }, i) => {
+        {expenses.map(({ title, balance, paid }, i) => {
           return (
             <ListItem
               key={`group-${i + 1}`}
               className="flex flex--space-between"
             >
-              <div className="text-weight-semibold">{title}</div>
+              <div className="text-weight-semibold">
+                {title}{' '}
+                {paid && (
+                  <Tag className="margin-left-4" theme="lime">
+                    Paid
+                  </Tag>
+                )}
+              </div>
               <div>${formatNumber(balance)}</div>
             </ListItem>
           );

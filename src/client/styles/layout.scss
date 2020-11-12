@@ -2,17 +2,20 @@
   display: flex;
   flex-direction: column;
 
-  &__content {
+  &__body {
     display: flex;
     height: calc(100vh - 50px);
     overflow: auto;
+  }
 
-    & > main {
-      flex: 1;
-      padding: rem(24);
-      overflow: auto;
-      max-width: rem(960);
-      margin: 0 auto;
-    }
+  &__main {
+    flex: 1;
+    overflow: auto;
+    padding: rem(24);
+  }
+
+  &__content {
+    margin: 0 auto;
+    max-width: rem(960);
   }
 }

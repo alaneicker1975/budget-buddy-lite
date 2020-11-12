@@ -11,12 +11,14 @@ const Layout = () => {
   return (
     <div className="layout">
       <Header title="Budget Buddy Lite" />
-      <div className="layout__content">
+      <div className="layout__body">
         <Drawer isOpen={editorIsOpen}>
           <Editor />
         </Drawer>
-        <main>
-          <ExpenseGroups />
+        <main className="layout__main">
+          <div className="layout__content">
+            <ExpenseGroups />
+          </div>
         </main>
       </div>
     </div>

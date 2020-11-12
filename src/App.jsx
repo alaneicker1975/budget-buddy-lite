@@ -8,9 +8,9 @@ const App = () => {
   return (
     <DataProvider>
       <div className="layout">
-        <Header title="Budget Buddy Lite" />
         <div className="layout__content">
           <aside>
+            <Header title="Budget Buddy Lite" />
             <Editor />
           </aside>
           <main>

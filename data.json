@@ -1,42 +1,6 @@
 [
   {
-    "title": "Nov 6, 2020 - Nov 20, 2020",
-    "totalBudget": 4480,
-    "expenses": [
-      {
-        "title": "Mortgage",
-        "balance": 1941,
-        "paid": true
-      },
-      {
-        "title": "Day Care",
-        "balance": 940,
-        "paid": false
-      },
-      {
-        "title": "Stash",
-        "balance": 500,
-        "paid": true
-      },
-      {
-        "title": "Groceries",
-        "balance": 500,
-        "paid": false
-      },
-      {
-        "title": "Gas",
-        "balance": 70,
-        "paid": false
-      },
-      {
-        "title": "College Funds",
-        "balance": 300,
-        "paid": false
-      }
-    ]
-  },
-  {
-    "title": "Nov 20, 2020 - Dec 4, 2020",
+    "title": "asdfasd 20, 2020 - Dec 4, 2020",
     "totalBudget": 4480,
     "expenses": [
       {
@@ -92,6 +56,42 @@
       {
         "title": "Gym",
         "balance": 22,
+        "paid": false
+      }
+    ]
+  },
+  {
+    "title": "Nov 6, 2020 - Nov 20, 2020",
+    "totalBudget": 4480,
+    "expenses": [
+      {
+        "title": "Mortgage",
+        "balance": 1941,
+        "paid": true
+      },
+      {
+        "title": "Day Care",
+        "balance": 940,
+        "paid": false
+      },
+      {
+        "title": "Stash",
+        "balance": 500,
+        "paid": true
+      },
+      {
+        "title": "Groceries",
+        "balance": 500,
+        "paid": false
+      },
+      {
+        "title": "Gas",
+        "balance": 70,
+        "paid": false
+      },
+      {
+        "title": "College Funds",
+        "balance": 300,
         "paid": false
       }
     ]

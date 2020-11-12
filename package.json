@@ -8,6 +8,14 @@
     "build": "parcel build src/index.html",
     "serve:dev": "nodemon src/server"
   },
+  "staticFiles": {
+    "staticPath": [
+      {
+        "staticPath": "static",
+        "staticOutDir": "static"
+      }
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -19,6 +27,7 @@
     "codemirror": "^5.58.2",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "file-system": "^2.2.2",
     "fs-extra": "^9.0.1",
     "json-to-pretty-yaml": "^1.2.2",
     "nodemon": "^2.0.6",
@@ -34,6 +43,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.13.0",
     "eslint-config-atomikui": "^0.1.4",
+    "parcel-plugin-static-files-copy": "^2.5.0",
     "sass": "^1.29.0",
     "stylelint": "^13.7.2",
     "stylelint-config-atomikui": "^0.1.0"

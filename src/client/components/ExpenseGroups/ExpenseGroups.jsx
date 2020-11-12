@@ -16,8 +16,8 @@ const ExpenseGroups = () => {
     return (
       <List loose>
         {data
-          .sort()
-          .reverse()
+          // .sort()
+          // .reverse()
           .map(({ title, totalBudget, expenses }, i) => {
             return (
               <ListItem key={`expense-group-${i + 1}`}>

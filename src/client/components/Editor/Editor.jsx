@@ -15,8 +15,7 @@ const Editor = () => {
   const [json, setJson] = useState(data);
   const [error, setError] = useState(false);
 
-  const saveAndUpdate = (e) => {
-    e.preventDefault();
+  const saveAndUpdate = () => {
     fetch('http://localhost:9000/api/expenses', {
       method: 'post',
       headers: { 'Content-type': 'application/json; charset=UTF-8' },

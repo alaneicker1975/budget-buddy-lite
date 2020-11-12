@@ -4,7 +4,7 @@ import DataProvider from '../../providers/DataProvider';
 import ExpenseGroupDetail from '../../components/ExpenseGroupDetail';
 
 const ExpenseGroups = () => {
-  const data = useContext(DataProvider.Context);
+  const { data } = useContext(DataProvider.Context);
 
   const getTotalBalance = (expenses) => {
     return expenses.reduce((total, expense) => {

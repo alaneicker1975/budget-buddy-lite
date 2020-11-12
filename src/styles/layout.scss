@@ -9,6 +9,7 @@
 
     & > aside {
       background: darken($blue-gray-900, 3%);
+      display: none;
       width: 35%;
 
       & > * {
@@ -29,6 +30,14 @@
     & > main {
       flex: 1;
       padding: rem(24);
+    }
+  }
+
+  @media (min-width: $breakpoint-medium) {
+    &__content {
+      & > aside {
+        display: block;
+      }
     }
   }
 }

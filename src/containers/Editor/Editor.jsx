@@ -1,25 +1,25 @@
-import React, { useContext, useState } from 'react';
+/* eslint-disable no-shadow */
+import React, { useContext } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import YAML from 'json-to-pretty-yaml';
+import toYAML from 'json-to-pretty-yaml';
+import toJSON from 'yamljs';
 import DataProvider from '../../providers/DataProvider';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
 
 const Editor = () => {
-  const data = useContext(DataProvider.Context);
-  const [yaml, setYaml] = useState(YAML.stringify(data));
-
+  const { data, setData } = useContext(DataProvider.Context);
   return (
     <CodeMirror
-      value={yaml}
+      value={toYAML.stringify(data)}
       options={{
         mode: 'yaml',
         theme: 'monokai',
         lineNumbers: false,
       }}
       onBeforeChange={(editor, data, value) => {
-        setYaml(value);
+        setData(toJSON.parse(value));
       }}
     />
   );

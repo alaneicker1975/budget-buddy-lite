@@ -1,11 +1,14 @@
-import React, { createContext } from 'react';
+import React, { createContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import data from '../../data.yaml';
+import json from '../../data.json';
 
 export const Context = createContext({});
 
 const DataProvider = ({ children }) => {
-  return <Context.Provider value={data}>{children}</Context.Provider>;
+  const [data, setData] = useState(json);
+  return (
+    <Context.Provider value={{ data, setData }}>{children}</Context.Provider>
+  );
 };
 
 DataProvider.propTypes = {

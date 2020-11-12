@@ -1,0 +1,14 @@
+.atomikui-card__header {
+  border-bottom: rem(1) solid $blue-gray-600;
+  padding-bottom: rem(8);
+  text-transform: uppercase;
+}
+
+.atomikui-card__footer {
+  border-top: rem(1) solid $blue-gray-600;
+  padding-top: rem(14);
+}
+
+.atomikui-card {
+  background: $blue-gray-800;
+}

@@ -1,22 +1,12 @@
 @import '../../node_modules/@atomikui/core/dist/styles/main.min.css';
 @import '../../node_modules/@atomikui/core-sass/abstracts/main.scss';
 
-body {
-  background: $blue-gray-900;
-  color: $white;
-}
+// Base styles
+@import './base';
+@import './layout';
 
-.atomikui-card__header {
-  border-bottom: rem(1) solid $blue-gray-600;
-  padding-bottom: rem(8);
-  text-transform: uppercase;
-}
+// Atomik UI style overrides
+@import './card';
 
-.atomikui-card__footer {
-  border-top: rem(1) solid $blue-gray-600;
-  padding-top: rem(14);
-}
-
-.atomikui-card {
-  background: $blue-gray-800;
-}
+// Component styles
+@import '../components/Header/Header';

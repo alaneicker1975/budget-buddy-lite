@@ -1,6 +1,6 @@
 .CodeMirror.cm-s-monokai {
   background: darken($blue-gray-900, 3%);
-  height: 100vh;
+  height: calc(100vh - 50px);
   overflow: auto;
 
   pre {

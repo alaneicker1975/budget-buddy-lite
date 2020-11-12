@@ -1,0 +1,7 @@
+.atomikui-drawer {
+  width: rem(375);
+
+  @media (min-width: $breakpoint-small) {
+    width: rem(450);
+  }
+}

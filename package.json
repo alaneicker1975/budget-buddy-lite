@@ -5,17 +5,24 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "build": "parcel build src/index.html",
+    "serve:dev": "nodemon src/server"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@atomikui/core": "^0.8.0",
+    "@atomikui/core": "^0.9.0",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
+    "body-parser": "^1.19.0",
     "codemirror": "^5.58.2",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "fs-extra": "^9.0.1",
     "json-to-pretty-yaml": "^1.2.2",
+    "nodemon": "^2.0.6",
+    "path": "^0.12.7",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",
     "react-codemirror2": "^7.2.1",

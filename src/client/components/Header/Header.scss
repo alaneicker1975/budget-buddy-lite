@@ -2,9 +2,9 @@
   align-items: center;
   background: darken($blue-gray-900, 5%);
   display: flex;
-  font-size: rem(26);
+  font-size: rem(20);
   font-weight: $font-semibold;
-  height: rem(60);
-  justify-content: center;
-  padding: rem(0 6);
+  height: rem(50);
+  justify-content: space-between;
+  padding: rem(0 16);
 }

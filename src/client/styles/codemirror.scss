@@ -1,0 +1,10 @@
+.CodeMirror.cm-s-monokai {
+  background: darken($blue-gray-900, 3%);
+  height: 100vh;
+  overflow: auto;
+
+  pre {
+    font-size: rem(15);
+    line-height: 1.3;
+  }
+}

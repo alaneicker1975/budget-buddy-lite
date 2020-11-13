@@ -3,20 +3,32 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import toYAML from 'json-to-pretty-yaml';
 import toJSON from 'yamljs';
-import { Button, List, ListItem, Alert } from '@atomikui/core';
+import {
+  Button,
+  List,
+  ListItem,
+  Alert,
+  Overlay,
+  Spinner,
+} from '@atomikui/core';
 import DataProvider from '../../providers/DataProvider';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
 
 const Editor = () => {
-  const { data, setData, setEditorIsOpen } = useContext(DataProvider.Context);
+  const { data, setData, setEditorIsOpen, apiBaseUrl } = useContext(
+    DataProvider.Context,
+  );
 
   const [json, setJson] = useState(data);
   const [error, setError] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   const saveAndUpdate = () => {
-    fetch('http://localhost:9000/api/expenses', {
+    setIsSaving(true);
+
+    fetch(`${apiBaseUrl}/expenses`, {
       method: 'post',
       headers: { 'Content-type': 'application/json; charset=UTF-8' },
       body: JSON.stringify(json),
@@ -28,6 +40,7 @@ const Editor = () => {
         if (status === 200) {
           setData(json);
           setEditorIsOpen(false);
+          setIsSaving(false);
         } else {
           setError(true);
         }
@@ -45,6 +58,9 @@ const Editor = () => {
 
   return (
     <div className="editor">
+      <Overlay style={{ position: 'absolute' }} isActive={isSaving}>
+        <Spinner size="xlg" theme="white" themeVariant="light" />
+      </Overlay>
       <div className="editor__hd">
         <span>Expense Editor</span>
         <List type="horizontal">

@@ -7,8 +7,12 @@ const DataProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [editorIsOpen, setEditorIsOpen] = useState(false);
 
+  const apiBaseUrl = window.location.href.includes('localhost')
+    ? 'http://localhost:9000/api'
+    : 'path/to/prod';
+
   useEffect(() => {
-    fetch('http://localhost:9000/api/expenses')
+    fetch(`${apiBaseUrl}/expenses`)
       .then((res) => {
         return res.json();
       })
@@ -18,7 +22,9 @@ const DataProvider = ({ children }) => {
   }, []);
 
   return (
-    <Context.Provider value={{ data, setData, editorIsOpen, setEditorIsOpen }}>
+    <Context.Provider
+      value={{ data, setData, editorIsOpen, setEditorIsOpen, apiBaseUrl }}
+    >
       {children}
     </Context.Provider>
   );

@@ -26,15 +26,16 @@ const ExpenseGroupDetail = ({
       footer={
         <Grid>
           <Row>
-            <Col md={4} className="text-align-center">
+            <Col sm={4} className="text-align-center">
               <Statistic
                 value={`$${formatNumber(totalBalance)}`}
                 label="Total Balance"
                 size="sm"
                 topLabel
               />
+              <div className="margin-bottom-16 display-none@small" />
             </Col>
-            <Col md={4} className="text-align-center">
+            <Col sm={4} className="text-align-center">
               <Statistic
                 value={`$${formatNumber(unpaidBalance)}`}
                 label="Unpaid Balance"
@@ -42,8 +43,9 @@ const ExpenseGroupDetail = ({
                 theme={unpaidBalance > 0 ? 'red' : 'lime'}
                 topLabel
               />
+              <div className="margin-bottom-16 display-none@small" />
             </Col>
-            <Col md={4} className="text-align-center">
+            <Col sm={4} className="text-align-center">
               <Statistic
                 value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
                 label="Left Over Balance"

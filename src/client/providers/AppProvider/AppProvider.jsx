@@ -13,7 +13,9 @@ const DataProvider = ({ children }) => {
     ? 'http://localhost:9000/api'
     : 'path/to/prod';
 
-  const authenticateUser = (pin) => {};
+  const authenticateUser = (pin) => {
+    console.log(pin);
+  };
 
   useEffect(() => {
     setIsLoading(true);

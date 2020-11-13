@@ -4,17 +4,10 @@
   "description": "A simple budget tracking tool powerd by Yaml data and a React UI",
   "main": "index.js",
   "scripts": {
-    "start": "parcel src/index.html",
     "build": "parcel build src/index.html",
-    "serve:dev": "nodemon src/server"
-  },
-  "staticFiles": {
-    "staticPath": [
-      {
-        "staticPath": "static",
-        "staticOutDir": "static"
-      }
-    ]
+    "start:client": "parcel src/index.html",
+    "start:server": "nodemon src/server",
+    "start": "node src/server"
   },
   "keywords": [],
   "author": "",

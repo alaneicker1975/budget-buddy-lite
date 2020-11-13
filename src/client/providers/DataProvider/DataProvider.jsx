@@ -1,12 +1,21 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import json from '../../../../static/data.json';
 
 export const Context = createContext({});
 
 const DataProvider = ({ children }) => {
-  const [data, setData] = useState(json);
+  const [data, setData] = useState([]);
   const [editorIsOpen, setEditorIsOpen] = useState(false);
+
+  useEffect(() => {
+    fetch('http://localhost:9000/api/expenses')
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        return setData(data);
+      });
+  }, []);
 
   return (
     <Context.Provider value={{ data, setData, editorIsOpen, setEditorIsOpen }}>

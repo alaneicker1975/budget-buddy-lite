@@ -1,5 +1,5 @@
 /* eslint-disable no-shadow */
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import toYAML from 'json-to-pretty-yaml';
 import toJSON from 'yamljs';
@@ -38,6 +38,10 @@ const Editor = () => {
     setJson(data);
     setEditorIsOpen(false);
   };
+
+  useEffect(() => {
+    setJson(data);
+  }, [data]);
 
   return (
     <div className="editor">

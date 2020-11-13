@@ -1,13 +1,12 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Overlay, Spinner } from '@atomikui/core';
 
 export const Context = createContext({});
 
 const DataProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
-  const [editorIsOpen, setEditorIsOpen] = useState(false);
+  const [showEditor, setShowEditor] = useState(false);
 
   const apiBaseUrl = window.location.href.includes('localhost')
     ? 'http://localhost:9000/api'
@@ -33,13 +32,10 @@ const DataProvider = ({ children }) => {
         isLoading,
         data,
         setData,
-        editorIsOpen,
-        setEditorIsOpen,
+        showEditor,
+        setShowEditor,
       }}
     >
-      <Overlay isActive={isLoading}>
-        <Spinner size="xlg" theme="white" themeVariant="light" />
-      </Overlay>
       {children}
     </Context.Provider>
   );

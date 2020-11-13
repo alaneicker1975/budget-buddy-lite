@@ -17,7 +17,7 @@ import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
 
 const Editor = () => {
-  const { data, setData, setEditorIsOpen, apiBaseUrl } = useContext(
+  const { data, setData, setShowEditor, apiBaseUrl } = useContext(
     AppProvider.Context,
   );
 
@@ -39,7 +39,7 @@ const Editor = () => {
       .then(({ status }) => {
         if (status === 200) {
           setData(json);
-          setEditorIsOpen(false);
+          setShowEditor(false);
           setIsSaving(false);
         } else {
           setError(true);
@@ -49,7 +49,7 @@ const Editor = () => {
 
   const closeEditor = () => {
     setJson(data);
-    setEditorIsOpen(false);
+    setShowEditor(false);
   };
 
   useEffect(() => {

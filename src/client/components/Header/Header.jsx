@@ -3,30 +3,34 @@ import PropTypes from 'prop-types';
 import { Button } from '@atomikui/core';
 import AppProvider from '../../providers/AppProvider';
 
-const Header = ({ title }) => {
-  const { setEditorIsOpen } = useContext(AppProvider.Context);
+const Header = ({ title, showHeaderNav }) => {
+  const { setShowEditor } = useContext(AppProvider.Context);
 
   return (
     <header className="main-header">
       <span>{title}</span>
-      <Button
-        size="sm"
-        theme="teal"
-        onClick={() => {
-          return setEditorIsOpen(true);
-        }}
-      >
-        Update Data
-      </Button>
+      {showHeaderNav && (
+        <Button
+          size="sm"
+          theme="teal"
+          onClick={() => {
+            return setShowEditor(true);
+          }}
+        >
+          Update Data
+        </Button>
+      )}
     </header>
   );
 };
 
 Header.propTypes = {
+  showHeaderNav: PropTypes.bool,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
 
 Header.defaultProps = {
+  showHeaderNav: false,
   title: '',
 };
 

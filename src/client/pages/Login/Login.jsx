@@ -36,6 +36,8 @@ const usePinFields = () => {
           [`${fieldName}_${fieldIndex}`]: value,
         };
       });
+
+      e.target.blur();
     },
   };
 };

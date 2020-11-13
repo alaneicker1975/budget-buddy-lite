@@ -22,29 +22,39 @@ const Editor = () => {
   );
 
   const [json, setJson] = useState(data);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const saveAndUpdate = () => {
+  const saveAndUpdate = async () => {
     setIsSaving(true);
 
-    fetch(`${apiBaseUrl}/expenses`, {
-      method: 'post',
-      headers: { 'Content-type': 'application/json; charset=UTF-8' },
-      body: JSON.stringify(json),
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(({ status }) => {
-        if (status === 200) {
-          setData(json);
-          setShowEditor(false);
-          setIsSaving(false);
-        } else {
-          setError(true);
-        }
+    try {
+      const response = await fetch(`${apiBaseUrl}/expenses`, {
+        method: 'post',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify(json),
       });
+
+      const { status } = await response.json();
+
+      if (status === 200) {
+        setData(json);
+        setShowEditor(false);
+      } else {
+        setError({
+          type: 'error',
+          text: 'ERROR: Could not save changes',
+        });
+      }
+
+      setIsSaving(false);
+    } catch (err) {
+      setIsSaving(false);
+      setError({
+        type: 'error',
+        text: `ERROR: ${err.message}`,
+      });
+    }
   };
 
   const closeEditor = () => {
@@ -69,7 +79,10 @@ const Editor = () => {
               size="sm"
               theme="gray"
               themeVariant="light"
-              onClick={closeEditor}
+              onClick={() => {
+                closeEditor();
+                setError(null);
+              }}
             >
               Cancel
             </Button>
@@ -81,7 +94,7 @@ const Editor = () => {
           </ListItem>
         </List>
       </div>
-      {error && <Alert theme="error">ERROR: Could not save changes</Alert>}
+      {error && <Alert theme={error.type}>{error.text}</Alert>}
       <CodeMirror
         value={toYAML.stringify(json)}
         options={{

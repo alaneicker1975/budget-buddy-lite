@@ -10,6 +10,7 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static('dist'));
 
 app.get('/api/expenses', (req, res) => {
   fs.readFile(`${process.cwd()}/src/server/data.json`, 'utf8', (err, data) => {

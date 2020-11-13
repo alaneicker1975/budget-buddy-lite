@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button } from '@atomikui/core';
-import DataProvider from '../../providers/DataProvider';
+import AppProvider from '../../providers/AppProvider';
 
 const Header = ({ title }) => {
-  const { setEditorIsOpen } = useContext(DataProvider.Context);
+  const { setEditorIsOpen } = useContext(AppProvider.Context);
 
   return (
     <header className="main-header">

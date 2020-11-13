@@ -1,12 +1,17 @@
 import React from 'react';
-import Layout from './components/Layout';
-import DataProvider from './providers/DataProvider';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import AppProvider from './providers/AppProvider';
+import Dashboard from './pages/Dashboard';
+import Login from './pages/Login';
 
 const App = () => {
   return (
-    <DataProvider>
-      <Layout />
-    </DataProvider>
+    <AppProvider>
+      <Router>
+        <Route path="/" component={Login} exact />
+        <Route path="/dashboard" component={Dashboard} />
+      </Router>
+    </AppProvider>
   );
 };
 

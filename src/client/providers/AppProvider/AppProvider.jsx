@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Overlay, Spinner } from '@atomikui/core';
 
 export const Context = createContext({});
 
@@ -36,6 +37,9 @@ const DataProvider = ({ children }) => {
         setEditorIsOpen,
       }}
     >
+      <Overlay isActive={isLoading}>
+        <Spinner size="xlg" theme="white" themeVariant="light" />
+      </Overlay>
       {children}
     </Context.Provider>
   );

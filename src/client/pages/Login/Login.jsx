@@ -8,7 +8,9 @@ const Login = () => {
       <Header title="Budget Buddy Lite" />
       <div className="layout__body">
         <main className="layout__main">
-          <div className="layout__content">Login</div>
+          <div className="layout__content">
+            <div>Login</div>
+          </div>
         </main>
       </div>
     </div>

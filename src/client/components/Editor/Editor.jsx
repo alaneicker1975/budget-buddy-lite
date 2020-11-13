@@ -11,14 +11,14 @@ import {
   Overlay,
   Spinner,
 } from '@atomikui/core';
-import DataProvider from '../../providers/DataProvider';
+import AppProvider from '../../providers/AppProvider';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
 
 const Editor = () => {
   const { data, setData, setEditorIsOpen, apiBaseUrl } = useContext(
-    DataProvider.Context,
+    AppProvider.Context,
   );
 
   const [json, setJson] = useState(data);

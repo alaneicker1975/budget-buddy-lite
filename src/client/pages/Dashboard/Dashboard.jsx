@@ -2,11 +2,11 @@ import React, { useContext } from 'react';
 import { Drawer } from '@atomikui/core';
 import ExpenseGroups from '../../components/ExpenseGroups';
 import Editor from '../../components/Editor';
-import DataProvider from '../../providers/DataProvider';
+import AppProvider from '../../providers/AppProvider';
 import Header from '../../components/Header';
 
 const Dashboard = () => {
-  const { editorIsOpen } = useContext(DataProvider.Context);
+  const { editorIsOpen } = useContext(AppProvider.Context);
 
   return (
     <div className="layout">

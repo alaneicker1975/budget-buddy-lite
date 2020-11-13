@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Button } from '@atomikui/core';
+import { Button, List, ListItem } from '@atomikui/core';
 import AppProvider from '../../providers/AppProvider';
 
 const Header = ({ title, showHeaderNav }) => {
@@ -10,15 +10,24 @@ const Header = ({ title, showHeaderNav }) => {
     <header className="main-header">
       <span>{title}</span>
       {showHeaderNav && (
-        <Button
-          size="sm"
-          theme="teal"
-          onClick={() => {
-            return setShowEditor(true);
-          }}
-        >
-          Update Data
-        </Button>
+        <List type="horizontal">
+          <ListItem>
+            <Button
+              size="sm"
+              theme="teal"
+              onClick={() => {
+                return setShowEditor(true);
+              }}
+            >
+              Update Data
+            </Button>
+          </ListItem>
+          <ListItem>
+            <Button size="sm" onClick={() => {}}>
+              Log Out
+            </Button>
+          </ListItem>
+        </List>
       )}
     </header>
   );

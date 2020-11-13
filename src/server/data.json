@@ -72,7 +72,7 @@
       {
         "title": "Day Care",
         "balance": 940,
-        "paid": false
+        "paid": true
       },
       {
         "title": "Stash",
@@ -82,17 +82,17 @@
       {
         "title": "Groceries",
         "balance": 500,
-        "paid": false
+        "paid": true
       },
       {
         "title": "Gas",
         "balance": 70,
-        "paid": false
+        "paid": true
       },
       {
         "title": "College Funds",
         "balance": 300,
-        "paid": false
+        "paid": true
       }
     ]
   }

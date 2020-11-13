@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Card, List, ListItem, Statistic } from '@atomikui/core';
+import { Grid, Row, Col } from 'react-flexbox-grid';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import formatNumber from '../../utilities/formatNumber';
@@ -9,6 +10,7 @@ const ExpenseGroupDetail = ({
   groupTitle,
   totalBudget,
   totalBalance,
+  unpaidBalance,
   expenses,
 }) => {
   const remaingBalance = totalBudget - totalBalance;
@@ -22,21 +24,36 @@ const ExpenseGroupDetail = ({
         </div>
       }
       footer={
-        <div className="flex flex--middle flex--space-around">
-          <Statistic
-            value={`$${formatNumber(totalBalance)}`}
-            label="Total Balance"
-            size="sm"
-            topLabel
-          />
-          <Statistic
-            value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
-            label="Remaining Balance"
-            size="sm"
-            theme={remaingBalance > 0 ? 'lime' : 'red'}
-            topLabel
-          />
-        </div>
+        <Grid>
+          <Row>
+            <Col md={4} className="text-align-center">
+              <Statistic
+                value={`$${formatNumber(totalBalance)}`}
+                label="Total Balance"
+                size="sm"
+                topLabel
+              />
+            </Col>
+            <Col md={4} className="text-align-center">
+              <Statistic
+                value={`$${formatNumber(unpaidBalance)}`}
+                label="Unpaid Balance"
+                size="sm"
+                theme={unpaidBalance > 0 ? 'red' : 'lime'}
+                topLabel
+              />
+            </Col>
+            <Col md={4} className="text-align-center">
+              <Statistic
+                value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
+                label="Left Over Balance"
+                size="sm"
+                theme={remaingBalance > 0 ? 'lime' : 'red'}
+                topLabel
+              />
+            </Col>
+          </Row>
+        </Grid>
       }
     >
       <List loose>
@@ -75,6 +92,7 @@ ExpenseGroupDetail.propTypes = {
   ),
   totalBalance: PropTypes.number,
   totalBudget: PropTypes.number,
+  unpaidBalance: PropTypes.number,
   groupTitle: PropTypes.string,
 };
 
@@ -82,6 +100,7 @@ ExpenseGroupDetail.defaultProps = {
   expenses: [],
   totalBalance: 0,
   totalBudget: 0,
+  unpaidBalance: 0,
   groupTitle: '',
 };
 

@@ -69,7 +69,7 @@ const Editor = () => {
   return (
     <div className="editor">
       <Overlay style={{ position: 'absolute' }} isActive={isSaving}>
-        <Spinner size="xlg" theme="white" themeVariant="light" />
+        <Spinner size="xlg" theme="cyan" />
       </Overlay>
       <div className="editor__hd">
         <span>Expense Editor</span>

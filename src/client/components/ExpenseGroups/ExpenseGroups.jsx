@@ -12,24 +12,32 @@ const ExpenseGroups = () => {
     }, 0);
   };
 
+  const getUpaidBalance = (expenses) => {
+    return expenses
+      .filter((exp) => {
+        return !exp.paid;
+      })
+      .reduce((total, expense) => {
+        return total + expense.balance;
+      }, 0);
+  };
+
   return React.useMemo(() => {
     return (
       <List loose>
-        {data
-          // .sort()
-          // .reverse()
-          .map(({ title, totalBudget, expenses }, i) => {
-            return (
-              <ListItem key={`expense-group-${i + 1}`}>
-                <ExpenseGroupDetail
-                  groupTitle={title}
-                  totalBudget={totalBudget}
-                  totalBalance={Number(getTotalBalance(expenses))}
-                  expenses={expenses}
-                />
-              </ListItem>
-            );
-          })}
+        {data.map(({ title, totalBudget, expenses }, i) => {
+          return (
+            <ListItem key={`expense-group-${i + 1}`}>
+              <ExpenseGroupDetail
+                groupTitle={title}
+                totalBudget={totalBudget}
+                totalBalance={getTotalBalance(expenses)}
+                unpaidBalance={getUpaidBalance(expenses)}
+                expenses={expenses}
+              />
+            </ListItem>
+          );
+        })}
       </List>
     );
   }, [data]);

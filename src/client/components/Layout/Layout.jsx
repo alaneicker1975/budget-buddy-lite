@@ -1,27 +1,21 @@
 import React, { useContext } from 'react';
-import { Drawer } from '@atomikui/core';
-import ExpenseGroups from '../ExpenseGroups';
-import Editor from '../Editor';
-import Header from '../Header';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Overlay, Spinner } from '@atomikui/core';
 import DataProvider from '../../providers/DataProvider';
+import Dashboard from '../../pages/Dashboard';
+import Login from '../../pages/Login';
 
 const Layout = () => {
-  const { editorIsOpen } = useContext(DataProvider.Context);
+  const { isLoading } = useContext(DataProvider.Context);
 
   return (
-    <div className="layout">
-      <Header title="Budget Buddy Lite" />
-      <div className="layout__body">
-        <Drawer isOpen={editorIsOpen}>
-          <Editor />
-        </Drawer>
-        <main className="layout__main">
-          <div className="layout__content">
-            <ExpenseGroups />
-          </div>
-        </main>
-      </div>
-    </div>
+    <Router>
+      <Overlay isActive={isLoading}>
+        <Spinner size="xlg" theme="white" themeVariant="light" />
+      </Overlay>
+      <Route path="/" component={Login} exact />
+      <Route path="/dashboard" component={Dashboard} />
+    </Router>
   );
 };
 

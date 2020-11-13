@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 export const Context = createContext({});
 
 const DataProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [editorIsOpen, setEditorIsOpen] = useState(false);
 
@@ -12,18 +13,28 @@ const DataProvider = ({ children }) => {
     : 'path/to/prod';
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`${apiBaseUrl}/expenses`)
       .then((res) => {
+        setIsLoading(false);
         return res.json();
       })
-      .then((data) => {
-        return setData(data);
+      .then((resData) => {
+        return setData(resData);
       });
   }, []);
 
   return (
     <Context.Provider
-      value={{ data, setData, editorIsOpen, setEditorIsOpen, apiBaseUrl }}
+      value={{
+        apiBaseUrl,
+        isLoading,
+        data,
+        setData,
+        editorIsOpen,
+        setEditorIsOpen,
+      }}
     >
       {children}
     </Context.Provider>

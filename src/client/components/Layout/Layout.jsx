@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Drawer, Overlay, Spinner, Alert } from '@atomikui/core';
-import { AppContext } from '../../providers/AppProvider';
+import { AppContext } from '../../AppProvider';
 import Header from '../Header';
 import Editor from '../Editor';
 

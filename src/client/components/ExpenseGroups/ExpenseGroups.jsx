@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { List, ListItem } from '@atomikui/core';
-import { AppContext } from '../../providers/AppProvider';
+import { AppContext } from '../../AppProvider';
 import ExpenseGroupDetail from '../ExpenseGroupDetail';
 
 const ExpenseGroups = () => {

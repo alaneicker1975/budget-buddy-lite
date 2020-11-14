@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, List, ListItem } from '@atomikui/core';
-import { AppContext } from '../../providers/AppProvider';
+import { AppContext } from '../../AppProvider';
 
 const Header = ({ title, showHeaderNav }) => {
   const { setShowEditor } = useContext(AppContext);

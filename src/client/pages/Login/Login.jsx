@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { FormField, List, ListItem } from '@atomikui/core';
 import Layout from '../../components/Layout';
-import { AppContext } from '../../providers/AppProvider';
+import { AppContext } from '../../AppProvider';
 
 const numOfFields = 5;
 

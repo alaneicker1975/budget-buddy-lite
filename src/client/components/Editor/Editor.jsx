@@ -11,7 +11,7 @@ import {
   Overlay,
   Spinner,
 } from '@atomikui/core';
-import { AppContext } from '../../providers/AppProvider';
+import { AppContext } from '../../AppProvider';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';

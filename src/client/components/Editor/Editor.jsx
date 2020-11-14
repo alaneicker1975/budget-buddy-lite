@@ -23,46 +23,48 @@ const Editor = () => {
   const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
-  const saveAndUpdate = async () => {
-    setIsSaving(true);
-
-    try {
-      const response = await fetch(`${apiBaseUrl}/expenses`, {
-        method: 'post',
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-        body: JSON.stringify(json),
-      });
-
-      const { status } = await response.json();
-
-      if (status === 200) {
-        setData(json);
-        setShowEditor(false);
-      } else {
-        setError({
-          type: 'error',
-          text: 'ERROR: Could not save changes',
-        });
-      }
-
-      setIsSaving(false);
-    } catch (err) {
-      setIsSaving(false);
-      setError({
-        type: 'error',
-        text: `ERROR: ${err.message}`,
-      });
-    }
-  };
-
   const closeEditor = () => {
     setJson(data);
     setShowEditor(false);
+    setError(null);
   };
 
   useEffect(() => {
     setJson(data);
   }, [data]);
+
+  useEffect(() => {
+    if (isSaving) {
+      fetch(`${apiBaseUrl}/expenses`, {
+        method: 'post',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify(json),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then(({ status }) => {
+          if (status === 200) {
+            setData(json);
+            setShowEditor(false);
+          } else {
+            setError({
+              type: 'error',
+              text: 'ERROR: Could not save changes',
+            });
+          }
+
+          setIsSaving(false);
+        })
+        .catch((err) => {
+          setIsSaving(false);
+          setError({
+            type: 'error',
+            text: `ERROR: ${err.message}`,
+          });
+        });
+    }
+  }, [isSaving]);
 
   return (
     <div className="editor">
@@ -77,16 +79,19 @@ const Editor = () => {
               size="sm"
               theme="gray"
               themeVariant="light"
-              onClick={() => {
-                closeEditor();
-                setError(null);
-              }}
+              onClick={closeEditor}
             >
               Cancel
             </Button>
           </ListItem>
           <ListItem>
-            <Button size="sm" theme="blue" onClick={saveAndUpdate}>
+            <Button
+              size="sm"
+              theme="blue"
+              onClick={() => {
+                return setIsSaving(true);
+              }}
+            >
               Save
             </Button>
           </ListItem>

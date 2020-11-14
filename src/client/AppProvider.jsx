@@ -1,5 +1,8 @@
+import dotenv from 'dotenv-flow';
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+
+dotenv.config();
 
 const AppContext = createContext({});
 
@@ -9,9 +12,7 @@ const AppProvider = ({ children }) => {
   const [showEditor, setShowEditor] = useState(false);
   const [globalMessage, setGlobalMessage] = useState(null);
 
-  const apiBaseUrl = window.location.href.includes('localhost')
-    ? 'http://localhost:9000/api'
-    : 'path/to/prod';
+  const apiBaseUrl = process.env.API_BASE_URL;
 
   const authenticateUser = (pin) => {
     console.log(pin);

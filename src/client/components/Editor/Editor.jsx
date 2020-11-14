@@ -48,10 +48,7 @@ const Editor = () => {
             setData(json);
             setShowEditor(false);
           } else {
-            setError({
-              type: 'error',
-              text: 'ERROR: Could not save changes',
-            });
+            throw new Error('Could not save changes');
           }
 
           setIsSaving(false);

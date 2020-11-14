@@ -12,6 +12,8 @@ app.use(bodyParser.json());
 app.use(cors());
 app.use(express.static('dist'));
 
+app.post('/api/authenticateUser', (req, res) => {});
+
 app.get('/api/expenses', (req, res) => {
   fs.readFile(`${process.cwd()}/src/server/data.json`, 'utf8', (err, data) => {
     if (err) {

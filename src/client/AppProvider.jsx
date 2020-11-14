@@ -1,8 +1,5 @@
-import dotenv from 'dotenv-flow';
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
-dotenv.config();
 
 const AppContext = createContext({});
 

@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
 import { List, ListItem } from '@atomikui/core';
-import AppProvider from '../../providers/AppProvider';
+import { AppContext } from '../../providers/AppProvider';
 import ExpenseGroupDetail from '../ExpenseGroupDetail';
 
 const ExpenseGroups = () => {
-  const { data } = useContext(AppProvider.Context);
+  const { data } = useContext(AppContext);
 
   const getTotalBalance = (expenses) => {
     return expenses.reduce((total, expense) => {

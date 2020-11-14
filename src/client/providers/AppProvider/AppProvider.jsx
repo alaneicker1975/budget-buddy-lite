@@ -1,9 +1,9 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-export const Context = createContext({});
+const AppContext = createContext({});
 
-const DataProvider = ({ children }) => {
+const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
@@ -39,7 +39,7 @@ const DataProvider = ({ children }) => {
   }, []);
 
   return (
-    <Context.Provider
+    <AppContext.Provider
       value={{
         apiBaseUrl,
         isLoading,
@@ -54,14 +54,12 @@ const DataProvider = ({ children }) => {
       }}
     >
       {children}
-    </Context.Provider>
+    </AppContext.Provider>
   );
 };
 
-DataProvider.propTypes = {
+AppProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-DataProvider.Context = Context;
-
-export default DataProvider;
+export { AppContext, AppProvider };

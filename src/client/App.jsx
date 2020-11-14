@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import AppProvider from './providers/AppProvider';
+import { AppProvider } from './providers/AppProvider';
 import Dashboard from './pages/Dashboard';
 import Login from './pages/Login';
 

@@ -1,7 +1,7 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { FormField, List, ListItem } from '@atomikui/core';
 import Layout from '../../components/Layout';
-import AppProvider from '../../providers/AppProvider';
+import { AppContext } from '../../providers/AppProvider';
 
 const numOfFields = 5;
 
@@ -43,7 +43,7 @@ const usePinFields = () => {
 };
 
 const Login = () => {
-  const { authenticateUser, setIsLoading } = useContext(AppProvider.Context);
+  const { authenticateUser, setIsLoading } = useContext(AppContext);
   const { pinValues, handleChange } = usePinFields();
 
   useEffect(() => {

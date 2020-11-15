@@ -1,4 +1,6 @@
-import React, { useContext, useEffect } from 'react';
+/* eslint-disable react/forbid-prop-types */
+import React, { useContext, useEffect, useState, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { FormField, List, ListItem } from '@atomikui/core';
 import Layout from '../../components/Layout';
 import { AppContext } from '../../AppProvider';
@@ -6,10 +8,11 @@ import { AppContext } from '../../AppProvider';
 const numOfFields = 5;
 
 const usePinFields = () => {
-  const [pinValues, setPinValue] = React.useState({});
+  const [pinValues, setPinValue] = useState({});
 
   return {
     pinValues,
+    setPinValue,
     handleChange: (e) => {
       const { maxLength, value, name } = e.target;
       const [fieldName, fieldIndex] = name.split('-');
@@ -42,23 +45,50 @@ const usePinFields = () => {
   };
 };
 
-const Login = () => {
-  const { authenticateUser, setIsLoading } = useContext(AppContext);
-  const { pinValues, handleChange } = usePinFields();
+const Login = (props) => {
+  const { setIsLoading, apiBaseUrl, setGlobalMessage } = useContext(AppContext);
+  const { pinValues, setPinValue, handleChange } = usePinFields();
+  const formRef = useRef();
 
   useEffect(() => {
     const currentPin = Object.values(pinValues).join('');
 
     if (currentPin.length === numOfFields) {
       setIsLoading(true);
-      authenticateUser(currentPin);
+
+      fetch(`${apiBaseUrl}/authenticate`, {
+        method: 'post',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify({ pin: currentPin }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then(({ err }) => {
+          if (err) {
+            setGlobalMessage({ theme: 'error', text: err });
+            setPinValue({});
+            formRef.current.reset();
+          } else {
+            props.history.push('/dashboard');
+          }
+
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setGlobalMessage({
+            theme: 'error',
+            text: err.message,
+          });
+          setIsLoading(false);
+        });
     }
   }, [pinValues]);
 
   return (
     <Layout>
       <div className="login">
-        <form className="login__form" autoComplete="off">
+        <form ref={formRef} className="login__form" autoComplete="off">
           <h1 className="login__hd">Enter Your 5 Character PIN</h1>
           <List type="horizontal">
             <ListItem>
@@ -106,6 +136,14 @@ const Login = () => {
       </div>
     </Layout>
   );
+};
+
+Login.propTypes = {
+  history: PropTypes.object,
+};
+
+Login.defaultProps = {
+  history: null,
 };
 
 export default Login;

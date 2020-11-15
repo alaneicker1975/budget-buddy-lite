@@ -11,10 +11,6 @@ const AppProvider = ({ children }) => {
 
   const apiBaseUrl = process.env.API_BASE_URL;
 
-  const authenticateUser = (pin) => {
-    console.log(pin);
-  };
-
   useEffect(() => {
     setIsLoading(true);
 
@@ -45,7 +41,6 @@ const AppProvider = ({ children }) => {
         setData,
         showEditor,
         setShowEditor,
-        authenticateUser,
         globalMessage,
         setGlobalMessage,
         setIsLoading,

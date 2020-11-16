@@ -49,7 +49,7 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const logout = () => {
+  const logoutUser = () => {
     fetch(`${apiBaseUrl}/logout`, {
       method: 'delete',
     })
@@ -69,6 +69,32 @@ const AppProvider = ({ children }) => {
           text: err.message,
         });
       });
+  };
+
+  const saveUpdates = (json) => {
+    return new Promise((resolve, reject) => {
+      fetch(`${apiBaseUrl}/expenses`, {
+        method: 'post',
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        body: JSON.stringify(json),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then(({ err }) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+
+          setData(json);
+          setShowEditor(false);
+          resolve();
+        })
+        .catch(() => {
+          reject('Error: Could not save');
+        });
+    });
   };
 
   useEffect(() => {
@@ -105,8 +131,9 @@ const AppProvider = ({ children }) => {
         setGlobalMessage,
         setIsLoading,
         setHistory,
-        logout,
+        logoutUser,
         authenticateUser,
+        saveUpdates,
       }}
     >
       {children}

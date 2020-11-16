@@ -4,7 +4,7 @@ import { Button, List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 
 const Header = ({ title, showHeaderNav }) => {
-  const { setShowEditor, logout } = useContext(AppContext);
+  const { setShowEditor, logoutUser } = useContext(AppContext);
 
   return (
     <header className="main-header">
@@ -23,7 +23,7 @@ const Header = ({ title, showHeaderNav }) => {
             </Button>
           </ListItem>
           <ListItem>
-            <Button size="sm" onClick={logout}>
+            <Button size="sm" onClick={logoutUser}>
               Log Out
             </Button>
           </ListItem>

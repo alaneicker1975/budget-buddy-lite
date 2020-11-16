@@ -63,15 +63,10 @@ const Login = (props) => {
     const pin = Object.values(pinValues).join('');
 
     if (pin.length === numOfFields) {
-      authenticateUser(pin)
-        .then(() => {
-          setGlobalMessage(null);
-          props.history.push('/dashboard');
-        })
-        .catch(() => {
-          setPinValue({});
-          formRef.current.reset();
-        });
+      authenticateUser(pin).catch(() => {
+        setPinValue({});
+        formRef.current.reset();
+      });
     }
   }, [pinValues]);
 

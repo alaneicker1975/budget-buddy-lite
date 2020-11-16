@@ -56,9 +56,9 @@ router.post('/expenses', (req, res) => {
     JSON.stringify(body, null, 2),
     (err) => {
       if (err) {
-        res.json({ status: 500 });
+        res.json({ err: 'ERROR: Could not save' });
       }
-      res.json({ status: 200 });
+      res.json({});
     },
   );
 });

@@ -58,7 +58,10 @@ const Login = (props) => {
 
       fetch(`${apiBaseUrl}/authenticate`, {
         method: 'post',
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ pin: currentPin }),
       })
         .then((res) => {
@@ -70,6 +73,7 @@ const Login = (props) => {
             setPinValue({});
             formRef.current.reset();
           } else {
+            setGlobalMessage(null);
             props.history.push('/dashboard');
           }
 

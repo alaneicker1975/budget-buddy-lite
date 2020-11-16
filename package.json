@@ -2,7 +2,6 @@
   "name": "budget-buddy-lite",
   "version": "1.0.0",
   "description": "A simple budget tracking tool powerd by Yaml data and a React UI",
-  "main": "index.js",
   "engines": {
     "node": "12.16.2",
     "npm": "6.14.4"

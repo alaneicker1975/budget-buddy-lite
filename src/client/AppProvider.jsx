@@ -45,6 +45,7 @@ const AppProvider = ({ children }) => {
             text: err.message,
           });
           setIsLoading(false);
+          reject();
         });
     });
   };
@@ -85,6 +86,7 @@ const AppProvider = ({ children }) => {
         })
         .catch((err) => {
           setGlobalMessage({ theme: 'error', text: err.message });
+          reject();
         });
     });
   };

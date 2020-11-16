@@ -46,12 +46,7 @@ const usePinFields = () => {
 };
 
 const Login = (props) => {
-  const {
-    authenticateUser,
-    apiBaseUrl,
-    setGlobalMessage,
-    setHistory,
-  } = useContext(AppContext);
+  const { authenticateUser, setHistory } = useContext(AppContext);
   const { pinValues, setPinValue, handleChange } = usePinFields();
   const formRef = useRef();
 

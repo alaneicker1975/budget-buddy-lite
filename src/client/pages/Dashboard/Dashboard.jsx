@@ -6,28 +6,18 @@ import Layout from '../../components/Layout';
 import { AppContext } from '../../AppProvider';
 
 const Dashboard = (props) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const { apiBaseUrl, setGlobalMessage, setHistory } = useContext(AppContext);
-
-  useEffect(() => {
-    fetch(`${apiBaseUrl}/verify-user`)
-      .then((res) => {
-        return res.json();
-      })
-      .then(({ isValid }) => {
-        if (!isValid) {
-          props.history.push('/');
-        }
-
-        setIsLoggedIn(true);
-      })
-      .catch((err) => {
-        setGlobalMessage({ theme: 'error', text: err.message });
-      });
-  }, []);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  const { setHistory, verifyToken } = useContext(AppContext);
 
   useEffect(() => {
     setHistory(props.history);
+    verifyToken()
+      .then(() => {
+        setIsLoggedIn(true);
+      })
+      .catch(() => {
+        props.history.push('/');
+      });
   }, []);
 
   if (!isLoggedIn) {

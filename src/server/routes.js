@@ -21,7 +21,7 @@ router.post('/authenticate', (req, res) => {
   res.status(200).send({});
 });
 
-router.get('/verify-user', (req, res) => {
+router.get('/verify-token', (req, res) => {
   const {
     cookies: { token },
   } = req;

@@ -71,6 +71,24 @@ const AppProvider = ({ children }) => {
       });
   };
 
+  const verifyToken = () => {
+    return new Promise((resolve, reject) => {
+      fetch(`${apiBaseUrl}/verify-token`)
+        .then((res) => {
+          return res.json();
+        })
+        .then(({ isValid }) => {
+          if (!isValid) {
+            reject();
+          }
+          resolve();
+        })
+        .catch((err) => {
+          setGlobalMessage({ theme: 'error', text: err.message });
+        });
+    });
+  };
+
   const saveUpdates = (json) => {
     return new Promise((resolve, reject) => {
       fetch(`${apiBaseUrl}/expenses`, {
@@ -134,6 +152,7 @@ const AppProvider = ({ children }) => {
         logoutUser,
         authenticateUser,
         saveUpdates,
+        verifyToken,
       }}
     >
       {children}

@@ -8,8 +8,31 @@ const AppProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
   const [globalMessage, setGlobalMessage] = useState(null);
+  const [history, setHistory] = useState();
 
   const apiBaseUrl = process.env.API_BASE_URL;
+
+  const logout = () => {
+    fetch(`${apiBaseUrl}/logout`, {
+      method: 'delete',
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then(({ err }) => {
+        if (err) {
+          setGlobalMessage({ theme: 'error', text: 'Could not log out' });
+        } else {
+          history.push('/');
+        }
+      })
+      .catch((err) => {
+        setGlobalMessage({
+          theme: 'error',
+          text: err.message,
+        });
+      });
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,6 +67,8 @@ const AppProvider = ({ children }) => {
         globalMessage,
         setGlobalMessage,
         setIsLoading,
+        setHistory,
+        logout,
       }}
     >
       {children}

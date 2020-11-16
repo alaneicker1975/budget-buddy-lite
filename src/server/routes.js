@@ -22,7 +22,6 @@ router.post('/authenticate', (req, res) => {
 });
 
 router.get('/verify-user', (req, res) => {
-  console.log('COOKIES:', req.cookies);
   const {
     cookies: { token },
   } = req;
@@ -34,7 +33,7 @@ router.get('/verify-user', (req, res) => {
   });
 });
 
-router.post('/logout', (req, res) => {
+router.delete('/logout', (req, res) => {
   res.clearCookie('token');
   res.send({ isLoggedOut: true });
 });

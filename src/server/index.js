@@ -1,5 +1,3 @@
-/* eslint-disable global-require */
-/* eslint-disable no-console */
 const dotenv = require('dotenv-flow');
 const express = require('express');
 const cors = require('cors');
@@ -29,5 +27,6 @@ app.get('/:type(dashboard|login)', (req, res) => {
 });
 
 app.listen(port, () => {
+  // eslint-disable-next-line no-console
   console.log('Server running on port:', port);
 });

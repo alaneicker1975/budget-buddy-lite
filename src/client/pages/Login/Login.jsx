@@ -46,9 +46,15 @@ const usePinFields = () => {
 };
 
 const Login = (props) => {
-  const { setIsLoading, apiBaseUrl, setGlobalMessage } = useContext(AppContext);
+  const { setIsLoading, apiBaseUrl, setGlobalMessage, setHistory } = useContext(
+    AppContext,
+  );
   const { pinValues, setPinValue, handleChange } = usePinFields();
   const formRef = useRef();
+
+  useEffect(() => {
+    setHistory(props.history);
+  }, []);
 
   useEffect(() => {
     const currentPin = Object.values(pinValues).join('');

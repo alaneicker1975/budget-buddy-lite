@@ -8,7 +8,7 @@ const AppProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
   const [globalMessage, setGlobalMessage] = useState(null);
-  const [history, setHistory] = useState();
+  const [history, setHistory] = useState(null);
 
   const apiBaseUrl = process.env.API_BASE_URL;
 

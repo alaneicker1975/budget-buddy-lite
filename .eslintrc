@@ -3,6 +3,7 @@
   "extends": "atomikui",
   "rules": {
     "react/jsx-props-no-spreading": 0,
-    "react/button-has-type": 0
+    "react/button-has-type": 0,
+    "allowEmptyReject": true
   }
 }

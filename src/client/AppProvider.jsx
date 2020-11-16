@@ -12,6 +12,43 @@ const AppProvider = ({ children }) => {
 
   const apiBaseUrl = process.env.API_BASE_URL;
 
+  const authenticateUser = (pin) => {
+    setIsLoading(true);
+
+    return new Promise((resolve, reject) => {
+      fetch(`${apiBaseUrl}/authenticate`, {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pin }),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then(({ err }) => {
+          if (err) {
+            setGlobalMessage({ theme: 'error', text: err });
+            reject();
+          } else {
+            setGlobalMessage(null);
+            resolve();
+            history.push('/dashboard');
+          }
+
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setGlobalMessage({
+            theme: 'error',
+            text: err.message,
+          });
+          setIsLoading(false);
+        });
+    });
+  };
+
   const logout = () => {
     fetch(`${apiBaseUrl}/logout`, {
       method: 'delete',
@@ -69,6 +106,7 @@ const AppProvider = ({ children }) => {
         setIsLoading,
         setHistory,
         logout,
+        authenticateUser,
       }}
     >
       {children}

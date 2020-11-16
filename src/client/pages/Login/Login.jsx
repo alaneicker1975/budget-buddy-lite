@@ -46,9 +46,12 @@ const usePinFields = () => {
 };
 
 const Login = (props) => {
-  const { setIsLoading, apiBaseUrl, setGlobalMessage, setHistory } = useContext(
-    AppContext,
-  );
+  const {
+    authenticateUser,
+    apiBaseUrl,
+    setGlobalMessage,
+    setHistory,
+  } = useContext(AppContext);
   const { pinValues, setPinValue, handleChange } = usePinFields();
   const formRef = useRef();
 
@@ -57,40 +60,17 @@ const Login = (props) => {
   }, []);
 
   useEffect(() => {
-    const currentPin = Object.values(pinValues).join('');
+    const pin = Object.values(pinValues).join('');
 
-    if (currentPin.length === numOfFields) {
-      setIsLoading(true);
-
-      fetch(`${apiBaseUrl}/authenticate`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ pin: currentPin }),
-      })
-        .then((res) => {
-          return res.json();
+    if (pin.length === numOfFields) {
+      authenticateUser(pin)
+        .then(() => {
+          setGlobalMessage(null);
+          props.history.push('/dashboard');
         })
-        .then(({ err }) => {
-          if (err) {
-            setGlobalMessage({ theme: 'error', text: err });
-            setPinValue({});
-            formRef.current.reset();
-          } else {
-            setGlobalMessage(null);
-            props.history.push('/dashboard');
-          }
-
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setGlobalMessage({
-            theme: 'error',
-            text: err.message,
-          });
-          setIsLoading(false);
+        .catch(() => {
+          setPinValue({});
+          formRef.current.reset();
         });
     }
   }, [pinValues]);

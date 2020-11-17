@@ -76,6 +76,8 @@ const Login = (props) => {
                 type="password"
                 maxLength="1"
                 name="pin-1"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 onChange={handleChange}
               />
             </ListItem>
@@ -84,6 +86,8 @@ const Login = (props) => {
                 type="password"
                 maxLength="1"
                 name="pin-2"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 onChange={handleChange}
               />
             </ListItem>
@@ -92,6 +96,8 @@ const Login = (props) => {
                 type="password"
                 maxLength="1"
                 name="pin-3"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 onChange={handleChange}
               />
             </ListItem>
@@ -100,6 +106,8 @@ const Login = (props) => {
                 type="password"
                 maxLength="1"
                 name="pin-4"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 onChange={handleChange}
               />
             </ListItem>
@@ -108,6 +116,8 @@ const Login = (props) => {
                 type="password"
                 maxLength="1"
                 name="pin-5"
+                pattern="[0-9]*"
+                inputMode="numeric"
                 onChange={handleChange}
               />
             </ListItem>

@@ -15,105 +15,100 @@ const AppProvider = ({ children }) => {
   const authenticateUser = (pin) => {
     setIsLoading(true);
 
-    return new Promise((resolve, reject) => {
-      fetch(`${apiBaseUrl}/authenticate`, {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ pin }),
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then(({ err }) => {
-          if (err) {
-            setGlobalMessage({ theme: 'error', text: err });
-            reject();
-          } else {
-            setGlobalMessage(null);
-            resolve();
-            history.push('/dashboard');
-          }
-
-          setIsLoading(false);
-        })
-        .catch((err) => {
-          setGlobalMessage({
-            theme: 'error',
-            text: err.message,
-          });
-          setIsLoading(false);
-          reject();
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch(`${apiBaseUrl}/authenticate`, {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ pin }),
         });
-    });
-  };
 
-  const logoutUser = () => {
-    fetch(`${apiBaseUrl}/logout`, {
-      method: 'delete',
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then(({ err }) => {
+        const { err } = await response.json();
+
         if (err) {
-          setGlobalMessage({ theme: 'error', text: 'Could not log out' });
+          setGlobalMessage({ theme: 'error', text: err });
+          reject();
         } else {
-          history.push('/');
+          setGlobalMessage(null);
+          resolve();
+          history.push('/dashboard');
         }
-      })
-      .catch((err) => {
+
+        setIsLoading(false);
+      } catch (err) {
         setGlobalMessage({
           theme: 'error',
           text: err.message,
         });
+        setIsLoading(false);
+        reject();
+      }
+    });
+  };
+
+  const logoutUser = async () => {
+    try {
+      const response = await fetch(`${apiBaseUrl}/logout`, {
+        method: 'delete',
       });
+
+      const { err } = await response.json();
+
+      if (err) {
+        setGlobalMessage({ theme: 'error', text: 'Could not log out' });
+      } else {
+        history.push('/');
+      }
+    } catch (err) {
+      setGlobalMessage({
+        theme: 'error',
+        text: err.message,
+      });
+    }
   };
 
   const verifyToken = () => {
-    return new Promise((resolve, reject) => {
-      fetch(`${apiBaseUrl}/verify-token`)
-        .then((res) => {
-          return res.json();
-        })
-        .then(({ isValid }) => {
-          if (!isValid) {
-            reject();
-          }
-          resolve();
-        })
-        .catch((err) => {
-          setGlobalMessage({ theme: 'error', text: err.message });
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch(`${apiBaseUrl}/verify-token`);
+        const { isValid } = await response.json();
+        if (!isValid) {
           reject();
-        });
+        }
+        resolve();
+      } catch (err) {
+        setGlobalMessage({ theme: 'error', text: err.message });
+        reject();
+      }
     });
   };
 
   const saveUpdates = (json) => {
-    return new Promise((resolve, reject) => {
-      fetch(`${apiBaseUrl}/expenses`, {
-        method: 'post',
-        headers: { 'Content-type': 'application/json; charset=UTF-8' },
-        body: JSON.stringify(json),
-      })
-        .then((res) => {
-          return res.json();
-        })
-        .then(({ err }) => {
-          if (err) {
-            reject(err);
-            return;
-          }
-
-          setData(json);
-          setShowEditor(false);
-          resolve();
-        })
-        .catch(() => {
-          reject('Error: Could not save');
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await fetch(`${apiBaseUrl}/expenses`, {
+          method: 'post',
+          headers: { 'Content-type': 'application/json; charset=UTF-8' },
+          body: JSON.stringify(json),
         });
+
+        const { err } = await response.json();
+
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        setData(json);
+        setShowEditor(false);
+        resolve();
+      } catch (err) {
+        console.error(error);
+        reject('Error: Could not save');
+      }
     });
   };
 

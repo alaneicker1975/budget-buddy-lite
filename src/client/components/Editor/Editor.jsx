@@ -1,8 +1,6 @@
 /* eslint-disable no-shadow */
 import React, { useContext, useState, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import toYAML from 'json-to-pretty-yaml';
-import toJSON from 'yamljs';
 import {
   Button,
   List,
@@ -18,24 +16,23 @@ import 'codemirror/mode/yaml/yaml';
 
 const Editor = () => {
   const { data, setShowEditor, saveUpdates } = useContext(AppContext);
-
-  const [json, setJson] = useState(data);
+  const [json, setJson] = useState('');
   const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
 
   const closeEditor = () => {
-    setJson(data);
+    setJson(JSON.stringify(data, null, 2));
     setShowEditor(false);
     setError(null);
   };
 
   useEffect(() => {
-    setJson(data);
+    setJson(JSON.stringify(data, null, 2));
   }, [data]);
 
   useEffect(() => {
     if (isSaving) {
-      saveUpdates(json)
+      saveUpdates(JSON.parse(json))
         .then(() => {
           setIsSaving(false);
         })
@@ -82,14 +79,14 @@ const Editor = () => {
       </div>
       {error && <Alert theme={error.type}>{error.text}</Alert>}
       <CodeMirror
-        value={toYAML.stringify(json)}
+        value={json}
         options={{
           mode: 'yaml',
           theme: 'monokai',
           lineNumbers: false,
         }}
         onBeforeChange={(editor, data, value) => {
-          setJson(toJSON.parse(value));
+          setJson(value);
         }}
       />
     </div>

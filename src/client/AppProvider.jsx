@@ -106,7 +106,7 @@ const AppProvider = ({ children }) => {
         setShowEditor(false);
         resolve();
       } catch (err) {
-        console.error(error);
+        console.error(err);
         reject('Error: Could not save');
       }
     });

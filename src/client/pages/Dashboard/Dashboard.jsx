@@ -7,7 +7,7 @@ import { AppContext } from '../../AppProvider';
 
 const Dashboard = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
-  const { setHistory, verifyToken } = useContext(AppContext);
+  const { setHistory, verifyToken, fetchExpenseData } = useContext(AppContext);
 
   useEffect(() => {
     setHistory(props.history);

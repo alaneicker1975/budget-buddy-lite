@@ -10,7 +10,8 @@
     "build": "parcel build src/index.html",
     "start:client": "parcel src/index.html",
     "start:server": "nodemon src/server",
-    "start": "node src/server"
+    "start": "node src/server",
+    "docker": "docker build -t budget-buddy-lite ."
   },
   "keywords": [],
   "author": "",

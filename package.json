@@ -7,7 +7,7 @@
     "npm": "6.14.4"
   },
   "scripts": {
-    "build-app": "parcel build src/index.html",
+    "build": "parcel build src/index.html",
     "start:client": "parcel src/index.html",
     "start:server": "nodemon src/server",
     "start": "node src/server"
@@ -43,6 +43,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^7.13.0",
     "eslint-config-atomikui": "^0.1.4",
+    "parcel": "^1.12.4",
     "parcel-plugin-static-files-copy": "^2.5.0",
     "sass": "^1.29.0",
     "stylelint": "^13.7.2",

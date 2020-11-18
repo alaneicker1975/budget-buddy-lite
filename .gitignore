@@ -13,6 +13,9 @@ splash/.cache
 splash/dist/
 splash/build/
 
+# Build
+/dist
+
 # testing
 /coverage
 

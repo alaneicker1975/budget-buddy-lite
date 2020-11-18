@@ -1,4 +1,4 @@
-FROM node:9-slim
+FROM node:12.16.2
 MAINTAINER Alan Eicker
 WORKDIR /src
 COPY package.json /src

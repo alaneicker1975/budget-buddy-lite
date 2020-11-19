@@ -32,17 +32,7 @@ const Editor = () => {
 
   useEffect(() => {
     if (isSaving) {
-      saveUpdates(JSON.parse(json))
-        .then(() => {
-          setIsSaving(false);
-        })
-        .catch((err) => {
-          setError({
-            type: 'error',
-            text: err,
-          });
-          setIsSaving(false);
-        });
+      saveUpdates(JSON.parse(json));
     }
   }, [isSaving]);
 

@@ -87,50 +87,14 @@ const AppProvider = ({ children }) => {
   };
 
   const saveUpdates = (json) => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/expenses`, {
-          method: 'post',
-          headers: { 'Content-type': 'application/json; charset=UTF-8' },
-          body: JSON.stringify(json),
-        });
-
-        const { err } = await response.json();
-
-        if (err) {
-          reject(err);
-          return;
-        }
-
-        setData(json);
-        setShowEditor(false);
-        resolve();
-      } catch (err) {
-        console.error(err);
-        reject('Error: Could not save');
-      }
-    });
+    localStorage.setItem('expenseData', JSON.stringify(json));
+    setData(json);
+    setShowEditor(false);
   };
 
   useEffect(() => {
-    setIsLoading(true);
-
-    const fetchData = async () => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/expenses`);
-        const resData = await response.json();
-        setIsLoading(false);
-        setData(resData);
-      } catch (err) {
-        setIsLoading(false);
-        setGlobalMessage({
-          theme: 'error',
-          text: err.message,
-        });
-      }
-    };
-
-    fetchData();
+    const data = JSON.parse(localStorage.getItem('expenseData')) || [];
+    setData(data);
   }, []);
 
   return (

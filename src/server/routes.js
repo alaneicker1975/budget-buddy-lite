@@ -38,29 +38,4 @@ router.delete('/logout', (req, res) => {
   res.send({ isLoggedOut: true });
 });
 
-router.get('/expenses', (req, res) => {
-  fs.readFile(`${process.cwd()}/src/server/data.json`, 'utf8', (err, data) => {
-    if (err) {
-      console.log(err);
-      res.json([]);
-      return;
-    }
-    res.json(JSON.parse(data));
-  });
-});
-
-router.post('/expenses', (req, res) => {
-  const { body } = req;
-  fs.writeFile(
-    `${process.cwd()}/src/server/data.json`,
-    JSON.stringify(body, null, 2),
-    (err) => {
-      if (err) {
-        res.json({ err: 'ERROR: Could not save' });
-      }
-      res.json({});
-    },
-  );
-});
-
 module.exports = router;

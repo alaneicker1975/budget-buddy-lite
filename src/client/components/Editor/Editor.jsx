@@ -33,6 +33,7 @@ const Editor = () => {
   useEffect(() => {
     if (isSaving) {
       saveUpdates(JSON.parse(json));
+      setIsSaving(false);
     }
   }, [isSaving]);
 

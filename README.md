@@ -7,4 +7,6 @@ A simple tool for keeping track of expenses. It features and intuitive YAML edit
 - Node.js
 - Express
 - React
+- IndexedDB
 - @atomikui/core
+- @atomikui/core-sass 

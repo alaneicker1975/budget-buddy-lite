@@ -43,16 +43,15 @@ const ExpenseGroupDetail = ({
           <div className="flex flex--space-between text-size-16">
             <span>{groupTitle}</span>
             <div className="flex flex--align-middle">
-              <span
+              <span>Budget: ${totalBudget.toLocaleString()}</span>
+              <List
+                type="horizontal"
                 style={{
-                  marginRight: '16px',
-                  paddingRight: '16px',
-                  borderRight: '1px solid #607d8b',
+                  marginLeft: '16px',
+                  paddingLeft: '16px',
+                  borderLeft: '1px solid #607d8b',
                 }}
               >
-                Budget: ${totalBudget.toLocaleString()}
-              </span>
-              <List type="horizontal">
                 <ListItem>
                   <Button size="md" onClick={initiateUpdate}>
                     Update

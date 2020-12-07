@@ -1,5 +1,45 @@
 import React, { createContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Localbase from 'localbase';
+
+const db = new Localbase('budgetBuddy');
+
+// db.collection('expenseGroups').add({
+//   title: 'Nov 6, 2020 - Nov 20, 2020',
+//   totalBudget: 4480,
+//   expenses: [
+//     {
+//       title: 'Mortgage',
+//       balance: 1941,
+//       paid: true,
+//     },
+//     {
+//       title: 'Day Care',
+//       balance: 940,
+//       paid: true,
+//     },
+//     {
+//       title: 'Stash',
+//       balance: 500,
+//       paid: true,
+//     },
+//     {
+//       title: 'Groceries',
+//       balance: 500,
+//       paid: true,
+//     },
+//     {
+//       title: 'Gas',
+//       balance: 70,
+//       paid: true,
+//     },
+//     {
+//       title: 'College Funds',
+//       balance: 300,
+//       paid: true,
+//     },
+//   ],
+// });
 
 const AppContext = createContext({});
 
@@ -93,8 +133,12 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem('expenseData')) || [];
-    setData(data);
+    //const data = JSON.parse(localStorage.getItem('expenseData')) || [];
+    db.collection('expenseGroups')
+      .get()
+      .then((expenses) => {
+        setData(expenses);
+      });
   }, []);
 
   return (

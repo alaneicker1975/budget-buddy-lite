@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "parcel build src/index.html",
-    "start:client": "parcel src/index.html",
+    "start:client": "parcel src/index.html --port 1111",
     "start:server": "nodemon src/server",
     "start": "node src/server",
     "docker": "docker build -t budget-buddy-lite ."
@@ -17,11 +17,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@atomikui/core": "^0.9.0",
+    "@atomikui/core": "^0.9.6",
+    "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
     "bcrypt-node": "^0.1.0",
     "body-parser": "^1.19.0",
+    "classnames": "^2.2.6",
     "codemirror": "^5.58.2",
     "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
@@ -29,6 +31,7 @@
     "file-system": "^2.2.2",
     "fs-extra": "^9.0.1",
     "jsonwebtoken": "^8.5.1",
+    "localbase": "^0.7.4",
     "nodemon": "^2.0.6",
     "path": "^0.12.7",
     "prop-types": "^15.7.2",
@@ -36,7 +39,8 @@
     "react-codemirror2": "^7.2.1",
     "react-dom": "^17.0.1",
     "react-flexbox-grid": "^2.1.2",
-    "react-router-dom": "^5.2.0"
+    "react-router-dom": "^5.2.0",
+    "shallow-equal": "^1.2.1"
   },
   "devDependencies": {
     "@atomikui/core-sass": "^0.2.0",

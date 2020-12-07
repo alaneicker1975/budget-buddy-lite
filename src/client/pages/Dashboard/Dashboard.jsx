@@ -9,20 +9,20 @@ const Dashboard = (props) => {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const { setHistory, verifyToken } = useContext(AppContext);
 
-  useEffect(() => {
-    setHistory(props.history);
-    verifyToken()
-      .then(() => {
-        setIsLoggedIn(true);
-      })
-      .catch(() => {
-        props.history.push('/');
-      });
-  }, []);
+  // useEffect(() => {
+  //   setHistory(props.history);
+  //   verifyToken()
+  //     .then(() => {
+  //       setIsLoggedIn(true);
+  //     })
+  //     .catch(() => {
+  //       props.history.push('/');
+  //     });
+  // }, []);
 
-  if (!isLoggedIn) {
-    return null;
-  }
+  // if (!isLoggedIn) {
+  //   return null;
+  // }
 
   return (
     <Layout>

@@ -108,10 +108,21 @@ const AppProvider = ({ children }) => {
 
   // Update expense group
   // -----------------------------------------------------------------
-  const updateExpenseGroup = (json) => {
-    const updatedDoc = JSON.parse(json);
-    db.collection('expenseGroups').doc({ id: updatedDoc.id }).set(updatedDoc);
-    setData(data.map((doc) => (doc.id === updatedDoc.id ? updatedDoc : doc)));
+  const updateExpenseGroup = async (json) => {
+    const jsonData = JSON.parse(json);
+
+    if (jsonData.id) {
+      await db
+        .collection('expenseGroups')
+        .doc({ id: jsonData.id })
+        .set(jsonData);
+    } else {
+      await db
+        .collection('expenseGroups')
+        .add({ id: Math.round(Math.random() * 100000000), ...jsonData });
+    }
+
+    getAllExpenseGroups();
     setShowEditor(false);
   };
 
@@ -127,6 +138,21 @@ const AppProvider = ({ children }) => {
   // -----------------------------------------------------------------
   const setSelectedExpenseByIndex = (index) => {
     setSelectedExpense(data[index]);
+  };
+
+  const addNewExpenseGroup = () => {
+    setSelectedExpense({
+      title: '',
+      totalBudget: 0,
+      expenses: [
+        {
+          title: '',
+          balance: 0,
+          paid: false,
+        },
+      ],
+    });
+    setShowEditor(true);
   };
 
   useEffect(() => {
@@ -153,6 +179,7 @@ const AppProvider = ({ children }) => {
         selectedExpense,
         setSelectedExpenseByIndex,
         deleteExpenseGroup,
+        addNewExpenseGroup,
       }}
     >
       {children}

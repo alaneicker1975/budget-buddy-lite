@@ -4,7 +4,7 @@ import { Button, List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 
 const Header = ({ title, showHeaderNav }) => {
-  const { logoutUser } = useContext(AppContext);
+  const { logoutUser, addNewExpenseGroup } = useContext(AppContext);
 
   return (
     <header className="main-header">
@@ -12,7 +12,7 @@ const Header = ({ title, showHeaderNav }) => {
       {showHeaderNav && (
         <List type="horizontal">
           <ListItem>
-            <Button size="md" theme="blue">
+            <Button size="md" theme="blue" onClick={addNewExpenseGroup}>
               New Group
             </Button>
           </ListItem>

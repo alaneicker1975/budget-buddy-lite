@@ -158,14 +158,6 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  // Update expense group
-  // -----------------------------------------------------------------
-  const saveUpdates = (json) => {
-    localStorage.setItem('expenseData', JSON.stringify(json));
-    setData(json);
-    setShowEditor(false);
-  };
-
   // Geta all expenseGroups
   // -----------------------------------------------------------------
   const getAllExpenseGroups = async () => {
@@ -174,6 +166,20 @@ const AppProvider = ({ children }) => {
       .orderBy('id', 'desc')
       .get();
     setData(data);
+  };
+
+  // Update expense group
+  // -----------------------------------------------------------------
+  const saveUpdates = async (json) => {
+    const updatedData = JSON.parse(json);
+    updatedData.forEach((doc, index) => {
+      const hasChanged = JSON.stringify(data[index]) !== JSON.stringify(doc);
+      if (hasChanged) {
+        db.collection('expenseGroups').doc({ id: doc.id }).set(doc);
+      }
+    });
+    setData(updatedData);
+    setShowEditor(false);
   };
 
   useEffect(() => {

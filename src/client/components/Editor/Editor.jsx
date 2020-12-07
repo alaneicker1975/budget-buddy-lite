@@ -1,56 +1,59 @@
 /* eslint-disable no-shadow */
 import React, { useContext, useState, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import { Button, Alert, Overlay, Spinner } from '@atomikui/core';
+import {
+  Button,
+  Alert,
+  List,
+  ListItem,
+  Overlay,
+  Spinner,
+} from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
 
+const editorSettings = {
+  mode: 'yaml',
+  theme: 'monokai',
+  lineNumbers: false,
+};
+
 const Editor = () => {
   const { data, setShowEditor, saveUpdates } = useContext(AppContext);
-  const [error, setError] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
+  const [json, setJson] = useState('');
 
-  const closeEditor = () => {
-    setShowEditor(false);
-    setError(null);
-  };
-
-  // useEffect(() => {
-  //   if (isSaving) {
-  //     saveUpdates(JSON.parse(json));
-  //     setIsSaving(false);
-  //   }
-  // }, [isSaving]);
+  useEffect(() => {
+    setJson(JSON.stringify(data, null, 2));
+  }, [data]);
 
   return (
     <div className="editor">
-      <Overlay style={{ position: 'absolute' }} isActive={isSaving}>
-        <Spinner size="xlg" theme="cyan" />
-      </Overlay>
       <div className="editor__hd">
         <span>Expense Editor</span>
-        <Button
-          size="sm"
-          theme="gray"
-          themeVariant="light"
-          onClick={closeEditor}
-        >
-          Cancel
-        </Button>
+        <List type="horizontal">
+          <ListItem>
+            <Button
+              size="sm"
+              theme="gray"
+              themeVariant="light"
+              onClick={() => setShowEditor(false)}
+            >
+              Cancel
+            </Button>
+          </ListItem>
+          <ListItem>
+            <Button size="sm" theme="blue" onClick={() => saveUpdates(json)}>
+              Save
+            </Button>
+          </ListItem>
+        </List>
       </div>
-      {error && <Alert theme={error.type}>{error.text}</Alert>}
       <CodeMirror
-        value={JSON.stringify(data, null, 2)}
-        options={{
-          mode: 'yaml',
-          theme: 'monokai',
-          lineNumbers: false,
-        }}
-        onBeforeChange={(editor, data, value) => {
-          // update document
-        }}
+        value={json}
+        options={editorSettings}
+        onBeforeChange={(editor, data, value) => setJson(value)}
       />
     </div>
   );

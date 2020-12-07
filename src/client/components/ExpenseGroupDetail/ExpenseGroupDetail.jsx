@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Card, List, ListItem, Statistic, Button } from '@atomikui/core';
 import { Grid, Row, Col } from 'react-flexbox-grid';
@@ -9,13 +9,20 @@ import { AppContext } from '../../AppProvider';
 
 const ExpenseGroupDetail = ({
   index,
+  id,
   groupTitle,
   totalBudget,
   totalBalance,
   unpaidBalance,
   expenses,
 }) => {
-  const { setShowEditor, setSelectedExpenseByIndex } = useContext(AppContext);
+  const {
+    deleteExpenseGroup,
+    setShowEditor,
+    setSelectedExpenseByIndex,
+  } = useContext(AppContext);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
+
   const remaingBalance = totalBudget - totalBalance;
   const amountLeftOver = formatNumber(remaingBalance).replace('-', '');
 
@@ -24,35 +31,73 @@ const ExpenseGroupDetail = ({
     setShowEditor(true);
   };
 
+  const confirmDelete = () => {
+    deleteExpenseGroup(id);
+    setShowDeleteConfirm(false);
+  };
+
   return (
     <Card
       title={
-        <div className="flex flex--space-between text-size-16">
-          <span>{groupTitle}</span>
-          <div className="flex flex--align-middle">
-            <span
-              style={{
-                marginRight: '16px',
-                paddingRight: '16px',
-                borderRight: '1px solid #607d8b',
-              }}
-            >
-              Budget: ${totalBudget.toLocaleString()}
-            </span>
-            <List type="horizontal">
-              <ListItem>
-                <Button size="sm" onClick={initiateUpdate}>
-                  Update
-                </Button>
-              </ListItem>
-              <ListItem>
-                <Button size="sm" theme="red">
-                  Delete
-                </Button>
-              </ListItem>
-            </List>
+        <>
+          <div className="flex flex--space-between text-size-16">
+            <span>{groupTitle}</span>
+            <div className="flex flex--align-middle">
+              <span
+                style={{
+                  marginRight: '16px',
+                  paddingRight: '16px',
+                  borderRight: '1px solid #607d8b',
+                }}
+              >
+                Budget: ${totalBudget.toLocaleString()}
+              </span>
+              <List type="horizontal">
+                <ListItem>
+                  <Button size="md" onClick={initiateUpdate}>
+                    Update
+                  </Button>
+                </ListItem>
+                <ListItem>
+                  <Button
+                    size="md"
+                    theme="red"
+                    onClick={() => setShowDeleteConfirm(true)}
+                  >
+                    Delete
+                  </Button>
+                </ListItem>
+              </List>
+            </div>
           </div>
-        </div>
+          {showDeleteConfirm && (
+            <div className="text-align-center bg-color-blue-gray-700 margin-top-16">
+              <div className="text-weight-semibold text-size-16 padding-16">
+                <p
+                  className="margin-bottom-8"
+                  style={{ textTransform: 'Capitalize' }}
+                >
+                  Are you sure you want to delete this group?
+                </p>
+                <List type="horizontal">
+                  <ListItem>
+                    <Button size="md" theme="red" onClick={confirmDelete}>
+                      Delete
+                    </Button>
+                  </ListItem>
+                  <ListItem>
+                    <Button
+                      size="md"
+                      onClick={() => setShowDeleteConfirm(false)}
+                    >
+                      Cancel
+                    </Button>
+                  </ListItem>
+                </List>
+              </div>
+            </div>
+          )}
+        </>
       }
       footer={
         <Grid>
@@ -118,6 +163,7 @@ const ExpenseGroupDetail = ({
 
 ExpenseGroupDetail.propTypes = {
   index: PropTypes.number,
+  id: PropTypes.number,
   expenses: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -132,6 +178,7 @@ ExpenseGroupDetail.propTypes = {
 
 ExpenseGroupDetail.defaultProps = {
   index: null,
+  id: null,
   expenses: [],
   totalBalance: 0,
   totalBudget: 0,

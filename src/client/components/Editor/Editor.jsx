@@ -14,7 +14,7 @@ const editorSettings = {
 };
 
 const Editor = () => {
-  const { setShowEditor, saveUpdates, selectedExpense } = useContext(
+  const { setShowEditor, updateExpenseGroup, selectedExpense } = useContext(
     AppContext,
   );
 
@@ -40,7 +40,11 @@ const Editor = () => {
             </Button>
           </ListItem>
           <ListItem>
-            <Button size="sm" theme="blue" onClick={() => saveUpdates(json)}>
+            <Button
+              size="sm"
+              theme="blue"
+              onClick={() => updateExpenseGroup(json)}
+            >
               Save
             </Button>
           </ListItem>

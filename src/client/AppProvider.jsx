@@ -108,11 +108,19 @@ const AppProvider = ({ children }) => {
 
   // Update expense group
   // -----------------------------------------------------------------
-  const saveUpdates = async (json) => {
+  const updateExpenseGroup = (json) => {
     const updatedDoc = JSON.parse(json);
     db.collection('expenseGroups').doc({ id: updatedDoc.id }).set(updatedDoc);
     setData(data.map((doc) => (doc.id === updatedDoc.id ? updatedDoc : doc)));
     setShowEditor(false);
+  };
+
+  // Deletes an expenseGroup
+  // -----------------------------------------------------------------
+  const deleteExpenseGroup = (id) => {
+    console.log(id);
+    db.collection('expenseGroups').doc({ id }).delete();
+    setData(data.filter((doc) => doc.id !== id));
   };
 
   // Sets the selected expense
@@ -140,10 +148,11 @@ const AppProvider = ({ children }) => {
         setHistory,
         logoutUser,
         authenticateUser,
-        saveUpdates,
+        updateExpenseGroup,
         verifyToken,
         selectedExpense,
         setSelectedExpenseByIndex,
+        deleteExpenseGroup,
       }}
     >
       {children}

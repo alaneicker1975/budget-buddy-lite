@@ -25,10 +25,11 @@ const ExpenseGroups = () => {
   return React.useMemo(() => {
     return (
       <List loose>
-        {data.map(({ title, totalBudget, expenses }, index) => {
+        {data.map(({ id, title, totalBudget, expenses }, index) => {
           return (
             <ListItem key={`expense-group-${index + 1}`}>
               <ExpenseGroupDetail
+                id={id}
                 index={index}
                 groupTitle={title}
                 totalBudget={totalBudget}

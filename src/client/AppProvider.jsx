@@ -5,38 +5,64 @@ import Localbase from 'localbase';
 const db = new Localbase('budgetBuddy');
 
 // db.collection('expenseGroups').add({
-//   title: 'Nov 6, 2020 - Nov 20, 2020',
+//   id: 2,
+//   title: 'nov 20, 2020 - Dec 4, 2020',
 //   totalBudget: 4480,
 //   expenses: [
 //     {
-//       title: 'Mortgage',
-//       balance: 1941,
-//       paid: true,
+//       title: 'Stash',
+//       balance: 500,
+//       paid: false,
 //     },
 //     {
 //       title: 'Day Care',
 //       balance: 940,
-//       paid: true,
+//       paid: false,
 //     },
 //     {
-//       title: 'Stash',
-//       balance: 500,
-//       paid: true,
+//       title: 'Jeep Car Payment',
+//       balance: 359,
+//       paid: false,
+//     },
+//     {
+//       title: 'Ford Car Payment',
+//       balance: 392,
+//       paid: false,
 //     },
 //     {
 //       title: 'Groceries',
-//       balance: 500,
-//       paid: true,
+//       balance: 400,
+//       paid: false,
 //     },
 //     {
 //       title: 'Gas',
 //       balance: 70,
-//       paid: true,
+//       paid: false,
 //     },
 //     {
-//       title: 'College Funds',
-//       balance: 300,
-//       paid: true,
+//       title: 'ComEd',
+//       balance: 70,
+//       paid: false,
+//     },
+//     {
+//       title: 'Nicor',
+//       balance: 40,
+//       paid: false,
+//     },
+//     {
+//       title: 'T-Mobile',
+//       balance: 131,
+//       paid: false,
+//     },
+//     {
+//       title: 'Xfinity',
+//       balance: 170,
+//       paid: false,
+//     },
+//     {
+//       title: 'Gym',
+//       balance: 22,
+//       paid: false,
 //     },
 //   ],
 // });
@@ -52,6 +78,8 @@ const AppProvider = ({ children }) => {
 
   const apiBaseUrl = process.env.API_BASE_URL;
 
+  // User authentication
+  // -----------------------------------------------------------------
   const authenticateUser = (pin) => {
     setIsLoading(true);
 
@@ -89,6 +117,8 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  // Log out user
+  // -----------------------------------------------------------------
   const logoutUser = async () => {
     try {
       const response = await fetch(`${apiBaseUrl}/logout`, {
@@ -110,6 +140,8 @@ const AppProvider = ({ children }) => {
     }
   };
 
+  // Verify token
+  // -----------------------------------------------------------------
   const verifyToken = () => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -126,19 +158,26 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  // Update expense group
+  // -----------------------------------------------------------------
   const saveUpdates = (json) => {
     localStorage.setItem('expenseData', JSON.stringify(json));
     setData(json);
     setShowEditor(false);
   };
 
+  // Geta all expenseGroups
+  // -----------------------------------------------------------------
+  const getAllExpenseGroups = async () => {
+    const data = await db
+      .collection('expenseGroups')
+      .orderBy('id', 'desc')
+      .get();
+    setData(data);
+  };
+
   useEffect(() => {
-    //const data = JSON.parse(localStorage.getItem('expenseData')) || [];
-    db.collection('expenseGroups')
-      .get()
-      .then((expenses) => {
-        setData(expenses);
-      });
+    getAllExpenseGroups();
   }, []);
 
   return (

@@ -40,7 +40,7 @@ const ExpenseGroupDetail = ({
     <Card
       title={
         <>
-          <div className="flex flex--space-between text-size-16">
+          <div className="flex flex--space-between">
             <span>{groupTitle}</span>
             <div className="flex flex--align-middle">
               <span>Budget: ${totalBudget.toLocaleString()}</span>

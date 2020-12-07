@@ -1,26 +1,57 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
-import { Card, List, ListItem, Statistic } from '@atomikui/core';
+import { Card, List, ListItem, Statistic, Button } from '@atomikui/core';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
 import formatNumber from '../../utilities/formatNumber';
+import { AppContext } from '../../AppProvider';
 
 const ExpenseGroupDetail = ({
+  index,
   groupTitle,
   totalBudget,
   totalBalance,
   unpaidBalance,
   expenses,
 }) => {
+  const { setShowEditor, setSelectedExpenseByIndex } = useContext(AppContext);
   const remaingBalance = totalBudget - totalBalance;
   const amountLeftOver = formatNumber(remaingBalance).replace('-', '');
+
+  const initiateUpdate = () => {
+    setSelectedExpenseByIndex(index);
+    setShowEditor(true);
+  };
+
   return (
     <Card
       title={
-        <div className="flex flex--space-between text-size-20">
+        <div className="flex flex--space-between text-size-16">
           <span>{groupTitle}</span>
-          <span>Budget: ${totalBudget.toLocaleString()}</span>
+          <div className="flex flex--align-middle">
+            <span
+              style={{
+                marginRight: '16px',
+                paddingRight: '16px',
+                borderRight: '1px solid #607d8b',
+              }}
+            >
+              Budget: ${totalBudget.toLocaleString()}
+            </span>
+            <List type="horizontal">
+              <ListItem>
+                <Button size="sm" onClick={initiateUpdate}>
+                  Update
+                </Button>
+              </ListItem>
+              <ListItem>
+                <Button size="sm" theme="red">
+                  Delete
+                </Button>
+              </ListItem>
+            </List>
+          </div>
         </div>
       }
       footer={
@@ -86,6 +117,7 @@ const ExpenseGroupDetail = ({
 };
 
 ExpenseGroupDetail.propTypes = {
+  index: PropTypes.number,
   expenses: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -99,6 +131,7 @@ ExpenseGroupDetail.propTypes = {
 };
 
 ExpenseGroupDetail.defaultProps = {
+  index: null,
   expenses: [],
   totalBalance: 0,
   totalBudget: 0,

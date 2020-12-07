@@ -1,14 +1,7 @@
 /* eslint-disable no-shadow */
 import React, { useContext, useState, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
-import {
-  Button,
-  Alert,
-  List,
-  ListItem,
-  Overlay,
-  Spinner,
-} from '@atomikui/core';
+import { Button, List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
@@ -21,12 +14,15 @@ const editorSettings = {
 };
 
 const Editor = () => {
-  const { data, setShowEditor, saveUpdates } = useContext(AppContext);
+  const { setShowEditor, saveUpdates, selectedExpense } = useContext(
+    AppContext,
+  );
+
   const [json, setJson] = useState('');
 
   useEffect(() => {
-    setJson(JSON.stringify(data, null, 2));
-  }, [data]);
+    setJson(JSON.stringify(selectedExpense, null, 2));
+  }, [selectedExpense]);
 
   return (
     <div className="editor">

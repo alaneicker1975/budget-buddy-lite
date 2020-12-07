@@ -12,17 +12,6 @@ const Header = ({ title, showHeaderNav }) => {
       {showHeaderNav && (
         <List type="horizontal">
           <ListItem>
-            <Button
-              size="sm"
-              theme="teal"
-              onClick={() => {
-                return setShowEditor(true);
-              }}
-            >
-              Update Data
-            </Button>
-          </ListItem>
-          <ListItem>
             <Button size="sm" onClick={logoutUser}>
               Log Out
             </Button>

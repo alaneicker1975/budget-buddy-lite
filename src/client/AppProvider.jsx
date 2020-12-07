@@ -4,75 +4,13 @@ import Localbase from 'localbase';
 
 const db = new Localbase('budgetBuddy');
 
-// db.collection('expenseGroups').add({
-//   id: 2,
-//   title: 'nov 20, 2020 - Dec 4, 2020',
-//   totalBudget: 4480,
-//   expenses: [
-//     {
-//       title: 'Stash',
-//       balance: 500,
-//       paid: false,
-//     },
-//     {
-//       title: 'Day Care',
-//       balance: 940,
-//       paid: false,
-//     },
-//     {
-//       title: 'Jeep Car Payment',
-//       balance: 359,
-//       paid: false,
-//     },
-//     {
-//       title: 'Ford Car Payment',
-//       balance: 392,
-//       paid: false,
-//     },
-//     {
-//       title: 'Groceries',
-//       balance: 400,
-//       paid: false,
-//     },
-//     {
-//       title: 'Gas',
-//       balance: 70,
-//       paid: false,
-//     },
-//     {
-//       title: 'ComEd',
-//       balance: 70,
-//       paid: false,
-//     },
-//     {
-//       title: 'Nicor',
-//       balance: 40,
-//       paid: false,
-//     },
-//     {
-//       title: 'T-Mobile',
-//       balance: 131,
-//       paid: false,
-//     },
-//     {
-//       title: 'Xfinity',
-//       balance: 170,
-//       paid: false,
-//     },
-//     {
-//       title: 'Gym',
-//       balance: 22,
-//       paid: false,
-//     },
-//   ],
-// });
-
 const AppContext = createContext({});
 
 const AppProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
+  const [selectedExpense, setSelectedExpense] = useState({});
   const [globalMessage, setGlobalMessage] = useState(null);
   const [history, setHistory] = useState(null);
 
@@ -171,15 +109,16 @@ const AppProvider = ({ children }) => {
   // Update expense group
   // -----------------------------------------------------------------
   const saveUpdates = async (json) => {
-    const updatedData = JSON.parse(json);
-    updatedData.forEach((doc, index) => {
-      const hasChanged = JSON.stringify(data[index]) !== JSON.stringify(doc);
-      if (hasChanged) {
-        db.collection('expenseGroups').doc({ id: doc.id }).set(doc);
-      }
-    });
-    setData(updatedData);
+    const updatedDoc = JSON.parse(json);
+    db.collection('expenseGroups').doc({ id: updatedDoc.id }).set(updatedDoc);
+    setData(data.map((doc) => (doc.id === updatedDoc.id ? updatedDoc : doc)));
     setShowEditor(false);
+  };
+
+  // Sets the selected expense
+  // -----------------------------------------------------------------
+  const setSelectedExpenseByIndex = (index) => {
+    setSelectedExpense(data[index]);
   };
 
   useEffect(() => {
@@ -203,6 +142,8 @@ const AppProvider = ({ children }) => {
         authenticateUser,
         saveUpdates,
         verifyToken,
+        selectedExpense,
+        setSelectedExpenseByIndex,
       }}
     >
       {children}

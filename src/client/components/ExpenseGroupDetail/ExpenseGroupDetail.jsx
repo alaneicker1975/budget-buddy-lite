@@ -53,13 +53,13 @@ const ExpenseGroupDetail = ({
                 }}
               >
                 <ListItem>
-                  <Button size="md" onClick={initiateUpdate}>
+                  <Button size="sm" onClick={initiateUpdate}>
                     Update
                   </Button>
                 </ListItem>
                 <ListItem>
                   <Button
-                    size="md"
+                    size="sm"
                     theme="red"
                     onClick={() => setShowDeleteConfirm(true)}
                   >

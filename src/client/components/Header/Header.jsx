@@ -12,12 +12,12 @@ const Header = ({ title, showHeaderNav }) => {
       {showHeaderNav && (
         <List type="horizontal">
           <ListItem>
-            <Button size="md" theme="blue" onClick={addNewExpenseGroup}>
+            <Button size="sm" theme="blue" onClick={addNewExpenseGroup}>
               New Group
             </Button>
           </ListItem>
           <ListItem>
-            <Button size="md" onClick={logoutUser}>
+            <Button size="sm" theme="gray" onClick={logoutUser}>
               Log Out
             </Button>
           </ListItem>

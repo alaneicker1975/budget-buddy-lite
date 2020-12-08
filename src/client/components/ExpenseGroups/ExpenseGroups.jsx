@@ -24,21 +24,23 @@ const ExpenseGroups = () => {
 
   return React.useMemo(() => {
     return (
-      <List loose>
-        {data.map(({ id, title, totalBudget, expenses }, index) => (
-          <ListItem key={`expense-group-${index + 1}`}>
-            <ExpenseGroupDetail
-              id={id}
-              index={index}
-              groupTitle={title}
-              totalBudget={totalBudget}
-              totalBalance={getTotalBalance(expenses)}
-              unpaidBalance={getUpaidBalance(expenses)}
-              expenses={expenses}
-            />
-          </ListItem>
-        ))}
-      </List>
+      <div className="padding-bottom-24">
+        <List loose>
+          {data.map(({ id, title, totalBudget, expenses }, index) => (
+            <ListItem key={`expense-group-${index + 1}`}>
+              <ExpenseGroupDetail
+                id={id}
+                index={index}
+                groupTitle={title}
+                totalBudget={totalBudget}
+                totalBalance={getTotalBalance(expenses)}
+                unpaidBalance={getUpaidBalance(expenses)}
+                expenses={expenses}
+              />
+            </ListItem>
+          ))}
+        </List>
+      </div>
     );
   }, [data]);
 };

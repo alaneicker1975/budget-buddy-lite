@@ -106,7 +106,7 @@ const AppProvider = ({ children }) => {
   // Update expense group
   // -----------------------------------------------------------------
   const updateExpenseGroup = async (json) => {
-    const jsonData = JSON.parse(json);
+    const jsonData = json;
 
     if (jsonData.id) {
       await db
@@ -126,7 +126,6 @@ const AppProvider = ({ children }) => {
   // Deletes an expenseGroup
   // -----------------------------------------------------------------
   const deleteExpenseGroup = (id) => {
-    console.log(id);
     db.collection('expenseGroups').doc({ id }).delete();
     setData(data.filter((doc) => doc.id !== id));
   };

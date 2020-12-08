@@ -19,8 +19,11 @@ const Editor = () => {
   );
 
   const [json, setJson] = useState('');
+  const [id, setId] = useState(null);
 
   useEffect(() => {
+    setId(selectedExpense.id);
+    delete selectedExpense.id;
     setJson(JSON.stringify(selectedExpense, null, 2));
   }, [selectedExpense]);
 
@@ -43,7 +46,7 @@ const Editor = () => {
             <Button
               size="sm"
               theme="blue"
-              onClick={() => updateExpenseGroup(json)}
+              onClick={() => updateExpenseGroup({ id, ...JSON.parse(json) })}
             >
               Save
             </Button>

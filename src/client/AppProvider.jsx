@@ -99,11 +99,8 @@ const AppProvider = ({ children }) => {
   // Geta all expenseGroups
   // -----------------------------------------------------------------
   const getAllExpenseGroups = async () => {
-    const data = await db
-      .collection('expenseGroups')
-      .orderBy('id', 'desc')
-      .get();
-    setData(data);
+    const data = await db.collection('expenseGroups').get();
+    setData(data.reverse());
   };
 
   // Update expense group

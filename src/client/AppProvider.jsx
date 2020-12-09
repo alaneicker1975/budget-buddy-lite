@@ -108,7 +108,7 @@ const AppProvider = ({ children }) => {
   const updateExpenseGroup = async (json) => {
     const jsonData = json;
 
-    if (jsonData.id) {
+    if (jsonData.id !== undefined) {
       await db
         .collection('expenseGroups')
         .doc({ id: jsonData.id })
@@ -116,7 +116,7 @@ const AppProvider = ({ children }) => {
     } else {
       await db
         .collection('expenseGroups')
-        .add({ id: Math.round(Math.random() * 100000000), ...jsonData });
+        .add({ ...jsonData, id: Math.round(Math.random() * 100000000) });
     }
 
     getAllExpenseGroups();

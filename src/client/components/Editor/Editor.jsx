@@ -14,23 +14,28 @@ const editorSettings = {
 };
 
 const Editor = () => {
-  const { setShowEditor, updateExpenseGroup, selectedExpense } = useContext(
-    AppContext,
-  );
+  const {
+    showEditor,
+    setShowEditor,
+    updateExpenseGroup,
+    selectedExpense,
+  } = useContext(AppContext);
 
   const [json, setJson] = useState('');
+  const [mode, setMode] = useState('update');
   const [id, setId] = useState(null);
 
   useEffect(() => {
-    setId(selectedExpense.id);
-    delete selectedExpense.id;
-    setJson(JSON.stringify(selectedExpense, null, 2));
-  }, [selectedExpense]);
+    const { id, ...expense } = selectedExpense;
+    setId(id);
+    setMode(id ? 'Update' : 'New');
+    setJson(JSON.stringify(expense, null, 2));
+  }, [selectedExpense, showEditor]);
 
   return (
     <div className="editor">
       <div className="editor__hd">
-        <span>Expense Editor</span>
+        <span>{mode} Expense</span>
         <List type="horizontal">
           <ListItem>
             <Button

@@ -1,6 +1,13 @@
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Card, List, ListItem, Statistic, Button } from '@atomikui/core';
+import {
+  Card,
+  List,
+  ListItem,
+  Statistic,
+  Button,
+  Overlay,
+} from '@atomikui/core';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -38,6 +45,7 @@ const ExpenseGroupDetail = ({
 
   return (
     <Card
+      style={{ position: 'relative' }}
       title={
         <>
           <div className="flex flex--space-between">
@@ -69,33 +77,28 @@ const ExpenseGroupDetail = ({
               </List>
             </div>
           </div>
-          {showDeleteConfirm && (
-            <div className="text-align-center bg-color-blue-gray-700 margin-top-16">
-              <div className="text-weight-semibold text-size-16 padding-16">
-                <p
-                  className="margin-bottom-8"
-                  style={{ textTransform: 'Capitalize' }}
-                >
-                  Are you sure you want to delete this group?
-                </p>
-                <List type="horizontal">
-                  <ListItem>
-                    <Button size="md" theme="red" onClick={confirmDelete}>
-                      Delete
-                    </Button>
-                  </ListItem>
-                  <ListItem>
-                    <Button
-                      size="md"
-                      onClick={() => setShowDeleteConfirm(false)}
-                    >
-                      Cancel
-                    </Button>
-                  </ListItem>
-                </List>
-              </div>
+          <Overlay
+            isActive={showDeleteConfirm}
+            style={{ position: 'absolute' }}
+          >
+            <div className="text-weight-semibold text-align-center text-size-16 padding-16">
+              <p className="margin-bottom-16">
+                Are you sure you want to delete this group?
+              </p>
+              <List type="horizontal">
+                <ListItem>
+                  <Button size="md" theme="red" onClick={confirmDelete}>
+                    Delete
+                  </Button>
+                </ListItem>
+                <ListItem>
+                  <Button size="md" onClick={() => setShowDeleteConfirm(false)}>
+                    Cancel
+                  </Button>
+                </ListItem>
+              </List>
             </div>
-          )}
+          </Overlay>
         </>
       }
       footer={

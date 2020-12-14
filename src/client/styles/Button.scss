@@ -1,5 +1,12 @@
 .atomikui-btn {
+  text-transform: lowercase !important;
+
   &--sm {
     min-height: rem(28);
+    font-size: rem(14);
+  }
+
+  &--md {
+    font-size: rem(15);
   }
 }

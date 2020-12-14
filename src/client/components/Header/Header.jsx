@@ -2,13 +2,17 @@ import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Button, List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
+import { version } from '../../../../package.json';
 
 const Header = ({ title, showHeaderNav }) => {
   const { logoutUser, addNewExpenseGroup } = useContext(AppContext);
 
   return (
     <header className="main-header">
-      <span>{title}</span>
+      <div className="main-header__logo">
+        <span className="main-header__text">{title}</span>{' '}
+        <span className="main-header__version">v{version}</span>
+      </div>
       {showHeaderNav && (
         <List type="horizontal">
           <ListItem>

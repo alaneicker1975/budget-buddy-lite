@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
         <Spinner size="xlg" theme="cyan" />
       </Overlay>
       <div className="layout">
-        <Header title="Budget Buddy Lite" showHeaderNav={isDashboard} />
+        <Header title="Budget Buddy" showHeaderNav={isDashboard} />
         <div className="layout__body">
           {isDashboard && (
             <Drawer isOpen={showEditor}>

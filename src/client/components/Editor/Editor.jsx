@@ -35,7 +35,7 @@ const Editor = () => {
   return (
     <div className="editor">
       <div className="editor__hd">
-        <span>{mode} Expense</span>
+        <span>{mode} Expense Group</span>
         <List type="horizontal">
           <ListItem>
             <Button

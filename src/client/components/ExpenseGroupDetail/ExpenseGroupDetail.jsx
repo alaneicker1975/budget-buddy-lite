@@ -45,7 +45,6 @@ const ExpenseGroupDetail = ({
 
   return (
     <Card
-      style={{ position: 'relative' }}
       title={
         <>
           <div className="flex flex--space-between">

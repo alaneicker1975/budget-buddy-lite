@@ -37,7 +37,7 @@ Header.propTypes = {
 };
 
 Header.defaultProps = {
-  showHeaderNav: false,
+  showHeaderNav: true,
   title: '',
 };
 

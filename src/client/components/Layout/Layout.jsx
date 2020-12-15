@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Drawer, Overlay, Spinner, Alert } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
@@ -7,9 +6,9 @@ import Header from '../Header';
 import Editor from '../Editor';
 
 const Layout = ({ children }) => {
-  const { showEditor, isLoading, globalMessage } = useContext(AppContext);
-  const { pathname } = useLocation();
-  const isDashboard = pathname === '/dashboard';
+  const { showEditor, isLoading, isLoggedIn, globalMessage } = useContext(
+    AppContext,
+  );
 
   return (
     <>
@@ -17,9 +16,9 @@ const Layout = ({ children }) => {
         <Spinner size="xlg" theme="cyan" />
       </Overlay>
       <div className="layout">
-        <Header title="Budget Buddy" showHeaderNav={isDashboard} />
+        <Header title="Budget Buddy" showHeaderNav={isLoggedIn} />
         <div className="layout__body">
-          {isDashboard && (
+          {isLoggedIn && (
             <Drawer isOpen={showEditor}>
               <Editor />
             </Drawer>

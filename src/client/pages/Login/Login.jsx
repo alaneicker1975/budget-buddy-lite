@@ -2,7 +2,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FormField, List, ListItem } from '@atomikui/core';
-import Layout from '../../components/Layout';
 import { AppContext } from '../../AppProvider';
 
 const numOfFields = 5;
@@ -66,65 +65,63 @@ const Login = (props) => {
   }, [pinValues]);
 
   return (
-    <Layout>
-      <div className="login">
-        <form ref={formRef} className="login__form" autoComplete="off">
-          <h1 className="login__hd">Enter Your 5 Character PIN</h1>
-          <List type="horizontal">
-            <ListItem>
-              <FormField
-                type="password"
-                maxLength="1"
-                name="pin-1"
-                pattern="[0-9]*"
-                inputMode="numeric"
-                onChange={handleChange}
-              />
-            </ListItem>
-            <ListItem>
-              <FormField
-                type="password"
-                maxLength="1"
-                name="pin-2"
-                pattern="[0-9]*"
-                inputMode="numeric"
-                onChange={handleChange}
-              />
-            </ListItem>
-            <ListItem>
-              <FormField
-                type="password"
-                maxLength="1"
-                name="pin-3"
-                pattern="[0-9]*"
-                inputMode="numeric"
-                onChange={handleChange}
-              />
-            </ListItem>
-            <ListItem>
-              <FormField
-                type="password"
-                maxLength="1"
-                name="pin-4"
-                pattern="[0-9]*"
-                inputMode="numeric"
-                onChange={handleChange}
-              />
-            </ListItem>
-            <ListItem>
-              <FormField
-                type="password"
-                maxLength="1"
-                name="pin-5"
-                pattern="[0-9]*"
-                inputMode="numeric"
-                onChange={handleChange}
-              />
-            </ListItem>
-          </List>
-        </form>
-      </div>
-    </Layout>
+    <div className="login">
+      <form ref={formRef} className="login__form" autoComplete="off">
+        <h1 className="login__hd">Enter Your 5 Character PIN</h1>
+        <List type="horizontal">
+          <ListItem>
+            <FormField
+              type="password"
+              maxLength="1"
+              name="pin-1"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              onChange={handleChange}
+            />
+          </ListItem>
+          <ListItem>
+            <FormField
+              type="password"
+              maxLength="1"
+              name="pin-2"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              onChange={handleChange}
+            />
+          </ListItem>
+          <ListItem>
+            <FormField
+              type="password"
+              maxLength="1"
+              name="pin-3"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              onChange={handleChange}
+            />
+          </ListItem>
+          <ListItem>
+            <FormField
+              type="password"
+              maxLength="1"
+              name="pin-4"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              onChange={handleChange}
+            />
+          </ListItem>
+          <ListItem>
+            <FormField
+              type="password"
+              maxLength="1"
+              name="pin-5"
+              pattern="[0-9]*"
+              inputMode="numeric"
+              onChange={handleChange}
+            />
+          </ListItem>
+        </List>
+      </form>
+    </div>
   );
 };
 

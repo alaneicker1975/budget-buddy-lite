@@ -7,6 +7,7 @@ const db = new Localbase('budgetBuddy');
 const AppContext = createContext({});
 
 const AppProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
@@ -68,6 +69,7 @@ const AppProvider = ({ children }) => {
       if (err) {
         setGlobalMessage({ theme: 'error', text: 'Could not log out' });
       } else {
+        setIsLoggedIn(false);
         history.push('/');
       }
     } catch (err) {
@@ -160,6 +162,8 @@ const AppProvider = ({ children }) => {
       value={{
         apiBaseUrl,
         isLoading,
+        isLoggedIn,
+        setIsLoggedIn,
         data,
         setData,
         showEditor,

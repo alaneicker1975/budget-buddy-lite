@@ -16,8 +16,8 @@ const Header = ({ title, showHeaderNav }) => {
       {showHeaderNav && (
         <List type="horizontal">
           <ListItem>
-            <Button size="sm" theme="blue" onClick={addNewExpenseGroup}>
-              New Group
+            <Button size="sm" onClick={addNewExpenseGroup}>
+              + New Group
             </Button>
           </ListItem>
           <ListItem>

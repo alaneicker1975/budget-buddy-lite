@@ -2,11 +2,13 @@
   text-transform: lowercase !important;
 
   &--sm {
-    min-height: rem(28);
     font-size: rem(14);
+    padding: rem(6 12);
+    line-height: 1;
   }
 
   &--md {
     font-size: rem(15);
+    line-height: 1;
   }
 }

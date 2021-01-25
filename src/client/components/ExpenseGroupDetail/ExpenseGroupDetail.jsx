@@ -10,7 +10,10 @@ import {
 } from '@atomikui/core';
 import { Grid, Row, Col } from 'react-flexbox-grid';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheckCircle,
+  faExclamationCircle,
+} from '@fortawesome/free-solid-svg-icons';
 import formatNumber from '../../utilities/formatNumber';
 import { AppContext } from '../../AppProvider';
 
@@ -146,15 +149,12 @@ const ExpenseGroupDetail = ({
               }}
             >
               <div className="text-weight-semibold">
-                {title}{' '}
-                {paid && (
-                  <Icon
-                    className="margin-left-4"
-                    icon={faCheck}
-                    size="sm"
-                    color="#d4e157"
-                  />
-                )}
+                <Icon
+                  className="margin-right-8"
+                  icon={paid ? faCheckCircle : faExclamationCircle}
+                  color={paid ? '#d4e157' : '#f44336'}
+                />
+                {title}
               </div>
               <div>${formatNumber(balance)}</div>
             </ListItem>

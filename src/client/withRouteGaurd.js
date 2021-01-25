@@ -5,16 +5,16 @@ const withRouteGaurd = (Component) => {
   const WithRouteGuard = (props) => {
     const { setHistory, setIsLoggedIn, verifyToken } = useContext(AppContext);
 
-    useEffect(() => {
-      setHistory(props.history);
-      verifyToken()
-        .then(() => {
-          setIsLoggedIn(true);
-        })
-        .catch(() => {
-          props.history.push('/');
-        });
-    }, []);
+    // useEffect(() => {
+    //   setHistory(props.history);
+    //   verifyToken()
+    //     .then(() => {
+    //       setIsLoggedIn(true);
+    //     })
+    //     .catch(() => {
+    //       props.history.push('/');
+    //     });
+    // }, []);
 
     return <Component {...props} />;
   };

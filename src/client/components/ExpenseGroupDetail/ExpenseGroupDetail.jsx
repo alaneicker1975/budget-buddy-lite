@@ -50,35 +50,38 @@ const ExpenseGroupDetail = ({
     <Card
       title={
         <>
-          <div className="flex flex--space-between">
-            <span>{groupTitle}</span>
-            <div className="flex flex--align-middle">
-              <span>Budget: ${totalBudget.toLocaleString()}</span>
-              <List
-                type="horizontal"
-                style={{
-                  marginLeft: '16px',
-                  paddingLeft: '16px',
-                  borderLeft: '1px solid #607d8b',
-                }}
-              >
-                <ListItem>
-                  <Button size="sm" onClick={initiateUpdate}>
-                    Update
-                  </Button>
-                </ListItem>
-                <ListItem>
-                  <Button
-                    size="sm"
-                    theme="red"
-                    onClick={() => setShowDeleteConfirm(true)}
-                  >
-                    Delete
-                  </Button>
-                </ListItem>
-              </List>
-            </div>
-          </div>
+          <Grid>
+            <Row>
+              <Col xs={6} sm={6} md={6} lg={8}>
+                <span className="text-weight-bold">{groupTitle}</span> &bull;{' '}
+                <span className="text-weight-normal">
+                  Budget: ${totalBudget.toLocaleString()}
+                </span>
+              </Col>
+              <Col xs={6} sm={6} md={6} lg={4}>
+                <List type="horizontal" className="text-align-right">
+                  <ListItem>
+                    <Button
+                      size="sm"
+                      onClick={initiateUpdate}
+                      className="margin-bottom-4"
+                    >
+                      Update
+                    </Button>
+                  </ListItem>
+                  <ListItem>
+                    <Button
+                      size="sm"
+                      theme="red"
+                      onClick={() => setShowDeleteConfirm(true)}
+                    >
+                      Delete
+                    </Button>
+                  </ListItem>
+                </List>
+              </Col>
+            </Row>
+          </Grid>
           <Overlay
             isActive={showDeleteConfirm}
             style={{ position: 'absolute' }}

@@ -135,12 +135,15 @@ const ExpenseGroupDetail = ({
         </Grid>
       }
     >
-      <List loose>
+      <List>
         {expenses.map(({ title, balance, paid }, i) => {
           return (
             <ListItem
               key={`group-${i + 1}`}
-              className="flex flex--space-between"
+              className="flex flex--space-between padding-16"
+              style={{
+                background: i % 2 === 0 ? '#3d4e57' : 'transparent',
+              }}
             >
               <div className="text-weight-semibold">
                 {title}{' '}

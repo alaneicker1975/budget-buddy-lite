@@ -25,7 +25,7 @@ const AppProvider = ({ children }) => {
     return new Promise(async (resolve, reject) => {
       try {
         const response = await fetch(`${apiBaseUrl}/authenticate`, {
-          method: 'post',
+          method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -61,7 +61,11 @@ const AppProvider = ({ children }) => {
   const logoutUser = async () => {
     try {
       const response = await fetch(`${apiBaseUrl}/logout`, {
-        method: 'delete',
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
       });
 
       const { err } = await response.json();

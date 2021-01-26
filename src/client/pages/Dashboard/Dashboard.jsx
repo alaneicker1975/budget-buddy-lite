@@ -2,9 +2,9 @@ import React, { useContext } from 'react';
 import { List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 import ExpenseGroupDetail from '../../components/ExpenseGroupDetail';
-import withRouteGuard from '../../withRouteGaurd';
+import withRouteGuard from '../../withRouteGuard';
 
-const Dashboard = withRouteGuard(() => {
+const Dashboard = () => {
   const { data } = useContext(AppContext);
 
   const getTotalBalance = (expenses) => {
@@ -44,6 +44,6 @@ const Dashboard = withRouteGuard(() => {
       </div>
     );
   }, [data]);
-});
+};
 
-export default Dashboard;
+export default withRouteGuard(Dashboard);

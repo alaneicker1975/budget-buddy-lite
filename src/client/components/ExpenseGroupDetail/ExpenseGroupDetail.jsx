@@ -52,20 +52,17 @@ const ExpenseGroupDetail = ({
         <>
           <Grid>
             <Row>
-              <Col xs={6} sm={6} md={6} lg={8}>
+              <Col md={9} className="text-align-center text-align-left@medium">
                 <span className="text-weight-bold">{groupTitle}</span> &bull;{' '}
                 <span className="text-weight-normal">
                   Budget: ${totalBudget.toLocaleString()}
                 </span>
               </Col>
-              <Col xs={6} sm={6} md={6} lg={4}>
-                <List type="horizontal" className="text-align-right">
+              <Col md={3} className="text-align-center text-align-right@medium">
+                <div className="margin-top-12 display-block display-none@medium" />
+                <List type="horizontal">
                   <ListItem>
-                    <Button
-                      size="sm"
-                      onClick={initiateUpdate}
-                      className="margin-bottom-4"
-                    >
+                    <Button size="sm" onClick={initiateUpdate}>
                       Update
                     </Button>
                   </ListItem>

@@ -27,15 +27,14 @@ router.get('/verify-token', (req, res) => {
   } = req;
 
   jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
-    res.send({
-      isValid: !(error || decoded === undefined),
-    });
+    const isValid = !(error || decoded === undefined);
+    res.send(isValid ? 200 : 500).send({ isValid });
   });
 });
 
 router.delete('/logout', (req, res) => {
   res.clearCookie('token');
-  res.send({ isLoggedOut: true });
+  res.send(200).send({ isLoggedOut: true });
 });
 
 module.exports = router;

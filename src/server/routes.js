@@ -28,7 +28,7 @@ router.get('/verify-token', (req, res) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
     const isValid = !(error || decoded === undefined);
-    res.send(isValid ? 200 : 500).send({ isValid });
+    res.send(isValid ? 200 : 401).send({ isValid });
   });
 });
 

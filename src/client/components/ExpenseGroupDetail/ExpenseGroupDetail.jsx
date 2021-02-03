@@ -50,35 +50,33 @@ const ExpenseGroupDetail = ({
     <Card
       title={
         <>
-          <Grid>
-            <Row>
-              <Col md={9} className="text-align-center text-align-left@medium">
-                <span className="text-weight-bold">{groupTitle}</span> &bull;{' '}
-                <span className="text-weight-normal">
-                  Budget: ${totalBudget.toLocaleString()}
-                </span>
-              </Col>
-              <Col md={3} className="text-align-center text-align-right@medium">
-                <div className="margin-top-12 display-block display-none@medium" />
-                <List type="horizontal">
-                  <ListItem>
-                    <Button size="sm" onClick={initiateUpdate}>
-                      Update
-                    </Button>
-                  </ListItem>
-                  <ListItem>
-                    <Button
-                      size="sm"
-                      theme="red"
-                      onClick={() => setShowDeleteConfirm(true)}
-                    >
-                      Delete
-                    </Button>
-                  </ListItem>
-                </List>
-              </Col>
-            </Row>
-          </Grid>
+          <div className="flex@medium flex--space-between">
+            <div className="text-align-center">
+              <span className="text-weight-bold">{groupTitle}</span> &bull;{' '}
+              <span className="text-weight-normal">
+                Budget: ${totalBudget.toLocaleString()}
+              </span>
+            </div>
+            <div className="text-align-center">
+              <div className="margin-top-12 display-block display-none@medium" />
+              <List type="horizontal">
+                <ListItem>
+                  <Button size="sm" onClick={initiateUpdate}>
+                    Update
+                  </Button>
+                </ListItem>
+                <ListItem>
+                  <Button
+                    size="sm"
+                    theme="red"
+                    onClick={() => setShowDeleteConfirm(true)}
+                  >
+                    Delete
+                  </Button>
+                </ListItem>
+              </List>
+            </div>
+          </div>
           <Overlay
             isActive={showDeleteConfirm}
             style={{ position: 'absolute' }}

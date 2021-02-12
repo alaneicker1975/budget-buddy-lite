@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -8,6 +8,7 @@ import {
   Button,
   Overlay,
 } from '@atomikui/core';
+import { createFocusTrap } from 'focus-trap';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import {
   faCheckCircle,
@@ -32,7 +33,10 @@ const ExpenseGroupDetail = ({
     setShowEditor,
     setSelectedExpenseByIndex,
   } = useContext(AppContext);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState();
+  const [focusTrap, setFocusTrap] = useState();
+
+  const deleteConfirmRef = useRef();
 
   const remaingBalance = totalBudget - totalBalance;
   const amountLeftOver = formatNumber(remaingBalance).replace('-', '');
@@ -47,11 +51,26 @@ const ExpenseGroupDetail = ({
     setShowDeleteConfirm(false);
   };
 
+  useEffect(() => {
+    setFocusTrap(
+      createFocusTrap(deleteConfirmRef.current, {
+        escapeDeactivates: false,
+        fallbackFocus: deleteConfirmRef,
+      }),
+    );
+  }, []);
+
+  useEffect(() => {
+    if (focusTrap) {
+      focusTrap[showDeleteConfirm ? 'activate' : 'deactivate']();
+    }
+  }, [showDeleteConfirm, focusTrap]);
+
   return (
     <Card
       title={
         <>
-          <div className="flex@medium flex--space-between">
+          <div className="flex@medium flex--align-middle flex--space-between">
             <div className="text-align-center">
               <span className="text-weight-bold">{groupTitle}</span>
             </div>
@@ -97,7 +116,10 @@ const ExpenseGroupDetail = ({
             isActive={showDeleteConfirm}
             style={{ position: 'absolute' }}
           >
-            <div className="text-weight-semibold text-align-center text-size-16 padding-16">
+            <div
+              ref={deleteConfirmRef}
+              className="text-weight-semibold text-align-center text-size-16 padding-16"
+            >
               <p className="margin-bottom-16">
                 Are you sure you want to delete this group?
               </p>

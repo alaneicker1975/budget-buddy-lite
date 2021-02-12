@@ -52,10 +52,7 @@ const ExpenseGroupDetail = ({
         <>
           <div className="flex@medium flex--space-between">
             <div className="text-align-center">
-              <span className="text-weight-bold">{groupTitle}</span> &bull;{' '}
-              <span className="text-weight-normal">
-                Budget: ${totalBudget.toLocaleString()}
-              </span>
+              <span className="text-weight-bold">{groupTitle}</span>
             </div>
             <div className="text-align-center">
               <div className="margin-top-12 display-block display-none@medium" />
@@ -101,64 +98,74 @@ const ExpenseGroupDetail = ({
           </Overlay>
         </>
       }
-      footer={
-        <Grid>
-          <Row>
-            <Col sm={4} className="text-align-center">
-              <Statistic
-                value={`$${formatNumber(totalBalance)}`}
-                label="Total Balance"
-                size="sm"
-                topLabel
-              />
-              <div className="margin-bottom-16 display-none@small" />
-            </Col>
-            <Col sm={4} className="text-align-center">
-              <Statistic
-                value={`$${formatNumber(unpaidBalance)}`}
-                label="Unpaid Balance"
-                size="sm"
-                theme={unpaidBalance > 0 ? 'red' : 'lime'}
-                topLabel
-              />
-              <div className="margin-bottom-16 display-none@small" />
-            </Col>
-            <Col sm={4} className="text-align-center">
-              <Statistic
-                value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
-                label="Left Over Balance"
-                size="sm"
-                theme={remaingBalance > 0 ? 'lime' : 'red'}
-                topLabel
-              />
-            </Col>
-          </Row>
-        </Grid>
-      }
     >
-      <List>
-        {expenses.map(({ title, balance, paid }, i) => {
-          return (
-            <ListItem
-              key={`group-${i + 1}`}
-              className="flex flex--space-between padding-16"
-              style={{
-                background: i % 2 === 0 ? '#3d4e57' : 'transparent',
-              }}
-            >
-              <div className="text-weight-semibold">
-                <Icon
-                  className="margin-right-8"
-                  icon={paid ? faCheckCircle : faExclamationCircle}
-                  color={paid ? '#d4e157' : '#f44336'}
-                />
-                {title}
-              </div>
-              <div>${formatNumber(balance)}</div>
-            </ListItem>
-          );
-        })}
-      </List>
+      <div className="flex@medium">
+        <List className="flex__item--grow">
+          {expenses.map(({ title, balance, paid }, i) => {
+            return (
+              <ListItem
+                key={`group-${i + 1}`}
+                className="flex flex--space-between padding-16"
+                style={{
+                  background: i % 2 === 0 ? '#3d4e57' : 'transparent',
+                }}
+              >
+                <div className="text-weight-semibold">
+                  <Icon
+                    className="margin-right-8"
+                    icon={paid ? faCheckCircle : faExclamationCircle}
+                    color={paid ? '#d4e157' : '#f44336'}
+                  />
+                  {title}
+                </div>
+                <div>${formatNumber(balance)}</div>
+              </ListItem>
+            );
+          })}
+        </List>
+        <div
+          className="text-align-center padding-24"
+          style={{ minWidth: '200px', background: '#334147' }}
+        >
+          <Statistic
+            value={`$${totalBudget.toLocaleString()}`}
+            label="Total Budget"
+            size="md"
+            topLabel
+          />
+          <div
+            style={{
+              borderBottom: '1px solid rgba(255,255,255,0.35)',
+              paddingBottom: '16px',
+              marginBottom: '30px',
+            }}
+          />
+          <div className="margin-bottom-30">
+            <Statistic
+              value={`$${formatNumber(totalBalance)}`}
+              label="Total Balance"
+              size="sm"
+              topLabel
+            />
+          </div>
+          <div className="margin-bottom-30">
+            <Statistic
+              value={`$${formatNumber(unpaidBalance)}`}
+              label="Unpaid Balance"
+              size="sm"
+              theme={unpaidBalance > 0 ? 'red' : 'lime'}
+              topLabel
+            />
+          </div>
+          <Statistic
+            value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
+            label="Left Over Balance"
+            size="sm"
+            theme={remaingBalance > 0 ? 'lime' : 'red'}
+            topLabel
+          />
+        </div>
+      </div>
     </Card>
   );
 };

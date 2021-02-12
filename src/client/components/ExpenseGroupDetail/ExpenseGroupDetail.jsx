@@ -8,11 +8,12 @@ import {
   Button,
   Overlay,
 } from '@atomikui/core';
-import { Grid, Row, Col } from 'react-flexbox-grid';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import {
   faCheckCircle,
   faExclamationCircle,
+  faTrashAlt,
+  faEdit,
 } from '@fortawesome/free-solid-svg-icons';
 import formatNumber from '../../utilities/formatNumber';
 import { AppContext } from '../../AppProvider';
@@ -58,17 +59,35 @@ const ExpenseGroupDetail = ({
               <div className="margin-top-12 display-block display-none@medium" />
               <List type="horizontal">
                 <ListItem>
-                  <Button size="sm" onClick={initiateUpdate}>
-                    Update
+                  <Button
+                    size="sm"
+                    theme="blue-gray"
+                    onClick={initiateUpdate}
+                    aria-label="update"
+                  >
+                    <Icon
+                      icon={faEdit}
+                      color="white"
+                      size="lg"
+                      className="margin-right-4"
+                    />{' '}
+                    edit
                   </Button>
                 </ListItem>
                 <ListItem>
                   <Button
                     size="sm"
-                    theme="red"
+                    theme="blue-gray"
                     onClick={() => setShowDeleteConfirm(true)}
+                    aria-label="delete"
                   >
-                    Delete
+                    <Icon
+                      icon={faTrashAlt}
+                      color="white"
+                      size="lg"
+                      className="margin-right-4"
+                    />{' '}
+                    delete
                   </Button>
                 </ListItem>
               </List>
@@ -123,23 +142,14 @@ const ExpenseGroupDetail = ({
             );
           })}
         </List>
-        <div
-          className="text-align-center padding-24"
-          style={{ minWidth: '200px', background: '#334147' }}
-        >
+        <div className="expense-group-summary">
           <Statistic
             value={`$${totalBudget.toLocaleString()}`}
             label="Total Budget"
             size="md"
             topLabel
           />
-          <div
-            style={{
-              borderBottom: '1px solid rgba(255,255,255,0.35)',
-              paddingBottom: '16px',
-              marginBottom: '30px',
-            }}
-          />
+          <hr />
           <div className="margin-bottom-30">
             <Statistic
               value={`$${formatNumber(totalBalance)}`}
@@ -153,7 +163,7 @@ const ExpenseGroupDetail = ({
               value={`$${formatNumber(unpaidBalance)}`}
               label="Unpaid Balance"
               size="sm"
-              theme={unpaidBalance > 0 ? 'red' : 'lime'}
+              theme="red"
               topLabel
             />
           </div>
@@ -161,7 +171,7 @@ const ExpenseGroupDetail = ({
             value={`${remaingBalance < 0 ? '-' : ''}$${amountLeftOver}`}
             label="Left Over Balance"
             size="sm"
-            theme={remaingBalance > 0 ? 'lime' : 'red'}
+            theme="lime"
             topLabel
           />
         </div>

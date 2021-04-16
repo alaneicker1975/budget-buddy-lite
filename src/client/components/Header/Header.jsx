@@ -21,7 +21,7 @@ const Header = ({ title, showHeaderNav }) => {
             </Button>
           </ListItem>
           <ListItem>
-            <Button size="sm" theme="gray" onClick={logoutUser}>
+            <Button size="sm" theme="blue-gray" onClick={logoutUser}>
               Log Out
             </Button>
           </ListItem>

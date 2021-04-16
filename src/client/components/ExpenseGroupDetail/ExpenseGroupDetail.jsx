@@ -148,7 +148,7 @@ const ExpenseGroupDetail = ({
                 key={`group-${i + 1}`}
                 className="flex flex--space-between padding-16"
                 style={{
-                  background: i % 2 === 0 ? '#3d4e57' : 'transparent',
+                  background: i % 2 === 0 ? '#2a2e38' : 'transparent',
                 }}
               >
                 <div className="text-weight-semibold">

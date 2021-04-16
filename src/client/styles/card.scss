@@ -8,16 +8,16 @@
 }
 
 .atomikui-card__header {
-  border-bottom: rem(1) solid $blue-gray-600;
+  border-bottom: rem(1) solid lighten($darkGray, 18%);
   font-size: rem(19);
   padding-bottom: rem(16);
 }
 
 .atomikui-card__footer {
-  border-top: rem(1) solid $blue-gray-600;
+  border-top: rem(1) solid lighten($darkGray, 18%);
   padding-top: rem(14);
 }
 
 .atomikui-card {
-  background: $blue-gray-800;
+  background: lighten($darkGray, 5%);
 }

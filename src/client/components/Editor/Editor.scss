@@ -1,8 +1,8 @@
 .editor {
-  background: darken($blue-gray-900, 3%);
+  background: lighten($darkGray, 5%);
 
   &__hd {
-    border-bottom: rem(1) solid $blue-gray-800;
+    border-bottom: rem(1) solid rgba(255, 255, 255, 0.15);
     padding: rem(16);
     display: flex;
     align-items: center;

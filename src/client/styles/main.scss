@@ -1,6 +1,9 @@
 @import '../../../node_modules/@atomikui/core/dist/styles/main.min.css';
 @import '../../../node_modules/@atomikui/core-sass/abstracts/main';
 
+// Abstracts
+@import './variables';
+
 // Base styles
 @import './base';
 @import './layout';

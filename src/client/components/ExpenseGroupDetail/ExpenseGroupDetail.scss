@@ -12,3 +12,12 @@
     margin: rem(16 0 30);
   }
 }
+
+.expense-group-action-btn {
+  align-items: center;
+  border-radius: 50%;
+  display: flex;
+  height: rem(36);
+  justify-content: center;
+  width: rem(36);
+}

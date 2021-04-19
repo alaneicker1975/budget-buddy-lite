@@ -83,14 +83,10 @@ const ExpenseGroupDetail = ({
                     theme="blue-gray"
                     onClick={initiateUpdate}
                     aria-label="update"
+                    title="update"
+                    className="expense-group-action-btn"
                   >
-                    <Icon
-                      icon={faEdit}
-                      color="white"
-                      size="lg"
-                      className="margin-right-4"
-                    />{' '}
-                    edit
+                    <Icon icon={faEdit} color="white" />{' '}
                   </Button>
                 </ListItem>
                 <ListItem>
@@ -99,14 +95,10 @@ const ExpenseGroupDetail = ({
                     theme="blue-gray"
                     onClick={() => setShowDeleteConfirm(true)}
                     aria-label="delete"
+                    title="delete"
+                    className="expense-group-action-btn"
                   >
-                    <Icon
-                      icon={faTrashAlt}
-                      color="white"
-                      size="lg"
-                      className="margin-right-4"
-                    />{' '}
-                    delete
+                    <Icon icon={faTrashAlt} color="white" />{' '}
                   </Button>
                 </ListItem>
               </List>

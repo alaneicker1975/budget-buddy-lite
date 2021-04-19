@@ -27,11 +27,10 @@ const Dashboard = () => {
     return (
       <div className="padding-bottom-24">
         <List loose>
-          {data.map(({ id, title, totalBudget, expenses }, index) => (
-            <ListItem key={`expense-group-${index + 1}`}>
+          {data.map(({ _id, title, totalBudget, expenses }) => (
+            <ListItem key={`expense-group-${_id}`}>
               <ExpenseGroupDetail
-                id={id}
-                index={index}
+                id={_id}
                 groupTitle={title}
                 totalBudget={totalBudget}
                 totalBalance={getTotalBalance(expenses)}

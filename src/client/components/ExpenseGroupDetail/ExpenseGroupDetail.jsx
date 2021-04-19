@@ -20,7 +20,6 @@ import formatNumber from '../../utilities/formatNumber';
 import { AppContext } from '../../AppProvider';
 
 const ExpenseGroupDetail = ({
-  index,
   id,
   groupTitle,
   totalBudget,
@@ -31,7 +30,7 @@ const ExpenseGroupDetail = ({
   const {
     deleteExpenseGroup,
     setShowEditor,
-    setSelectedExpenseByIndex,
+    setSelectedExpenseById,
   } = useContext(AppContext);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState();
   const [focusTrap, setFocusTrap] = useState();
@@ -42,7 +41,7 @@ const ExpenseGroupDetail = ({
   const amountLeftOver = formatNumber(remaingBalance).replace('-', '');
 
   const initiateUpdate = () => {
-    setSelectedExpenseByIndex(index);
+    setSelectedExpenseById(id);
     setShowEditor(true);
   };
 
@@ -195,8 +194,7 @@ const ExpenseGroupDetail = ({
 };
 
 ExpenseGroupDetail.propTypes = {
-  index: PropTypes.number,
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   expenses: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string,
@@ -210,7 +208,6 @@ ExpenseGroupDetail.propTypes = {
 };
 
 ExpenseGroupDetail.defaultProps = {
-  index: null,
   id: null,
   expenses: [],
   totalBalance: 0,

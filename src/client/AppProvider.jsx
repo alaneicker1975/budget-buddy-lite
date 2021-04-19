@@ -108,7 +108,7 @@ const AppProvider = ({ children }) => {
     try {
       const response = await fetch(`${apiBaseUrl}/expenseGroups`);
       const { err, data } = await response.json();
-      console.log(`${apiBaseUrl}/expenseGroups`);
+
       if (err) {
         setGlobalMessage({
           theme: 'error',
@@ -156,8 +156,27 @@ const AppProvider = ({ children }) => {
 
   // Sets the selected expense
   // -----------------------------------------------------------------
-  const setSelectedExpenseByIndex = (index) => {
-    setSelectedExpense(data[index]);
+  const setSelectedExpenseById = async (id) => {
+    try {
+      const response = await fetch(`${apiBaseUrl}/expenseGroups/${id}`);
+      const { err, data } = await response.json();
+
+      if (err) {
+        setGlobalMessage({
+          theme: 'error',
+          text: err,
+        });
+
+        return;
+      }
+
+      setSelectedExpense(data);
+    } catch (err) {
+      setGlobalMessage({
+        theme: 'error',
+        text: err.message,
+      });
+    }
   };
 
   const addNewExpenseGroup = () => {
@@ -199,7 +218,7 @@ const AppProvider = ({ children }) => {
         updateExpenseGroup,
         verifyToken,
         selectedExpense,
-        setSelectedExpenseByIndex,
+        setSelectedExpenseById,
         deleteExpenseGroup,
         addNewExpenseGroup,
       }}

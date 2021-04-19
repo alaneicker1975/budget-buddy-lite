@@ -1,7 +1,6 @@
 const dotenv = require('dotenv');
 const cors = require('cors');
 const express = require('express');
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -24,10 +23,10 @@ try {
   console.log(err);
 }
 
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.static('dist'));
 app.use(cors());
 app.use(cookieParser());
-app.use(express.static('dist'));
 
 app.use('/api/user', authRoutes);
 app.use('/api/expenseGroups', expenseGroupRoutes);

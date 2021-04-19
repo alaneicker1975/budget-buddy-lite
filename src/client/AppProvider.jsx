@@ -105,8 +105,26 @@ const AppProvider = ({ children }) => {
   // Geta all expenseGroups
   // -----------------------------------------------------------------
   const getAllExpenseGroups = async () => {
-    const data = await db.collection('expenseGroups').get();
-    setData(data.reverse());
+    try {
+      const response = await fetch(`${apiBaseUrl}/expenseGroups`);
+      const { err, data } = await response.json();
+      console.log(`${apiBaseUrl}/expenseGroups`);
+      if (err) {
+        setGlobalMessage({
+          theme: 'error',
+          text: err,
+        });
+
+        return;
+      }
+
+      setData(data);
+    } catch (err) {
+      setGlobalMessage({
+        theme: 'error',
+        text: err.message,
+      });
+    }
   };
 
   // Update expense group

@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('file-system');
 const jwt = require('jsonwebtoken');
 const passwordHash = require('bcrypt-node');
 

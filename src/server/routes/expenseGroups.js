@@ -12,17 +12,17 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:_id', async (req, res) => {
   try {
-    const { id } = req.params;
-    const expenseGroup = await ExpenseGroup.findOne({ _id: id });
+    const { _id } = req.params;
+    const expenseGroup = await ExpenseGroup.findOne({ _id });
     res.status(201).send({ data: expenseGroup });
   } catch (err) {
     res.status(500).send({ err: err.message });
   }
 });
 
-router.post('/create', async (req, res) => {
+router.post('/', async (req, res) => {
   try {
     const { body } = req;
     const expenseGroup = await new ExpenseGroup(body).save();
@@ -32,8 +32,16 @@ router.post('/create', async (req, res) => {
   }
 });
 
-router.patch('/update/:id', (req, res) => {});
+router.patch('/:_id', async (req, res) => {});
 
-router.delete('/delete/:id', (req, res) => {});
+router.delete('/:_id', async (req, res) => {
+  try {
+    const { _id } = req.params;
+    const { deletedCount } = await ExpenseGroup.deleteOne({ _id });
+    res.status(200).send({ deletedId: deletedCount !== 0 ? _id : null });
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+});
 
 module.exports = router;

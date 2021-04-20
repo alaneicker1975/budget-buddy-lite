@@ -6,8 +6,8 @@ import ExpenseGroupDetail from '../../components/ExpenseGroupDetail';
 import withRouteGuard from '../../withRouteGuard';
 
 const Dashboard = () => {
-  const { setGlobalMessage, setIsLoading } = useAppContext();
-  const { fetchExpenseGroups, loading, error, data } = useFetchExpenseGroups();
+  const { setGlobalMessage, setIsLoading, setData, data } = useAppContext();
+  const { fetchExpenseGroups, loading, error } = useFetchExpenseGroups();
 
   const getTotalBalance = (expenses) => {
     return expenses.reduce((total, expense) => {
@@ -26,7 +26,7 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    fetchExpenseGroups();
+    fetchExpenseGroups().then((res) => setData(res));
   }, []);
 
   useEffect(() => {

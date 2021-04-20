@@ -11,6 +11,7 @@ export const useAppContext = () => {
 };
 
 const AppProvider = ({ children }) => {
+  const [data, setData] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
@@ -38,13 +39,6 @@ const AppProvider = ({ children }) => {
 
     //getAllExpenseGroups();
     setShowEditor(false);
-  };
-
-  // Deletes an expenseGroup
-  // -----------------------------------------------------------------
-  const deleteExpenseGroup = (id) => {
-    db.collection('expenseGroups').doc({ id }).delete();
-    setData(data.filter((doc) => doc.id !== id));
   };
 
   // Sets the selected expense
@@ -90,6 +84,8 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        data,
+        setData,
         apiBaseUrl,
         isLoading,
         isLoggedIn,
@@ -104,7 +100,6 @@ const AppProvider = ({ children }) => {
         updateExpenseGroup,
         selectedExpense,
         setSelectedExpenseById,
-        deleteExpenseGroup,
         addNewExpenseGroup,
       }}
     >

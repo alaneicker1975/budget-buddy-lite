@@ -3,7 +3,6 @@ import { useState } from 'react';
 const useFetchExpenseGroups = () => {
   const [error, setError] = useState();
   const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
 
   const fetchExpenseGroups = async () => {
     try {
@@ -15,15 +14,16 @@ const useFetchExpenseGroups = () => {
         return;
       }
 
-      setData(data);
       setLoading(false);
+
+      return data;
     } catch (err) {
       setError(err.message);
       setLoading(false);
     }
   };
 
-  return { fetchExpenseGroups, data, error, loading };
+  return { fetchExpenseGroups, error, loading };
 };
 
 export default useFetchExpenseGroups;

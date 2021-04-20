@@ -16,8 +16,9 @@ import {
   faTrashAlt,
   faEdit,
 } from '@fortawesome/free-solid-svg-icons';
+import { useAppContext } from '../../AppProvider';
+import useDeleteExpenseGroup from '../../hooks/useDeleteExpenseGroup';
 import formatNumber from '../../utilities/formatNumber';
-import { AppContext } from '../../AppProvider';
 
 const ExpenseGroupDetail = ({
   id,
@@ -28,10 +29,21 @@ const ExpenseGroupDetail = ({
   expenses,
 }) => {
   const {
-    deleteExpenseGroup,
+    data,
+    setData,
     setShowEditor,
+    setIsLoading,
+    setGlobalMessage,
     setSelectedExpenseById,
-  } = useContext(AppContext);
+  } = useAppContext();
+
+  const {
+    deleteExpenseGroup,
+    error,
+    loading,
+    deletedId,
+  } = useDeleteExpenseGroup();
+
   const [showDeleteConfirm, setShowDeleteConfirm] = useState();
   const [focusTrap, setFocusTrap] = useState();
 
@@ -49,6 +61,24 @@ const ExpenseGroupDetail = ({
     deleteExpenseGroup(id);
     setShowDeleteConfirm(false);
   };
+
+  useEffect(() => {
+    if (deletedId) {
+      setData(data.filter(({ _id }) => deletedId !== _id));
+    }
+  }, [deletedId]);
+
+  useEffect(() => {
+    if (!!error) {
+      setGlobalMessage({ theme: 'error', text: error });
+    } else {
+      setGlobalMessage(null);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
 
   useEffect(() => {
     setFocusTrap(

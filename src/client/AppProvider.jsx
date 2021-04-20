@@ -20,34 +20,6 @@ const AppProvider = ({ children }) => {
 
   const apiBaseUrl = process.env.API_BASE_URL;
 
-  // Log out user
-  // -----------------------------------------------------------------
-  const logoutUser = async () => {
-    try {
-      const response = await fetch(`${apiBaseUrl}/user/logout`, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      });
-
-      const { err } = await response.json();
-
-      if (err) {
-        setGlobalMessage({ theme: 'error', text: 'Could not log out' });
-      } else {
-        setIsLoggedIn(false);
-        history.push('/');
-      }
-    } catch (err) {
-      setGlobalMessage({
-        theme: 'error',
-        text: err.message,
-      });
-    }
-  };
-
   // Verify token
   // -----------------------------------------------------------------
   const verifyToken = () => {
@@ -147,7 +119,6 @@ const AppProvider = ({ children }) => {
         setIsLoading,
         history,
         setHistory,
-        logoutUser,
         updateExpenseGroup,
         verifyToken,
         selectedExpense,

@@ -1,11 +1,19 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, List, ListItem } from '@atomikui/core';
-import { AppContext } from '../../AppProvider';
+import useLogout from '../../hooks/useLogout';
+import { useAppContext } from '../../AppProvider';
 import { version } from '../../../../package.json';
 
 const Header = ({ title, showHeaderNav }) => {
-  const { logoutUser, addNewExpenseGroup } = useContext(AppContext);
+  const { addNewExpenseGroup, history } = useAppContext();
+  const { logoutUser, loggedOut } = useLogout();
+
+  useEffect(() => {
+    if (loggedOut) {
+      history.push('/');
+    }
+  }, [loggedOut]);
 
   return (
     <header className="main-header">

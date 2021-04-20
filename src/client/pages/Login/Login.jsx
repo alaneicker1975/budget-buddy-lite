@@ -4,12 +4,14 @@ import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { FormField, List, ListItem, Button } from '@atomikui/core';
-import { AppContext } from '../../AppProvider';
+import { useAppContext } from '../../AppProvider';
+import useAuthenticateUser from '../../hooks/auth/useAuthenticateUser';
 
 const Login = (props) => {
   const usernameRef = useRef();
 
-  const { authenticateUser, setHistory } = useContext(AppContext);
+  const { setHistory } = useAppContext();
+  const { authenticate } = useAuthenticateUser();
 
   const validationSchema = yup.object().shape({
     username: yup.string().required('user name is required'),
@@ -25,7 +27,7 @@ const Login = (props) => {
     initialValues,
     validationSchema,
     onSubmit: (values) => {
-      authenticateUser(values);
+      authenticate(values);
     },
   });
 

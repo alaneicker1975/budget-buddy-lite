@@ -1,10 +1,14 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Localbase from 'localbase';
 
 const db = new Localbase('budgetBuddy');
 
 const AppContext = createContext({});
+
+export const useAppContext = () => {
+  return useContext(AppContext);
+};
 
 const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,45 +20,6 @@ const AppProvider = ({ children }) => {
   const [history, setHistory] = useState(null);
 
   const apiBaseUrl = process.env.API_BASE_URL;
-
-  // User authentication
-  // -----------------------------------------------------------------
-  const authenticateUser = (userData) => {
-    setIsLoading(true);
-
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/user/authenticate`, {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        });
-
-        const { err } = await response.json();
-
-        if (err) {
-          setGlobalMessage({ theme: 'error', text: err });
-          reject();
-        } else {
-          setGlobalMessage(null);
-          resolve();
-          history.push('/dashboard');
-        }
-
-        setIsLoading(false);
-      } catch (err) {
-        setGlobalMessage({
-          theme: 'error',
-          text: err.message,
-        });
-        setIsLoading(false);
-        reject();
-      }
-    });
-  };
 
   // Log out user
   // -----------------------------------------------------------------
@@ -212,9 +177,9 @@ const AppProvider = ({ children }) => {
         globalMessage,
         setGlobalMessage,
         setIsLoading,
+        history,
         setHistory,
         logoutUser,
-        authenticateUser,
         updateExpenseGroup,
         verifyToken,
         selectedExpense,

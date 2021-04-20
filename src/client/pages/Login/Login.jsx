@@ -5,7 +5,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { FormField, List, ListItem, Button } from '@atomikui/core';
 import { useAppContext } from '../../AppProvider';
-import useAuthenticateUser from '../../hooks/auth/useAuthenticateUser';
+import useAuthenticateUser from '../../hooks/useAuthenticateUser';
 
 const Login = (props) => {
   const usernameRef = useRef();

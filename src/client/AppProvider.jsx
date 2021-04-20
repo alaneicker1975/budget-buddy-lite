@@ -13,7 +13,6 @@ export const useAppContext = () => {
 const AppProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [data, setData] = useState([]);
   const [showEditor, setShowEditor] = useState(false);
   const [selectedExpense, setSelectedExpense] = useState({});
   const [globalMessage, setGlobalMessage] = useState(null);
@@ -67,31 +66,6 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  // Geta all expenseGroups
-  // -----------------------------------------------------------------
-  const getAllExpenseGroups = async () => {
-    try {
-      const response = await fetch(`${apiBaseUrl}/expenseGroups`);
-      const { err, data } = await response.json();
-
-      if (err) {
-        setGlobalMessage({
-          theme: 'error',
-          text: err,
-        });
-
-        return;
-      }
-
-      setData(data);
-    } catch (err) {
-      setGlobalMessage({
-        theme: 'error',
-        text: err.message,
-      });
-    }
-  };
-
   // Update expense group
   // -----------------------------------------------------------------
   const updateExpenseGroup = async (json) => {
@@ -108,7 +82,7 @@ const AppProvider = ({ children }) => {
         .add({ ...jsonData, id: Math.round(Math.random() * 100000000) });
     }
 
-    getAllExpenseGroups();
+    //getAllExpenseGroups();
     setShowEditor(false);
   };
 
@@ -159,10 +133,6 @@ const AppProvider = ({ children }) => {
     setShowEditor(true);
   };
 
-  useEffect(() => {
-    getAllExpenseGroups();
-  }, []);
-
   return (
     <AppContext.Provider
       value={{
@@ -170,8 +140,6 @@ const AppProvider = ({ children }) => {
         isLoading,
         isLoggedIn,
         setIsLoggedIn,
-        data,
-        setData,
         showEditor,
         setShowEditor,
         globalMessage,

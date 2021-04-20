@@ -1,11 +1,13 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
 import { List, ListItem } from '@atomikui/core';
-import { AppContext } from '../../AppProvider';
+import { useAppContext } from '../../AppProvider';
+import useFetchExpenseGroups from '../../hooks/useFetchExpenseGroups';
 import ExpenseGroupDetail from '../../components/ExpenseGroupDetail';
 import withRouteGuard from '../../withRouteGuard';
 
 const Dashboard = () => {
-  const { data } = useContext(AppContext);
+  const { setGlobalMessage, setIsLoading } = useAppContext();
+  const { fetchExpenseGroups, loading, error, data } = useFetchExpenseGroups();
 
   const getTotalBalance = (expenses) => {
     return expenses.reduce((total, expense) => {
@@ -22,6 +24,22 @@ const Dashboard = () => {
         return total + expense.balance;
       }, 0);
   };
+
+  useEffect(() => {
+    fetchExpenseGroups();
+  }, []);
+
+  useEffect(() => {
+    if (!!error) {
+      setGlobalMessage({ theme: 'error', text: error });
+    } else {
+      setGlobalMessage(null);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
 
   return React.useMemo(() => {
     return (

@@ -19,18 +19,18 @@ const AppProvider = ({ children }) => {
 
   // User authentication
   // -----------------------------------------------------------------
-  const authenticateUser = (pin) => {
+  const authenticateUser = (userData) => {
     setIsLoading(true);
 
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await fetch(`${apiBaseUrl}/authenticate`, {
+        const response = await fetch(`${apiBaseUrl}/user/authenticate`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ pin }),
+          body: JSON.stringify(userData),
         });
 
         const { err } = await response.json();
@@ -60,7 +60,7 @@ const AppProvider = ({ children }) => {
   // -----------------------------------------------------------------
   const logoutUser = async () => {
     try {
-      const response = await fetch(`${apiBaseUrl}/logout`, {
+      const response = await fetch(`${apiBaseUrl}/user/logout`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -89,7 +89,7 @@ const AppProvider = ({ children }) => {
   const verifyToken = () => {
     return new Promise(async (resolve, reject) => {
       try {
-        const response = await fetch(`${apiBaseUrl}/verify-token`);
+        const response = await fetch(`${apiBaseUrl}/user/verify-token`);
         const { isValid } = await response.json();
         if (!isValid) {
           reject();

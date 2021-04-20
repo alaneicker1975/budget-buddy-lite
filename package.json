@@ -21,6 +21,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
+    "bcrypt": "^5.0.1",
     "bcrypt-node": "^0.1.0",
     "classnames": "^2.2.6",
     "codemirror": "^5.58.2",
@@ -30,6 +31,7 @@
     "express": "^4.17.1",
     "file-system": "^2.2.2",
     "focus-trap": "^6.3.0",
+    "formik": "^2.2.6",
     "fs-extra": "^9.0.1",
     "jsonwebtoken": "^8.5.1",
     "localbase": "^0.7.4",
@@ -42,7 +44,8 @@
     "react-dom": "^17.0.1",
     "react-flexbox-grid": "^2.1.2",
     "react-router-dom": "^5.2.0",
-    "shallow-equal": "^1.2.1"
+    "shallow-equal": "^1.2.1",
+    "yup": "^0.32.9"
   },
   "devDependencies": {
     "@atomikui/core-sass": "^0.2.0",

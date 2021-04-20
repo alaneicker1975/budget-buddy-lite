@@ -1,24 +1,34 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const passwordHash = require('bcrypt-node');
+const bcrypt = require('bcrypt-node');
+const User = require('../schemas/auth');
 
 const router = express.Router();
 
-router.post('/authenticate', (req, res) => {
-  const { body } = req;
-  const isValidPin = passwordHash.compareSync(body.pin, process.env.USER_PIN);
+router.post('/authenticate', async (req, res) => {
+  try {
+    const {
+      body: { username, password },
+    } = req;
 
-  if (!isValidPin) {
-    res.status(401).send({ err: 'Login Error: Invalid PIN' });
-    return;
+    const user = await User.findOne({ username });
+
+    const isValidUser = bcrypt.compareSync(password, user.password);
+
+    if (!isValidUser) {
+      res.status(401).send({ err: 'Invalid username or password' });
+      return;
+    }
+
+    const token = jwt.sign({}, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.cookie('token', token, { httpOnly: true });
+    res.status(200).send({});
+  } catch (err) {
+    res.status(500).send({ err: 'Invalid username or password' });
   }
-
-  const token = jwt.sign({}, process.env.JWT_SECRET, {
-    expiresIn: '1h',
-  });
-
-  res.cookie('token', token, { httpOnly: true });
-  res.status(200).send({});
 });
 
 router.get('/verify-token', (req, res) => {
@@ -28,6 +38,7 @@ router.get('/verify-token', (req, res) => {
 
   jwt.verify(token, process.env.JWT_SECRET, (error, decoded) => {
     const isValid = !(error || decoded === undefined);
+    console.log(isValid);
     res.send({ isValid });
   });
 });

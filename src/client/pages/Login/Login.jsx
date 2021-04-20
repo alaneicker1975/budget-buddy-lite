@@ -1,123 +1,71 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { useContext, useEffect, useState, useRef } from 'react';
+import React, { useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FormField, List, ListItem } from '@atomikui/core';
+import * as yup from 'yup';
+import { useFormik } from 'formik';
+import { FormField, List, ListItem, Button } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
-
-const numOfFields = 5;
-
-const usePinFields = () => {
-  const [pinValues, setPinValue] = useState({});
-
-  return {
-    pinValues,
-    setPinValue,
-    handleChange: (e) => {
-      const { maxLength, value, name } = e.target;
-      const [fieldName, fieldIndex] = name.split('-');
-
-      // Check if they hit the max character length
-      if (value.length >= maxLength) {
-        // Check if it's not the last input field
-        if (parseInt(fieldIndex, 10) < numOfFields) {
-          // Get the next input field
-          const nextSibling = document.querySelector(
-            `input[name=${fieldName}-${parseInt(fieldIndex, 10) + 1}]`,
-          );
-
-          // If found, focus the next field
-          if (nextSibling !== null) {
-            nextSibling.focus();
-          }
-        }
-      }
-
-      setPinValue((prevState) => {
-        return {
-          ...prevState,
-          [`${fieldName}_${fieldIndex}`]: value,
-        };
-      });
-
-      e.target.blur();
-    },
-  };
-};
 
 const Login = (props) => {
   const { authenticateUser, setHistory } = useContext(AppContext);
-  const { pinValues, setPinValue, handleChange } = usePinFields();
-  const formRef = useRef();
+
+  const validationSchema = yup.object().shape({
+    username: yup.string().required('user name is required'),
+    password: yup.string().required('password is required'),
+  });
+
+  const initialValues = {
+    username: '',
+    password: '',
+  };
+
+  const { handleSubmit, handleChange, errors, touched } = useFormik({
+    initialValues,
+    validationSchema,
+    onSubmit: (values) => {
+      authenticateUser(values);
+    },
+  });
 
   useEffect(() => {
     setHistory(props.history);
   }, []);
 
-  useEffect(() => {
-    const pin = Object.values(pinValues).join('');
-
-    if (pin.length === numOfFields) {
-      authenticateUser(pin).catch(() => {
-        setPinValue({});
-        formRef.current.reset();
-      });
-    }
-  }, [pinValues]);
-
   return (
     <div className="login">
-      <form ref={formRef} className="login__form" autoComplete="off">
-        <h1 className="login__hd">Enter Your 5 Character PIN</h1>
-        <List type="horizontal">
+      <form
+        className="login__form"
+        onSubmit={handleSubmit}
+        noValidate
+        autoComplete="off"
+      >
+        <h1 className="login__hd">Login</h1>
+        <List loose>
           <ListItem>
             <FormField
-              type="password"
-              maxLength="1"
-              name="pin-1"
-              pattern="[0-9]*"
-              inputMode="numeric"
+              name="username"
+              placeholder="username"
+              aria-label="user name"
               onChange={handleChange}
+              hasError={!!(errors.username && touched.username)}
+              errorText={errors.username}
             />
           </ListItem>
           <ListItem>
             <FormField
+              name="password"
               type="password"
-              maxLength="1"
-              name="pin-2"
-              pattern="[0-9]*"
-              inputMode="numeric"
+              placeholder="password"
+              aria-label="password"
               onChange={handleChange}
+              hasError={!!(errors.password && touched.password)}
+              errorText={errors.password}
             />
           </ListItem>
           <ListItem>
-            <FormField
-              type="password"
-              maxLength="1"
-              name="pin-3"
-              pattern="[0-9]*"
-              inputMode="numeric"
-              onChange={handleChange}
-            />
-          </ListItem>
-          <ListItem>
-            <FormField
-              type="password"
-              maxLength="1"
-              name="pin-4"
-              pattern="[0-9]*"
-              inputMode="numeric"
-              onChange={handleChange}
-            />
-          </ListItem>
-          <ListItem>
-            <FormField
-              type="password"
-              maxLength="1"
-              name="pin-5"
-              pattern="[0-9]*"
-              inputMode="numeric"
-              onChange={handleChange}
-            />
+            <Button type="submit" theme="cyan" block>
+              login
+            </Button>
           </ListItem>
         </List>
       </form>

@@ -20,24 +20,6 @@ const AppProvider = ({ children }) => {
 
   const apiBaseUrl = process.env.API_BASE_URL;
 
-  // Verify token
-  // -----------------------------------------------------------------
-  const verifyToken = () => {
-    return new Promise(async (resolve, reject) => {
-      try {
-        const response = await fetch(`${apiBaseUrl}/user/verify-token`);
-        const { isValid } = await response.json();
-        if (!isValid) {
-          reject();
-        }
-        resolve();
-      } catch (err) {
-        setGlobalMessage({ theme: 'error', text: err.message });
-        reject();
-      }
-    });
-  };
-
   // Update expense group
   // -----------------------------------------------------------------
   const updateExpenseGroup = async (json) => {
@@ -120,7 +102,6 @@ const AppProvider = ({ children }) => {
         history,
         setHistory,
         updateExpenseGroup,
-        verifyToken,
         selectedExpense,
         setSelectedExpenseById,
         deleteExpenseGroup,

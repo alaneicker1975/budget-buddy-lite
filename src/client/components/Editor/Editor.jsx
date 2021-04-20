@@ -50,7 +50,7 @@ const Editor = () => {
           <ListItem>
             <Button
               size="sm"
-              theme="blue"
+              theme="cyan"
               onClick={() => updateExpenseGroup({ id, ...JSON.parse(json) })}
             >
               Save

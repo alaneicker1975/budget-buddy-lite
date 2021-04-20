@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -7,6 +7,8 @@ import { FormField, List, ListItem, Button } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 
 const Login = (props) => {
+  const usernameRef = useRef();
+
   const { authenticateUser, setHistory } = useContext(AppContext);
 
   const validationSchema = yup.object().shape({
@@ -29,6 +31,7 @@ const Login = (props) => {
 
   useEffect(() => {
     setHistory(props.history);
+    usernameRef.current.focus();
   }, []);
 
   return (
@@ -43,6 +46,7 @@ const Login = (props) => {
         <List loose>
           <ListItem>
             <FormField
+              ref={usernameRef}
               name="username"
               placeholder="username"
               aria-label="user name"

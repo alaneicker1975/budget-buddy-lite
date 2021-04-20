@@ -19,8 +19,6 @@ const AppProvider = ({ children }) => {
   const [globalMessage, setGlobalMessage] = useState(null);
   const [history, setHistory] = useState(null);
 
-  const apiBaseUrl = process.env.API_BASE_URL;
-
   // Update expense group
   // -----------------------------------------------------------------
   const updateExpenseGroup = async (json) => {
@@ -45,7 +43,9 @@ const AppProvider = ({ children }) => {
   // -----------------------------------------------------------------
   const setSelectedExpenseById = async (id) => {
     try {
-      const response = await fetch(`${apiBaseUrl}/expenseGroups/${id}`);
+      const response = await fetch(
+        `${process.env.API_BASE_URL}/expenseGroups/${id}`,
+      );
       const { err, data } = await response.json();
 
       if (err) {
@@ -86,7 +86,6 @@ const AppProvider = ({ children }) => {
       value={{
         data,
         setData,
-        apiBaseUrl,
         isLoading,
         isLoggedIn,
         setIsLoggedIn,

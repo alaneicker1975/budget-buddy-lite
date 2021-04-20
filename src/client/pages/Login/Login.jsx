@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-prop-types */
-import React, { useContext, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
@@ -10,8 +10,14 @@ import useAuthenticateUser from '../../hooks/auth/useAuthenticateUser';
 const Login = (props) => {
   const usernameRef = useRef();
 
-  const { setHistory } = useAppContext();
-  const { authenticate } = useAuthenticateUser();
+  const {
+    setIsLoading,
+    setGlobalMessage,
+    setHistory,
+    history,
+  } = useAppContext();
+
+  const { authenticate, error, loading, loggedIn } = useAuthenticateUser();
 
   const validationSchema = yup.object().shape({
     username: yup.string().required('user name is required'),
@@ -35,6 +41,24 @@ const Login = (props) => {
     setHistory(props.history);
     usernameRef.current.focus();
   }, []);
+
+  useEffect(() => {
+    if (!!error) {
+      setGlobalMessage({ theme: 'error', text: error });
+    } else {
+      setGlobalMessage(null);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      history.push('/dashboard');
+    }
+  }, [loggedIn]);
 
   return (
     <div className="login">

@@ -1,10 +1,12 @@
-import { useAppContext } from '../../AppProvider';
+import { useState } from 'react';
 
 const useAuthenticateUser = () => {
-  const { setIsLoading, setGlobalMessage, history } = useAppContext();
+  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const authenticate = async (userData) => {
-    setIsLoading(true);
+    setLoading(true);
 
     try {
       const response = await fetch(
@@ -22,23 +24,19 @@ const useAuthenticateUser = () => {
       const { err } = await response.json();
 
       if (err) {
-        setGlobalMessage({ theme: 'error', text: err });
+        setError(err);
+        setLoading(false);
       } else {
-        setGlobalMessage(null);
-        history.push('/dashboard');
+        setError(null);
+        setLoggedIn(true);
       }
-
-      setIsLoading(false);
     } catch (err) {
-      setGlobalMessage({
-        theme: 'error',
-        text: err.message,
-      });
-      setIsLoading(false);
+      setError(err.message);
+      setLoading(false);
     }
   };
 
-  return { authenticate };
+  return { authenticate, error, loading, loggedIn };
 };
 
 export default useAuthenticateUser;

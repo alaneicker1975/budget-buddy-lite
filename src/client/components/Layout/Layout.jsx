@@ -1,14 +1,21 @@
-import React, { useContext } from 'react';
+import React, { useContext, useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Drawer, Overlay, Spinner, Alert } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 import Header from '../Header';
 import Editor from '../Editor';
+import appStateReducer, {
+  appInitialState,
+} from '../../reducers/appStateReducer';
 
 const Layout = ({ children }) => {
-  const { showEditor, isLoading, isLoggedIn, globalMessage } = useContext(
-    AppContext,
-  );
+  const [{ isLoggedIn }] = useReducer(appStateReducer, appInitialState);
+
+  const { showEditor, isLoading, globalMessage } = useContext(AppContext);
+
+  useEffect(() => {
+    console.log(isLoggedIn);
+  }, [isLoggedIn]);
 
   return (
     <>
@@ -16,7 +23,7 @@ const Layout = ({ children }) => {
         <Spinner size="xlg" theme="cyan" />
       </Overlay>
       <div className="layout">
-        <Header title="Budget Buddy" showHeaderNav={isLoggedIn} />
+        <Header title="Budget Buddy" />
         <div className="layout__body">
           {isLoggedIn && (
             <Drawer isOpen={showEditor}>

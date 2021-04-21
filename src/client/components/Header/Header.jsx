@@ -5,9 +5,10 @@ import useLogout from '../../hooks/useLogout';
 import { useAppContext } from '../../AppProvider';
 import { version } from '../../../../package.json';
 
-const Header = ({ title, showHeaderNav }) => {
-  const { addNewExpenseGroup, history } = useAppContext();
+const Header = ({ title }) => {
+  const { addNewExpenseGroup, state } = useAppContext();
   const { logoutUser, loggedOut } = useLogout();
+  const { history, isLoggedIn } = state;
 
   useEffect(() => {
     if (loggedOut) {
@@ -21,7 +22,7 @@ const Header = ({ title, showHeaderNav }) => {
         <span className="main-header__text">{title}</span>{' '}
         <span className="main-header__version">v{version}</span>
       </div>
-      {showHeaderNav && (
+      {isLoggedIn && (
         <List type="horizontal">
           <ListItem>
             <Button size="sm" onClick={addNewExpenseGroup}>
@@ -40,12 +41,10 @@ const Header = ({ title, showHeaderNav }) => {
 };
 
 Header.propTypes = {
-  showHeaderNav: PropTypes.bool,
   title: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
 };
 
 Header.defaultProps = {
-  showHeaderNav: true,
   title: '',
 };
 

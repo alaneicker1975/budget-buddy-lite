@@ -1,8 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import Localbase from 'localbase';
-
-const db = new Localbase('budgetBuddy');
+import appStateReducer, { appInitialState } from './reducers/appStateReducer';
 
 const AppContext = createContext({});
 
@@ -11,7 +9,8 @@ export const useAppContext = () => {
 };
 
 const AppProvider = ({ children }) => {
-  const [data, setData] = useState([]);
+  const [state, dispatch] = useReducer(appStateReducer, appInitialState);
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [showEditor, setShowEditor] = useState(false);
@@ -84,8 +83,8 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        data,
-        setData,
+        state,
+        dispatch,
         isLoading,
         isLoggedIn,
         setIsLoggedIn,

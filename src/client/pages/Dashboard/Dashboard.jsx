@@ -4,10 +4,13 @@ import { useAppContext } from '../../AppProvider';
 import useFetchExpenseGroups from '../../hooks/useFetchExpenseGroups';
 import ExpenseGroupDetail from '../../components/ExpenseGroupDetail';
 import withRouteGuard from '../../withRouteGuard';
+import { SET_DATA } from '../../reducers/appStateReducer';
 
 const Dashboard = () => {
-  const { setGlobalMessage, setIsLoading, setData, data } = useAppContext();
+  const { setGlobalMessage, setIsLoading, state, dispatch } = useAppContext();
   const { fetchExpenseGroups, loading, error } = useFetchExpenseGroups();
+
+  const { data } = state;
 
   const getTotalBalance = (expenses) => {
     return expenses.reduce((total, expense) => {
@@ -22,11 +25,14 @@ const Dashboard = () => {
       })
       .reduce((total, expense) => {
         return total + expense.balance;
+        ``;
       }, 0);
   };
 
   useEffect(() => {
-    fetchExpenseGroups().then((res) => setData(res));
+    fetchExpenseGroups().then((res) =>
+      dispatch({ type: SET_DATA, payload: res }),
+    );
   }, []);
 
   useEffect(() => {

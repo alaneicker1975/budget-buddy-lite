@@ -1,4 +1,4 @@
-import React, { useContext, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -19,6 +19,7 @@ import {
 import { useAppContext } from '../../AppProvider';
 import useDeleteExpenseGroup from '../../hooks/useDeleteExpenseGroup';
 import formatNumber from '../../utilities/formatNumber';
+import { SET_DATA } from '../../reducers/appStateReducer';
 
 const ExpenseGroupDetail = ({
   id,
@@ -29,13 +30,15 @@ const ExpenseGroupDetail = ({
   expenses,
 }) => {
   const {
-    data,
-    setData,
     setShowEditor,
     setIsLoading,
     setGlobalMessage,
     setSelectedExpenseById,
+    state,
+    dispatch,
   } = useAppContext();
+
+  const { data } = state;
 
   const {
     deleteExpenseGroup,
@@ -64,7 +67,10 @@ const ExpenseGroupDetail = ({
 
   useEffect(() => {
     if (deletedId) {
-      setData(data.filter(({ _id }) => deletedId !== _id));
+      dispatch({
+        type: SET_DATA,
+        payload: data.filter(({ _id }) => deletedId !== _id),
+      });
     }
   }, [deletedId]);
 

@@ -6,18 +6,20 @@ import { useFormik } from 'formik';
 import { FormField, List, ListItem, Button } from '@atomikui/core';
 import { useAppContext } from '../../AppProvider';
 import useAuthenticateUser from '../../hooks/useAuthenticateUser';
+import {
+  SET_GLOBAL_MESSAGE,
+  SET_IS_LOADING,
+  SET_HISTORY,
+} from '../../reducers/appStateReducer';
 
 const Login = (props) => {
   const usernameRef = useRef();
 
-  const {
-    setIsLoading,
-    setGlobalMessage,
-    setHistory,
-    history,
-  } = useAppContext();
+  const { state, dispatch } = useAppContext();
 
   const { authenticate, error, loading, loggedIn } = useAuthenticateUser();
+
+  const { history } = state;
 
   const validationSchema = yup.object().shape({
     username: yup.string().required('user name is required'),
@@ -38,20 +40,19 @@ const Login = (props) => {
   });
 
   useEffect(() => {
-    setHistory(props.history);
+    dispatch({ type: SET_HISTORY, payload: props.history });
     usernameRef.current.focus();
   }, []);
 
   useEffect(() => {
-    if (!!error) {
-      setGlobalMessage({ theme: 'error', text: error });
-    } else {
-      setGlobalMessage(null);
-    }
+    dispatch({
+      type: SET_GLOBAL_MESSAGE,
+      payload: error ? { theme: 'error', text: error } : null,
+    });
   }, [error]);
 
   useEffect(() => {
-    setIsLoading(loading);
+    dispatch({ type: SET_IS_LOADING, payload: loading });
   }, [loading]);
 
   useEffect(() => {

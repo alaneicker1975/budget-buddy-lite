@@ -1,21 +1,13 @@
-import React, { useContext, useReducer, useEffect } from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Drawer, Overlay, Spinner, Alert } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 import Header from '../Header';
 import Editor from '../Editor';
-import appStateReducer, {
-  appInitialState,
-} from '../../reducers/appStateReducer';
 
 const Layout = ({ children }) => {
-  const [{ isLoggedIn }] = useReducer(appStateReducer, appInitialState);
-
-  const { showEditor, isLoading, globalMessage } = useContext(AppContext);
-
-  useEffect(() => {
-    console.log(isLoggedIn);
-  }, [isLoggedIn]);
+  const { showEditor, state } = useContext(AppContext);
+  const { isLoggedIn, isLoading, globalMessage } = state;
 
   return (
     <>

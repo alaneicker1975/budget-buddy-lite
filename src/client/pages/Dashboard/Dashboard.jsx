@@ -4,10 +4,14 @@ import { useAppContext } from '../../AppProvider';
 import useFetchExpenseGroups from '../../hooks/useFetchExpenseGroups';
 import ExpenseGroupDetail from '../../components/ExpenseGroupDetail';
 import withRouteGuard from '../../withRouteGuard';
-import { SET_DATA } from '../../reducers/appStateReducer';
+import {
+  SET_DATA,
+  SET_IS_LOADING,
+  SET_GLOBAL_MESSAGE,
+} from '../../reducers/appStateReducer';
 
 const Dashboard = () => {
-  const { setGlobalMessage, setIsLoading, state, dispatch } = useAppContext();
+  const { setGlobalMessage, state, dispatch } = useAppContext();
   const { fetchExpenseGroups, loading, error } = useFetchExpenseGroups();
 
   const { data } = state;
@@ -36,15 +40,14 @@ const Dashboard = () => {
   }, []);
 
   useEffect(() => {
-    if (!!error) {
-      setGlobalMessage({ theme: 'error', text: error });
-    } else {
-      setGlobalMessage(null);
-    }
+    dispatch({
+      type: setGlobalMessage,
+      payload: error ? { theme: 'error', text: error } : null,
+    });
   }, [error]);
 
   useEffect(() => {
-    setIsLoading(loading);
+    dispatch({ type: SET_IS_LOADING, payload: loading });
   }, [loading]);
 
   return React.useMemo(() => {

@@ -47,16 +47,12 @@ const useEditExpense = () => {
       },
     );
 
-    if (_id) {
-      updateExpenseGroup(json, _id);
-    } else {
-      const { expenseGroup } = await response.json();
+    const { expenseGroup } = await response.json();
 
-      if (expenseGroup) {
-        updateExpenseGroup(expenseGroup);
-      } else {
-        setMessage('error', 'Could not add new user');
-      }
+    if (expenseGroup) {
+      updateExpenseGroup(expenseGroup, _id);
+    } else {
+      setMessage('error', `Could not ${_id ? 'update' : 'create'} expense`);
     }
 
     setShowEditor(false);

@@ -32,7 +32,18 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.patch('/:_id', async (req, res) => {});
+router.patch('/:_id', async (req, res) => {
+  try {
+    const { body } = req;
+    const { _id } = req.params;
+    const expenseGroup = await ExpenseGroup.findByIdAndUpdate({ _id }, body, {
+      new: true,
+    });
+    res.status(200).send({ expenseGroup });
+  } catch (err) {
+    res.status(500).send({ err: err.message });
+  }
+});
 
 router.delete('/:_id', async (req, res) => {
   try {

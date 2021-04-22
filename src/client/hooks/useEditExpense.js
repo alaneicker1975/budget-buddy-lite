@@ -2,7 +2,6 @@ import useSetGlobalMessage from './useSetGlobalMessage';
 import useSetSelecedExpense from './useSetSelecedExpense';
 import useUpdateExpenseGroups from './useUpdateExpenseGroups';
 import useShowEditor from './useShowEditor';
-import useSetData from './useSetData';
 
 const useEditExpense = () => {
   const { setMessage } = useSetGlobalMessage();

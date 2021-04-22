@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import useSetLoading from './useSetLoading';
+import useSetGlobalMessage from './useSetGlobalMessage';
 
-const useAuthenticateUser = () => {
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
+const useAuthenticateUser = (history) => {
+  const { setLoading } = useSetLoading();
+  const { setMessage } = useSetGlobalMessage();
 
   const authenticate = async (userData) => {
     setLoading(true);
@@ -23,20 +23,19 @@ const useAuthenticateUser = () => {
 
       const { err } = await response.json();
 
+      setLoading(false);
+
       if (err) {
-        setError(err);
-        setLoading(false);
+        setMessage('error', err);
       } else {
-        setError(null);
-        setLoggedIn(true);
+        history.push('/dashboard');
       }
     } catch (err) {
-      setError(err.message);
-      setLoading(false);
+      setMessage('error', err.message);
     }
   };
 
-  return { authenticate, error, loading, loggedIn };
+  return { authenticate };
 };
 
 export default useAuthenticateUser;

@@ -1,16 +1,22 @@
-import { useState } from 'react';
+import { useAppContext } from '../AppProvider';
+import useSetData from '../hooks/useSetData';
+import useSetGlobalMessage from './useSetGlobalMessage';
+import useSetLoading from '../hooks/useSetLoading';
 
 const useDeleteExpenseGroup = () => {
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(false);
-  const [deletedId, setDeletedId] = useState();
+  const { state } = useAppContext();
+  const { setData } = useSetData();
+  const { setMessage } = useSetGlobalMessage();
+  const { setLoading } = useSetLoading();
 
-  const deleteExpenseGroup = async (id) => {
+  const { data } = state;
+
+  const deleteExpenseGroup = async (_id) => {
     try {
       setLoading(true);
 
       const response = await fetch(
-        `${process.env.API_BASE_URL}/expenseGroups/${id}`,
+        `${process.env.API_BASE_URL}/expenseGroups/${_id}`,
         {
           method: 'DELETE',
           headers: {
@@ -25,16 +31,17 @@ const useDeleteExpenseGroup = () => {
       setLoading(false);
 
       if (err || !deletedId) {
-        setError(err);
+        setMessage('error', err || 'Could not delete');
       } else {
-        setDeletedId(deletedId);
+        setData(data.filter(({ _id }) => deletedId !== _id));
       }
     } catch (err) {
-      setError(err.message);
+      setMessage('error', err.message);
       setLoading(false);
     }
   };
-  return { deleteExpenseGroup, error, loading, deletedId };
+
+  return { deleteExpenseGroup };
 };
 
 export default useDeleteExpenseGroup;

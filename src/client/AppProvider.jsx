@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
 import appStateReducer, { appInitialState } from './reducers/appStateReducer';
 
@@ -10,13 +10,6 @@ export const useAppContext = () => {
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(appStateReducer, appInitialState);
-
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [showEditor, setShowEditor] = useState(false);
-  const [selectedExpense, setSelectedExpense] = useState({});
-  const [globalMessage, setGlobalMessage] = useState(null);
-  const [history, setHistory] = useState(null);
 
   // Update expense group
   // -----------------------------------------------------------------
@@ -38,46 +31,22 @@ const AppProvider = ({ children }) => {
     setShowEditor(false);
   };
 
-  // Sets the selected expense
-  // -----------------------------------------------------------------
-  const setSelectedExpenseById = async (id) => {
-    try {
-      const response = await fetch(
-        `${process.env.API_BASE_URL}/expenseGroups/${id}`,
-      );
-      const { err, data } = await response.json();
-
-      if (err) {
-        setGlobalMessage({
-          theme: 'error',
-          text: err,
-        });
-
-        return;
-      }
-
-      setSelectedExpense(data);
-    } catch (err) {
-      setGlobalMessage({
-        theme: 'error',
-        text: err.message,
-      });
-    }
-  };
-
   const addNewExpenseGroup = () => {
-    setSelectedExpense({
-      title: '',
-      totalBudget: 0,
-      expenses: [
-        {
-          title: '',
-          balance: 0,
-          paid: false,
-        },
-      ],
+    dispatch({
+      type: SET_SELECTED_EXPENSE,
+      payload: {
+        title: '',
+        totalBudget: 0,
+        expenses: [
+          {
+            title: '',
+            balance: 0,
+            paid: false,
+          },
+        ],
+      },
     });
-    setShowEditor(true);
+    dispatch({ type: SET_SHOW_EDITOR, payload: true });
   };
 
   return (
@@ -85,19 +54,7 @@ const AppProvider = ({ children }) => {
       value={{
         state,
         dispatch,
-        isLoading,
-        isLoggedIn,
-        setIsLoggedIn,
-        showEditor,
-        setShowEditor,
-        globalMessage,
-        setGlobalMessage,
-        setIsLoading,
-        history,
-        setHistory,
         updateExpenseGroup,
-        selectedExpense,
-        setSelectedExpenseById,
         addNewExpenseGroup,
       }}
     >

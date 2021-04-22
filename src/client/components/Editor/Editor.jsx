@@ -6,6 +6,7 @@ import { AppContext } from '../../AppProvider';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
+import { SET_SHOW_EDITOR } from '../../reducers/appStateReducer';
 
 const editorSettings = {
   mode: 'yaml',
@@ -14,12 +15,9 @@ const editorSettings = {
 };
 
 const Editor = () => {
-  const {
-    showEditor,
-    setShowEditor,
-    updateExpenseGroup,
-    selectedExpense,
-  } = useContext(AppContext);
+  const { updateExpenseGroup, state, dispatch } = useContext(AppContext);
+
+  const { selectedExpense, showEditor } = state;
 
   const [json, setJson] = useState('');
   const [mode, setMode] = useState('update');
@@ -42,7 +40,9 @@ const Editor = () => {
               size="sm"
               theme="gray"
               themeVariant="light"
-              onClick={() => setShowEditor(false)}
+              onClick={() =>
+                dispatch({ type: SET_SHOW_EDITOR, payload: false })
+              }
             >
               Cancel
             </Button>

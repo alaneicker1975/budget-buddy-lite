@@ -16,10 +16,9 @@ import {
   faTrashAlt,
   faEdit,
 } from '@fortawesome/free-solid-svg-icons';
-import { useAppContext } from '../../AppProvider';
+import useEditExpense from '../../hooks/useEditExpense';
 import useDeleteExpenseGroup from '../../hooks/useDeleteExpenseGroup';
 import formatNumber from '../../utilities/formatNumber';
-import { SET_DATA } from '../../reducers/appStateReducer';
 
 const ExpenseGroupDetail = ({
   id,
@@ -29,23 +28,8 @@ const ExpenseGroupDetail = ({
   unpaidBalance,
   expenses,
 }) => {
-  const {
-    setShowEditor,
-    setIsLoading,
-    setGlobalMessage,
-    setSelectedExpenseById,
-    state,
-    dispatch,
-  } = useAppContext();
-
-  const { data } = state;
-
-  const {
-    deleteExpenseGroup,
-    error,
-    loading,
-    deletedId,
-  } = useDeleteExpenseGroup();
+  const { deleteExpenseGroup } = useDeleteExpenseGroup();
+  const { setSelectedExpense } = useEditExpense();
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState();
   const [focusTrap, setFocusTrap] = useState();
@@ -55,36 +39,10 @@ const ExpenseGroupDetail = ({
   const remaingBalance = totalBudget - totalBalance;
   const amountLeftOver = formatNumber(remaingBalance).replace('-', '');
 
-  const initiateUpdate = () => {
-    setSelectedExpenseById(id);
-    setShowEditor(true);
-  };
-
   const confirmDelete = () => {
     deleteExpenseGroup(id);
     setShowDeleteConfirm(false);
   };
-
-  useEffect(() => {
-    if (deletedId) {
-      dispatch({
-        type: SET_DATA,
-        payload: data.filter(({ _id }) => deletedId !== _id),
-      });
-    }
-  }, [deletedId]);
-
-  useEffect(() => {
-    if (!!error) {
-      setGlobalMessage({ theme: 'error', text: error });
-    } else {
-      setGlobalMessage(null);
-    }
-  }, [error]);
-
-  useEffect(() => {
-    setIsLoading(loading);
-  }, [loading]);
 
   useEffect(() => {
     setFocusTrap(
@@ -116,7 +74,7 @@ const ExpenseGroupDetail = ({
                   <Button
                     size="sm"
                     theme="blue-gray"
-                    onClick={initiateUpdate}
+                    onClick={() => setSelectedExpense(id)}
                     aria-label="update"
                     title="update"
                     className="expense-group-action-btn"

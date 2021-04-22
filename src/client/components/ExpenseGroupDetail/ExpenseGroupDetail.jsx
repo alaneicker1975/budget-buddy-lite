@@ -1,13 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import {
-  Card,
-  List,
-  ListItem,
-  Statistic,
-  Button,
-  Overlay,
-} from '@atomikui/core';
 import { createFocusTrap } from 'focus-trap';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 import {
@@ -16,6 +8,14 @@ import {
   faTrashAlt,
   faEdit,
 } from '@fortawesome/free-solid-svg-icons';
+import {
+  Card,
+  List,
+  ListItem,
+  Statistic,
+  Button,
+  Overlay,
+} from '@atomikui/core';
 import useEditExpense from '../../hooks/useEditExpense';
 import useDeleteExpenseGroup from '../../hooks/useDeleteExpenseGroup';
 import formatNumber from '../../utilities/formatNumber';

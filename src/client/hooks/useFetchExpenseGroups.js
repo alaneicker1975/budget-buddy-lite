@@ -1,8 +1,12 @@
 import { useState } from 'react';
+import useSetData from './useSetData';
+import useSetLoading from './useSetLoading';
+import useSetGlobalMessage from './useSetGlobalMessage';
 
 const useFetchExpenseGroups = () => {
-  const [error, setError] = useState();
-  const [loading, setLoading] = useState(true);
+  const { setData } = useSetData();
+  const { setMessage } = useSetGlobalMessage();
+  const { setLoading } = useSetLoading();
 
   const fetchExpenseGroups = async () => {
     try {
@@ -10,20 +14,19 @@ const useFetchExpenseGroups = () => {
       const { err, data } = await response.json();
 
       if (err) {
-        setError(err);
+        setMessage('error', err);
         return;
       }
 
+      setData(data);
       setLoading(false);
-
-      return data;
     } catch (err) {
-      setError(err.message);
+      setMessage('error', err.message);
       setLoading(false);
     }
   };
 
-  return { fetchExpenseGroups, error, loading };
+  return { fetchExpenseGroups };
 };
 
 export default useFetchExpenseGroups;

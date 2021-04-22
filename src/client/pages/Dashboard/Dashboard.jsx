@@ -4,16 +4,10 @@ import { useAppContext } from '../../AppProvider';
 import useFetchExpenseGroups from '../../hooks/useFetchExpenseGroups';
 import ExpenseGroupDetail from '../../components/ExpenseGroupDetail';
 import withRouteGuard from '../../withRouteGuard';
-import {
-  SET_DATA,
-  SET_IS_LOADING,
-  SET_GLOBAL_MESSAGE,
-} from '../../reducers/appStateReducer';
 
 const Dashboard = () => {
-  const { setGlobalMessage, state, dispatch } = useAppContext();
-  const { fetchExpenseGroups, loading, error } = useFetchExpenseGroups();
-
+  const { state } = useAppContext();
+  const { fetchExpenseGroups } = useFetchExpenseGroups();
   const { data } = state;
 
   const getTotalBalance = (expenses) => {
@@ -33,22 +27,7 @@ const Dashboard = () => {
       }, 0);
   };
 
-  useEffect(() => {
-    fetchExpenseGroups().then((res) =>
-      dispatch({ type: SET_DATA, payload: res }),
-    );
-  }, []);
-
-  useEffect(() => {
-    dispatch({
-      type: setGlobalMessage,
-      payload: error ? { theme: 'error', text: error } : null,
-    });
-  }, [error]);
-
-  useEffect(() => {
-    dispatch({ type: SET_IS_LOADING, payload: loading });
-  }, [loading]);
+  useEffect(() => fetchExpenseGroups(), []);
 
   return React.useMemo(() => {
     return (

@@ -35,10 +35,28 @@ const useEditExpense = () => {
   const onSubmit = async (json) => {
     const { _id } = json;
 
+    const response = await fetch(
+      `${process.env.API_BASE_URL}/expenseGroups/${_id || ''}`,
+      {
+        method: _id ? 'PATCH' : 'POST',
+        body: JSON.stringify(json),
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+      },
+    );
+
     if (_id) {
       updateExpenseGroup(json, _id);
     } else {
-      updateExpenseGroup(json);
+      const { expenseGroup } = await response.json();
+
+      if (expenseGroup) {
+        updateExpenseGroup(expenseGroup);
+      } else {
+        setMessage('error', 'Could not add new user');
+      }
     }
 
     setShowEditor(false);

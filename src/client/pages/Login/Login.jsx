@@ -1,16 +1,12 @@
-/* eslint-disable react/forbid-prop-types */
 import React, { useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { useFormik } from 'formik';
 import { FormField, List, ListItem, Button } from '@atomikui/core';
 import useAuthenticateUser from '../../hooks/useAuthenticateUser';
-import useSetHistory from '../../hooks/useSetHistory';
 
 const Login = (props) => {
   const usernameRef = useRef();
   const { authenticate } = useAuthenticateUser(props.history);
-  const { setHistory } = useSetHistory();
 
   const validationSchema = yup.object().shape({
     username: yup.string().required('user name is required'),
@@ -31,7 +27,6 @@ const Login = (props) => {
   });
 
   useEffect(() => {
-    setHistory(props.history);
     usernameRef.current.focus();
   }, []);
 
@@ -76,14 +71,6 @@ const Login = (props) => {
       </form>
     </div>
   );
-};
-
-Login.propTypes = {
-  history: PropTypes.object,
-};
-
-Login.defaultProps = {
-  history: null,
 };
 
 export default Login;

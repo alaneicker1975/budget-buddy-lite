@@ -3,10 +3,10 @@ import React, { useContext, useState, useEffect } from 'react';
 import { Controlled as CodeMirror } from 'react-codemirror2';
 import { Button, List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
+import useShowEditor from '../../hooks/useShowEditor';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
-import { SET_SHOW_EDITOR } from '../../reducers/appStateReducer';
 
 const editorSettings = {
   mode: 'yaml',
@@ -15,20 +15,21 @@ const editorSettings = {
 };
 
 const Editor = () => {
-  const { updateExpenseGroup, state, dispatch } = useContext(AppContext);
+  const { updateExpenseGroup, state } = useContext(AppContext);
+  const { setShowEditor } = useShowEditor();
 
-  const { selectedExpense, showEditor } = state;
+  const { selectedExpense } = state;
 
   const [json, setJson] = useState('');
   const [mode, setMode] = useState('update');
   const [id, setId] = useState(null);
 
   useEffect(() => {
-    const { id, ...expense } = selectedExpense;
-    setId(id);
-    setMode(id ? 'Update' : 'New');
+    const { _id, ...expense } = selectedExpense;
+    setId(_id);
+    setMode(_id ? 'Update' : 'New');
     setJson(JSON.stringify(expense, null, 2));
-  }, [selectedExpense, showEditor]);
+  }, [selectedExpense]);
 
   return (
     <div className="editor">
@@ -40,9 +41,7 @@ const Editor = () => {
               size="sm"
               theme="gray"
               themeVariant="light"
-              onClick={() =>
-                dispatch({ type: SET_SHOW_EDITOR, payload: false })
-              }
+              onClick={() => setShowEditor(false)}
             >
               Cancel
             </Button>

@@ -1,5 +1,5 @@
 import { useAppContext } from '../AppProvider';
-import { SET_HISTORY } from '../reducers/appStateReducer';
+import { SET_HISTORY } from '../reducers/appReducer';
 
 const useSetHistory = () => {
   const { dispatch } = useAppContext();

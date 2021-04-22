@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useReducer } from 'react';
 import PropTypes from 'prop-types';
-import appStateReducer, { appInitialState } from './reducers/appStateReducer';
+import appReducer, { appInitialState } from './reducers/appReducer';
 
 const AppContext = createContext({});
 
@@ -9,36 +9,10 @@ export const useAppContext = () => {
 };
 
 const AppProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(appStateReducer, appInitialState);
-
-  // Update expense group
-  // -----------------------------------------------------------------
-  const updateExpenseGroup = async (json) => {
-    const jsonData = json;
-
-    if (jsonData.id !== undefined) {
-      await db
-        .collection('expenseGroups')
-        .doc({ id: jsonData.id })
-        .set(jsonData);
-    } else {
-      await db
-        .collection('expenseGroups')
-        .add({ ...jsonData, id: Math.round(Math.random() * 100000000) });
-    }
-
-    //getAllExpenseGroups();
-    setShowEditor(false);
-  };
+  const [state, dispatch] = useReducer(appReducer, appInitialState);
 
   return (
-    <AppContext.Provider
-      value={{
-        state,
-        dispatch,
-        updateExpenseGroup,
-      }}
-    >
+    <AppContext.Provider value={{ state, dispatch }}>
       {children}
     </AppContext.Provider>
   );

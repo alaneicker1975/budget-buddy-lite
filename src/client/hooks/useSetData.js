@@ -1,13 +1,13 @@
 import { useAppContext } from '../AppProvider';
-import { SET_DATA } from '../reducers/appStateReducer';
+import { SET_DATA } from '../reducers/appReducer';
 
 const useSetData = () => {
   const { dispatch } = useAppContext();
 
-  const setData = (data) => {
+  const setData = (payload, _id) => {
     dispatch({
       type: SET_DATA,
-      payload: data,
+      payload,
     });
   };
 

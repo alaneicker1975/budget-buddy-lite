@@ -4,6 +4,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import { Button, List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 import useShowEditor from '../../hooks/useShowEditor';
+import useEditExpense from '../../hooks/useEditExpense';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
@@ -15,20 +16,18 @@ const editorSettings = {
 };
 
 const Editor = () => {
-  const { updateExpenseGroup, state } = useContext(AppContext);
+  const { state } = useContext(AppContext);
+  const { onSubmit } = useEditExpense();
   const { setShowEditor } = useShowEditor();
 
   const { selectedExpense } = state;
 
   const [json, setJson] = useState('');
   const [mode, setMode] = useState('update');
-  const [id, setId] = useState(null);
 
   useEffect(() => {
-    const { _id, ...expense } = selectedExpense;
-    setId(_id);
-    setMode(_id ? 'Update' : 'New');
-    setJson(JSON.stringify(expense, null, 2));
+    setMode(selectedExpense._id ? 'Update' : 'New');
+    setJson(JSON.stringify(selectedExpense, null, 2));
   }, [selectedExpense]);
 
   return (
@@ -50,7 +49,7 @@ const Editor = () => {
             <Button
               size="sm"
               theme="cyan"
-              onClick={() => updateExpenseGroup({ id, ...JSON.parse(json) })}
+              onClick={() => onSubmit(JSON.parse(json))}
             >
               Save
             </Button>

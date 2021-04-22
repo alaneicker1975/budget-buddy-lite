@@ -1,5 +1,5 @@
 import { useAppContext } from '../AppProvider';
-import { SET_GLOBAL_MESSAGE } from '../reducers/appStateReducer';
+import { SET_GLOBAL_MESSAGE } from '../reducers/appReducer';
 
 const useSetGlobalMessage = () => {
   const { dispatch } = useAppContext();

@@ -1,5 +1,5 @@
 import { useAppContext } from '../AppProvider';
-import { SET_IS_LOADING } from '../reducers/appStateReducer';
+import { SET_IS_LOADING } from '../reducers/appReducer';
 
 const useSetLoading = () => {
   const { dispatch } = useAppContext();

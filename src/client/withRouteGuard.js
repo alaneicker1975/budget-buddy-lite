@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import useVerifyToken from './hooks/useVerifyToken';
 import { useAppContext } from './AppProvider';
-import { SET_IS_LOGGED_IN, SET_HISTORY } from './reducers/appStateReducer';
+import { SET_IS_LOGGED_IN, SET_HISTORY } from './reducers/appReducer';
 
 const withRouteGaurd = (Component) => {
   const WithRouteGuard = (props) => {

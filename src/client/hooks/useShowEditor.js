@@ -1,5 +1,5 @@
 import { useAppContext } from '../AppProvider';
-import { SET_SHOW_EDITOR } from '../reducers/appStateReducer';
+import { SET_SHOW_EDITOR } from '../reducers/appReducer';
 
 const useShowEditor = () => {
   const { dispatch } = useAppContext();

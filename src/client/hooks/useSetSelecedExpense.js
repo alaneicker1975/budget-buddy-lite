@@ -1,5 +1,5 @@
 import { useAppContext } from '../AppProvider';
-import { SET_SELECTED_EXPENSE } from '../reducers/appStateReducer';
+import { SET_SELECTED_EXPENSE } from '../reducers/appReducer';
 
 const useSetSelecedExpense = () => {
   const { dispatch } = useAppContext();

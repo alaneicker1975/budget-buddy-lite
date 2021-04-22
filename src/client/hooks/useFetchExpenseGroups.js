@@ -9,6 +9,8 @@ const useFetchExpenseGroups = () => {
 
   const fetchExpenseGroups = async () => {
     try {
+      setLoading(true);
+
       const response = await fetch(`${process.env.API_BASE_URL}/expenseGroups`);
       const { err, data } = await response.json();
 

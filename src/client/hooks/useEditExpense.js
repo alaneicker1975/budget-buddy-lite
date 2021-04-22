@@ -1,10 +1,13 @@
 import useSetGlobalMessage from './useSetGlobalMessage';
-import useShowEditor from './useShowEditor';
 import useSetSelecedExpense from './useSetSelecedExpense';
+import useUpdateExpenseGroups from './useUpdateExpenseGroups';
+import useShowEditor from './useShowEditor';
+import useSetData from './useSetData';
 
 const useEditExpense = () => {
   const { setMessage } = useSetGlobalMessage();
   const { setExpense } = useSetSelecedExpense();
+  const { updateExpenseGroup } = useUpdateExpenseGroups();
   const { setShowEditor } = useShowEditor();
 
   const setSelectedExpense = async (id) => {
@@ -29,7 +32,19 @@ const useEditExpense = () => {
     }
   };
 
-  return { setSelectedExpense };
+  const onSubmit = async (json) => {
+    const { _id } = json;
+
+    if (_id) {
+      updateExpenseGroup(json, _id);
+    } else {
+      updateExpenseGroup(json);
+    }
+
+    setShowEditor(false);
+  };
+
+  return { setSelectedExpense, onSubmit };
 };
 
 export default useEditExpense;

@@ -1,12 +1,11 @@
-import { useAppContext } from '../AppProvider';
-import {
-  SET_GLOBAL_MESSAGE,
-  SET_SHOW_EDITOR,
-  SET_SELECTED_EXPENSE,
-} from '../reducers/appStateReducer';
+import useSetGlobalMessage from './useSetGlobalMessage';
+import useShowEditor from './useShowEditor';
+import useSetSelecedExpense from './useSetSelecedExpense';
 
 const useEditExpense = () => {
-  const { dispatch } = useAppContext();
+  const { setMessage } = useSetGlobalMessage();
+  const { setExpense } = useSetSelecedExpense();
+  const { setShowEditor } = useShowEditor();
 
   const setSelectedExpense = async (id) => {
     try {
@@ -17,28 +16,16 @@ const useEditExpense = () => {
       const { err, data } = await response.json();
 
       if (err) {
-        dispatch({
-          type: SET_GLOBAL_MESSAGE,
-          payload: {
-            theme: 'error',
-            text: err,
-          },
-        });
+        setMessage('error', err);
         return;
       }
 
       delete data.__v;
 
-      dispatch({ type: SET_SHOW_EDITOR, payload: true });
-      dispatch({ type: SET_SELECTED_EXPENSE, payload: data });
+      setShowEditor(true);
+      setExpense(data);
     } catch (err) {
-      dispatch({
-        type: SET_GLOBAL_MESSAGE,
-        payload: {
-          theme: 'error',
-          text: err.message,
-        },
-      });
+      setMessage('error', err.message);
     }
   };
 

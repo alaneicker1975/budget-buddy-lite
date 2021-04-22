@@ -31,31 +31,12 @@ const AppProvider = ({ children }) => {
     setShowEditor(false);
   };
 
-  const addNewExpenseGroup = () => {
-    dispatch({
-      type: SET_SELECTED_EXPENSE,
-      payload: {
-        title: '',
-        totalBudget: 0,
-        expenses: [
-          {
-            title: '',
-            balance: 0,
-            paid: false,
-          },
-        ],
-      },
-    });
-    dispatch({ type: SET_SHOW_EDITOR, payload: true });
-  };
-
   return (
     <AppContext.Provider
       value={{
         state,
         dispatch,
         updateExpenseGroup,
-        addNewExpenseGroup,
       }}
     >
       {children}

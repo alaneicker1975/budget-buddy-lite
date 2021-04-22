@@ -2,12 +2,14 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Button, List, ListItem } from '@atomikui/core';
 import useLogout from '../../hooks/useLogout';
+import useAddExpenseGroup from '../../hooks/useAddExpenseGroup';
 import { useAppContext } from '../../AppProvider';
 import { version } from '../../../../package.json';
 
 const Header = ({ title }) => {
-  const { addNewExpenseGroup, state } = useAppContext();
+  const { state } = useAppContext();
   const { logoutUser, loggedOut } = useLogout();
+  const { addExpenseGroup } = useAddExpenseGroup();
   const { history, isLoggedIn } = state;
 
   useEffect(() => {
@@ -25,7 +27,7 @@ const Header = ({ title }) => {
       {isLoggedIn && (
         <List type="horizontal">
           <ListItem>
-            <Button size="sm" onClick={addNewExpenseGroup}>
+            <Button size="sm" onClick={addExpenseGroup}>
               + New Group
             </Button>
           </ListItem>

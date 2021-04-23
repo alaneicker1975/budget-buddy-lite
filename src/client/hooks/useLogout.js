@@ -1,6 +1,10 @@
+import { useAppContext } from '../AppProvider';
 import useSetIsLoggedIn from '../hooks/useSetIsLoggedIn';
 
 const useLogout = () => {
+  const {
+    state: { history },
+  } = useAppContext();
   const { setLoggedIn } = useSetIsLoggedIn();
 
   const logoutUser = async () => {
@@ -16,6 +20,7 @@ const useLogout = () => {
 
     if (isLoggedOut) {
       setLoggedIn(false);
+      history.push('/');
     }
   };
 

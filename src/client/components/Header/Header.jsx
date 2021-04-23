@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, List, ListItem } from '@atomikui/core';
 import useLogout from '../../hooks/useLogout';
@@ -7,16 +7,11 @@ import { useAppContext } from '../../AppProvider';
 import { version } from '../../../../package.json';
 
 const Header = ({ title }) => {
-  const { state } = useAppContext();
+  const {
+    state: { isLoggedIn },
+  } = useAppContext();
   const { logoutUser } = useLogout();
   const { addExpenseGroup } = useAddExpenseGroup();
-  const { history, isLoggedIn } = state;
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      // history.push('/');
-    }
-  }, [isLoggedIn, history]);
 
   return (
     <header className="main-header">

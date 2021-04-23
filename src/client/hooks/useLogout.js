@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import useSetIsLoggedIn from '../hooks/useSetIsLoggedIn';
 
 const useLogout = () => {
-  const [loggedOut, setLoggedOut] = useState(false);
+  const { setLoggedIn } = useSetIsLoggedIn();
 
   const logoutUser = async () => {
     const response = await fetch(`${process.env.API_BASE_URL}/user/logout`, {
@@ -15,11 +15,11 @@ const useLogout = () => {
     const { isLoggedOut } = await response.json();
 
     if (isLoggedOut) {
-      setLoggedOut(true);
+      setLoggedIn(false);
     }
   };
 
-  return { logoutUser, loggedOut };
+  return { logoutUser };
 };
 
 export default useLogout;

@@ -1,15 +1,20 @@
 import React, { useEffect } from 'react';
 import useVerifyToken from './hooks/useVerifyToken';
+import useSetHistory from './hooks/useSetHistory';
+import useSetIsLoggedIn from './hooks/useSetIsLoggedIn';
 import { useAppContext } from './AppProvider';
-import { SET_IS_LOGGED_IN, SET_HISTORY } from './reducers/appReducer';
 
 const withRouteGaurd = (Component) => {
   const WithRouteGuard = (props) => {
-    const { dispatch } = useAppContext();
     const { verifyToken, error } = useVerifyToken();
+    const { setHistory } = useSetHistory();
+    const { setLoggedIn } = useSetIsLoggedIn();
+    const {
+      state: { isLoggedIn },
+    } = useAppContext();
 
     useEffect(() => {
-      dispatch({ type: SET_HISTORY, payload: props.history });
+      setHistory(props.history);
       verifyToken();
     }, []);
 
@@ -17,7 +22,7 @@ const withRouteGaurd = (Component) => {
       if (error) {
         props.history.push('/');
       } else {
-        dispatch({ type: SET_IS_LOGGED_IN, payload: true });
+        setLoggedIn(true);
       }
     }, [error]);
 

@@ -8,15 +8,15 @@ import { version } from '../../../../package.json';
 
 const Header = ({ title }) => {
   const { state } = useAppContext();
-  const { logoutUser, loggedOut } = useLogout();
+  const { logoutUser } = useLogout();
   const { addExpenseGroup } = useAddExpenseGroup();
   const { history, isLoggedIn } = state;
 
   useEffect(() => {
-    if (loggedOut) {
-      history.push('/');
+    if (!isLoggedIn) {
+      // history.push('/');
     }
-  }, [loggedOut]);
+  }, [isLoggedIn, history]);
 
   return (
     <header className="main-header">

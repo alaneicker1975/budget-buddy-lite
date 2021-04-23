@@ -4,8 +4,8 @@ import { SET_IS_LOADING } from '../reducers/appReducer';
 const useSetLoading = () => {
   const { dispatch } = useAppContext();
 
-  const setLoading = (loading) => {
-    dispatch({ type: SET_IS_LOADING, payload: loading });
+  const setLoading = (payload) => {
+    dispatch({ type: SET_IS_LOADING, payload });
   };
 
   return { setLoading };

@@ -6,8 +6,9 @@ import Header from '../Header';
 import Editor from '../Editor';
 
 const Layout = ({ children }) => {
-  const { state } = useAppContext();
-  const { isLoggedIn, isLoading, globalMessage, showEditor } = state;
+  const {
+    state: { isLoggedIn, isLoading, globalMessage, showEditor },
+  } = useAppContext();
 
   return (
     <>

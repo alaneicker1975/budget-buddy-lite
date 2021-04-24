@@ -1,7 +1,7 @@
 import { useAppContext } from '../AppProvider';
 import useSetData from './useSetData';
 
-const useUpdateExpenseGroups = () => {
+const useUpdateExpenseGroup = () => {
   const {
     state: { data },
   } = useAppContext();
@@ -19,4 +19,4 @@ const useUpdateExpenseGroups = () => {
   return { updateExpenseGroup };
 };
 
-export default useUpdateExpenseGroups;
+export default useUpdateExpenseGroup;

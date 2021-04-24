@@ -16,7 +16,7 @@ import {
   Button,
   Overlay,
 } from '@atomikui/core';
-import useEditExpense from '../../hooks/useEditExpense';
+import useEditExpenseGroup from '../../hooks/useEditExpenseGroup';
 import useDeleteExpenseGroup from '../../hooks/useDeleteExpenseGroup';
 import formatNumber from '../../utilities/formatNumber';
 
@@ -29,7 +29,7 @@ const ExpenseGroupDetail = ({
   expenses,
 }) => {
   const { deleteExpenseGroup } = useDeleteExpenseGroup();
-  const { setSelectedExpense } = useEditExpense();
+  const { setSelectedExpense } = useEditExpenseGroup();
 
   const [showDeleteConfirm, setShowDeleteConfirm] = useState();
   const [focusTrap, setFocusTrap] = useState();

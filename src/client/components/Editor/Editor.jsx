@@ -4,7 +4,7 @@ import { Controlled as CodeMirror } from 'react-codemirror2';
 import { Button, List, ListItem } from '@atomikui/core';
 import { AppContext } from '../../AppProvider';
 import useShowEditor from '../../hooks/useShowEditor';
-import useEditExpense from '../../hooks/useEditExpense';
+import useEditExpenseGroupGroup from '../../hooks/useEditExpenseGroup';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/monokai.css';
 import 'codemirror/mode/yaml/yaml';
@@ -17,7 +17,7 @@ const editorSettings = {
 
 const Editor = () => {
   const { state } = useContext(AppContext);
-  const { onSubmit } = useEditExpense();
+  const { onSubmit } = useEditExpenseGroupGroup();
   const { setShowEditor } = useShowEditor();
 
   const { selectedExpense } = state;

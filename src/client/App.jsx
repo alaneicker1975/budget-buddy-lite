@@ -2,8 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { AppProvider } from './AppProvider';
 import Layout from './components/Layout';
-import Dashboard from './pages/Dashboard';
-import Login from './pages/Login';
+import Dashboard from './routes/Dashboard';
+import Login from './routes/Login';
 
 const App = () => {
   return (

@@ -33,7 +33,7 @@ const Dashboard = () => {
     return (
       <div className="padding-bottom-24">
         <List loose>
-          {data.reverse().map(({ _id, title, totalBudget, expenses }) => (
+          {data.map(({ _id, title, totalBudget, expenses }) => (
             <ListItem key={`expense-group-${_id}`}>
               <ExpenseGroupDetail
                 id={_id}

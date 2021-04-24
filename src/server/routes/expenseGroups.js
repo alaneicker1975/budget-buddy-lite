@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const expenseGroups = await ExpenseGroup.find({});
+    const expenseGroups = await ExpenseGroup.find({}).sort({ _id: -1 });
     res.status(201).send({ data: expenseGroups });
   } catch (err) {
     res.status(500).send({ err: err.message });

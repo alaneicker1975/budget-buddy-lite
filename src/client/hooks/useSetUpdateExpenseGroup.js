@@ -11,7 +11,7 @@ const useSetUpdateExpenseGroup = () => {
   const updateExpenseGroup = (payload, _id) => {
     const updatedData = _id
       ? data.map((item) => (item._id === _id ? payload : item))
-      : [...data, payload];
+      : [payload, ...data];
 
     setData(updatedData);
   };

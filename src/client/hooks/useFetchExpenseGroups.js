@@ -16,15 +16,16 @@ const useFetchExpenseGroups = () => {
 
       if (err) {
         setMessage('error', err);
+        setLoading(true);
         return;
       }
 
       setData(data);
-      setLoading(false);
     } catch (err) {
       setMessage('error', err.message);
-      setLoading(false);
     }
+
+    setLoading(false);
   };
 
   return { fetchExpenseGroups };

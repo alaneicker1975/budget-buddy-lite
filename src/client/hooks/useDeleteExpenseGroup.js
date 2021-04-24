@@ -4,12 +4,12 @@ import useSetGlobalMessage from './useSetGlobalMessage';
 import useSetLoading from '../hooks/useSetLoading';
 
 const useDeleteExpenseGroup = () => {
-  const { state } = useAppContext();
+  const {
+    state: { data },
+  } = useAppContext();
   const { setData } = useSetData();
   const { setMessage } = useSetGlobalMessage();
   const { setLoading } = useSetLoading();
-
-  const { data } = state;
 
   const deleteExpenseGroup = async (_id) => {
     try {

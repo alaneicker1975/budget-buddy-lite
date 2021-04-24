@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
   try {
     const expenseGroups = await ExpenseGroup.find({});
-    res.status(201).send({ data: expenseGroups });
+    res.status(201).send({ data: expenseGroups.reverse() });
   } catch (err) {
     res.status(500).send({ err: err.message });
   }

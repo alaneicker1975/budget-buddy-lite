@@ -23,10 +23,9 @@ const useAuthenticateUser = (history) => {
 
       const { err } = await response.json();
 
-      setLoading(false);
-
       if (err) {
         setMessage('error', err);
+        setLoading(false);
       } else {
         history.push('/dashboard');
         setMessage();

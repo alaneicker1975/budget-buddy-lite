@@ -17,7 +17,7 @@ const editorSettings = {
 
 const Editor = () => {
   const { state } = useContext(AppContext);
-  const { onSubmit } = useEditExpenseGroupGroup();
+  const { saveChanges } = useEditExpenseGroupGroup();
   const { setShowEditor } = useShowEditor();
 
   const { selectedExpense } = state;
@@ -49,7 +49,7 @@ const Editor = () => {
             <Button
               size="sm"
               theme="cyan"
-              onClick={() => onSubmit(JSON.parse(json))}
+              onClick={() => saveChanges(JSON.parse(json))}
             >
               Save
             </Button>

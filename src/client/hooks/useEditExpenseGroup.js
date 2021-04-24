@@ -2,14 +2,18 @@ import useSetGlobalMessage from './useSetGlobalMessage';
 import useSetSelecedExpense from './useSetSelecedExpense';
 import useSetUpdateExpenseGroup from './useSetUpdateExpenseGroup';
 import useShowEditor from './useShowEditor';
+import useSetLoading from './useSetLoading';
 
 const useEditExpenseGroup = () => {
   const { setMessage } = useSetGlobalMessage();
   const { setExpense } = useSetSelecedExpense();
   const { updateExpenseGroup } = useSetUpdateExpenseGroup();
   const { setShowEditor } = useShowEditor();
+  const { setLoading } = useSetLoading();
 
   const setSelectedExpense = async (id) => {
+    setLoading(true);
+
     try {
       const response = await fetch(
         `${process.env.API_BASE_URL}/expenseGroups/${id}`,
@@ -19,16 +23,19 @@ const useEditExpenseGroup = () => {
 
       if (err) {
         setMessage('error', err);
+        setLoading(false);
         return;
       }
 
       delete data.__v;
 
-      setShowEditor(true);
       setExpense(data);
+      setShowEditor(true);
     } catch (err) {
       setMessage('error', err.message);
     }
+
+    setLoading(false);
   };
 
   const saveChanges = async (json) => {

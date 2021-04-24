@@ -7,12 +7,13 @@ const useSetGlobalMessage = () => {
   const setMessage = (theme, text) => {
     dispatch({
       type: SET_GLOBAL_MESSAGE,
-      payload: !theme
-        ? null
-        : {
-            theme,
-            text,
-          },
+      payload:
+        !theme && !text
+          ? null
+          : {
+              theme,
+              text,
+            },
     });
   };
 

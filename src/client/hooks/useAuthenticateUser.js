@@ -29,7 +29,7 @@ const useAuthenticateUser = (history) => {
         setMessage('error', err);
       } else {
         history.push('/dashboard');
-        setMessage(null);
+        setMessage();
       }
     } catch (err) {
       setMessage('error', err.message);

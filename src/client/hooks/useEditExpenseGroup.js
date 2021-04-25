@@ -39,26 +39,30 @@ const useEditExpenseGroup = () => {
   };
 
   const saveChanges = async (json) => {
-    const { _id } = json;
+    try {
+      const { _id } = json;
 
-    const response = await fetch(
-      `${process.env.API_BASE_URL}/expenseGroups/${_id || ''}`,
-      {
-        method: _id ? 'PATCH' : 'POST',
-        body: JSON.stringify(json),
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${process.env.API_BASE_URL}/expenseGroups/${_id || ''}`,
+        {
+          method: _id ? 'PATCH' : 'POST',
+          body: JSON.stringify(json),
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
         },
-      },
-    );
+      );
 
-    const { expenseGroup } = await response.json();
+      const { expenseGroup, err } = await response.json();
 
-    if (expenseGroup) {
+      if (err) {
+        setMessage('error', err);
+      }
+
       updateExpenseGroup(expenseGroup, _id);
-    } else {
-      setMessage('error', `Could not ${_id ? 'update' : 'create'} expense`);
+    } catch (err) {
+      setMessage('error', err.message);
     }
 
     setShowEditor(false);

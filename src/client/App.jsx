@@ -1,22 +1,34 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { AppProvider } from './AppProvider';
+import React, { useEffect } from 'react';
+import { BrowserRouter as Route, Switch } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './routes/Dashboard';
 import Login from './routes/Login';
+import useSetLoading from './hooks/useSetLoading';
 
 const App = () => {
+  const { setLoading } = useSetLoading();
+
+  useEffect(() => {
+    const observer = new PerformanceObserver((list) => {
+      for (const entry of list.getEntries()) {
+        if (entry.initiatorType === 'fetch') {
+          setLoading(true);
+        }
+      }
+    });
+
+    observer.observe({
+      entryTypes: ['resource'],
+    });
+  }, []);
+
   return (
-    <AppProvider>
-      <Layout>
-        <Router>
-          <Switch>
-            <Route path="/" component={Login} exact />
-            <Route path="/dashboard" component={Dashboard} />
-          </Switch>
-        </Router>
-      </Layout>
-    </AppProvider>
+    <Layout>
+      <Switch>
+        <Route path="/" component={Login} exact />
+        <Route path="/dashboard" component={Dashboard} />
+      </Switch>
+    </Layout>
   );
 };
 

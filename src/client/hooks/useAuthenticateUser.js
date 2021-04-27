@@ -1,5 +1,6 @@
 import useSetLoading from './useSetLoading';
 import useSetGlobalMessage from './useSetGlobalMessage';
+import request from '../utilities/request';
 
 const useAuthenticateUser = (history) => {
   const { setLoading } = useSetLoading();
@@ -9,19 +10,11 @@ const useAuthenticateUser = (history) => {
     setLoading(true);
 
     try {
-      const response = await fetch(
-        `${process.env.API_BASE_URL}/user/authenticate`,
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(userData),
-        },
-      );
-
-      const { err } = await response.json();
+      const { err } = await request({
+        url: '/user/authenticate',
+        method: 'POST',
+        body: userData,
+      });
 
       if (err) {
         setMessage('error', err);

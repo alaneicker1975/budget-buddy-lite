@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 router.get('/:_id', async (req, res) => {
   try {
     const { _id } = req.params;
-    const expenseGroup = await ExpenseGroup.findOne({ _id });
+    const expenseGroup = await ExpenseGroup.findOne({ _id }).select('-__v');
     res.status(201).send({ data: expenseGroup });
   } catch (err) {
     res.status(500).send({ err: err.message });

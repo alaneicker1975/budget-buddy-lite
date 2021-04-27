@@ -1,8 +1,7 @@
-const request = async ({ url, method, body }) => {
+const request = async ({ url, body, method = 'GET' }) => {
   try {
-    console.log(`${process.env.API_BASE_URL}${url}`);
     const response = await fetch(`${process.env.API_BASE_URL}${url}`, {
-      method: method || 'GET',
+      method,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

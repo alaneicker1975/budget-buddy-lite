@@ -2,6 +2,7 @@ import { useAppContext } from '../AppProvider';
 import useSetData from '../hooks/useSetData';
 import useSetGlobalMessage from './useSetGlobalMessage';
 import useSetLoading from '../hooks/useSetLoading';
+import request from '../utilities/request';
 
 const useDeleteExpenseGroup = () => {
   const {
@@ -12,32 +13,17 @@ const useDeleteExpenseGroup = () => {
   const { setLoading } = useSetLoading();
 
   const deleteExpenseGroup = async (_id) => {
-    try {
-      setLoading(true);
+    const { deletedId, err } = await request({
+      url: `/expenseGroups/${_id}`,
+      method: 'DELETE',
+    });
 
-      const response = await fetch(
-        `${process.env.API_BASE_URL}/expenseGroups/${_id}`,
-        {
-          method: 'DELETE',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+    setLoading(false);
 
-      const { deletedId, err } = await response.json();
-
-      setLoading(false);
-
-      if (err || !deletedId) {
-        setMessage('error', err || 'Could not delete');
-      } else {
-        setData(data.filter(({ _id }) => deletedId !== _id));
-      }
-    } catch (err) {
-      setMessage('error', err.message);
-      setLoading(false);
+    if (err || !deletedId) {
+      setMessage('error', err || 'Could not delete');
+    } else {
+      setData(data.filter(({ _id }) => deletedId !== _id));
     }
   };
 

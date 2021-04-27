@@ -1,5 +1,6 @@
 import { useAppContext } from '../AppProvider';
 import useSetIsLoggedIn from '../hooks/useSetIsLoggedIn';
+import request from '../utilities/request';
 
 const useLogout = () => {
   const {
@@ -8,15 +9,10 @@ const useLogout = () => {
   const { setLoggedIn } = useSetIsLoggedIn();
 
   const logoutUser = async () => {
-    const response = await fetch(`${process.env.API_BASE_URL}/user/logout`, {
+    const { isLoggedOut } = await request({
+      url: '/user/logout',
       method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
     });
-
-    const { isLoggedOut } = await response.json();
 
     if (isLoggedOut) {
       setLoggedIn(false);

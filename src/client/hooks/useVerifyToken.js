@@ -1,23 +1,13 @@
 import { useState } from 'react';
+import request from '../utilities/request';
 
 const useVerifyToken = () => {
   const [error, setError] = useState();
 
   const verifyToken = async () => {
-    try {
-      const response = await fetch(
-        `${process.env.API_BASE_URL}/user/verify-token`,
-      );
+    const { isValid } = await request({ url: '/user/verify-token' });
 
-      const { isValid } = await response.json();
-
-      if (!isValid) {
-        setError(true);
-        return;
-      }
-
-      setError(null);
-    } catch (err) {
+    if (!isValid) {
       setError(true);
     }
   };

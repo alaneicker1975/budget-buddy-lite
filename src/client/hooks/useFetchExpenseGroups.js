@@ -1,6 +1,7 @@
 import useSetData from './useSetData';
 import useSetLoading from './useSetLoading';
 import useSetGlobalMessage from './useSetGlobalMessage';
+import request from '../utilities/request';
 
 const useFetchExpenseGroups = () => {
   const { setData } = useSetData();
@@ -10,20 +11,15 @@ const useFetchExpenseGroups = () => {
   const fetchExpenseGroups = async () => {
     setLoading(true);
 
-    try {
-      const response = await fetch(`${process.env.API_BASE_URL}/expenseGroups`);
-      const { err, data } = await response.json();
+    const { err, data } = await request({ url: '/expenseGroups' });
 
-      if (err) {
-        setMessage('error', err);
-        setLoading(true);
-        return;
-      }
-
-      setData(data);
-    } catch (err) {
-      setMessage('error', err.message);
+    if (err) {
+      setMessage('error', err);
+      setLoading(false);
+      return;
     }
+
+    setData(data);
 
     setLoading(false);
   };

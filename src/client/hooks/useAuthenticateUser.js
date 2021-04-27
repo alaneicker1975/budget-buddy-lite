@@ -9,22 +9,18 @@ const useAuthenticateUser = (history) => {
   const authenticate = async (userData) => {
     setLoading(true);
 
-    try {
-      const { err } = await request({
-        url: '/user/authenticate',
-        method: 'POST',
-        body: userData,
-      });
+    const { err } = await request({
+      url: '/user/authenticate',
+      method: 'POST',
+      body: userData,
+    });
 
-      if (err) {
-        setMessage('error', err);
-        setLoading(false);
-      } else {
-        history.push('/dashboard');
-        setMessage();
-      }
-    } catch (err) {
-      setMessage('error', err.message);
+    if (err) {
+      setMessage('error', err);
+      setLoading(false);
+    } else {
+      history.push('/dashboard');
+      setMessage();
     }
   };
 

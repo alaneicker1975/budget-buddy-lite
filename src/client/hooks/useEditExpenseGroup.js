@@ -3,6 +3,7 @@ import useSetSelecedExpense from './useSetSelecedExpense';
 import useSetUpdateExpenseGroup from './useSetUpdateExpenseGroup';
 import useShowEditor from './useShowEditor';
 import useSetLoading from './useSetLoading';
+import request from '../utilities/request';
 
 const useEditExpenseGroup = () => {
   const { setMessage } = useSetGlobalMessage();
@@ -14,57 +15,33 @@ const useEditExpenseGroup = () => {
   const setSelectedExpense = async (id) => {
     setLoading(true);
 
-    try {
-      const response = await fetch(
-        `${process.env.API_BASE_URL}/expenseGroups/${id}`,
-      );
+    const { err, data } = await request({ url: `/expenseGroups/${id}` });
 
-      const { err, data } = await response.json();
-
-      if (err) {
-        setMessage('error', err);
-        setLoading(false);
-        return;
-      }
-
-      delete data.__v;
-
+    if (err) {
+      setMessage('error', err);
+      setLoading(false);
+    } else {
       setExpense(data);
       setShowEditor(true);
-    } catch (err) {
-      setMessage('error', err.message);
     }
 
     setLoading(false);
   };
 
   const saveChanges = async (json) => {
-    try {
-      const { _id } = json;
+    const { _id } = json;
 
-      const response = await fetch(
-        `${process.env.API_BASE_URL}/expenseGroups/${_id || ''}`,
-        {
-          method: _id ? 'PATCH' : 'POST',
-          body: JSON.stringify(json),
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-          },
-        },
-      );
+    const { expenseGroup, err } = await request({
+      url: `/expenseGroups/${_id || ''}`,
+      method: _id ? 'PATCH' : 'POST',
+      body: json,
+    });
 
-      const { expenseGroup, err } = await response.json();
-
-      if (err) {
-        setMessage('error', err);
-      }
-
-      updateExpenseGroup(expenseGroup, _id);
-    } catch (err) {
-      setMessage('error', err.message);
+    if (err) {
+      setMessage('error', err);
     }
 
+    updateExpenseGroup(expenseGroup, _id);
     setShowEditor(false);
   };
 
